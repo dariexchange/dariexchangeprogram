@@ -1,0 +1,4 @@
+# 서버 연결 키가 들어가는 파일은 저장소에 올리지 않습니다
+config.js
+.DS_Store
+Thumbs.db

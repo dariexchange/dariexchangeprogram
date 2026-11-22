@@ -1,0 +1,1912 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DARI · 한국–알제리 언어교환 프로그램</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@600;700&family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+
+/* ============ DARI Design System ============ */
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#FAF6EF;--bg-2:#F2ECE1;--surface:#FFFFFF;--ink:#1B2421;--ink-2:#3A4541;--muted:#6B7570;--line:#E6DED1;--line-2:#EEE8DE;
+  --primary:#12584A;--primary-600:#0E4A3E;--primary-700:#0A3A30;--primary-50:#E7F1EC;--primary-100:#CFE3D9;
+  --accent:#C9623A;--accent-600:#B35532;--accent-50:#FBEDE5;--gold:#B8913F;--gold-50:#F7F0DF;
+  --ok:#2E7D5B;--ok-50:#E4F2EA;--warn:#9A6714;--warn-50:#FBF1DC;--bad:#B4423A;--bad-50:#F9E6E4;--info:#3A5BA0;--info-50:#E8EEF8;
+  --r-sm:10px;--r:16px;--r-lg:24px;
+  --sh-1:0 1px 2px rgba(27,36,33,.05);
+  --sh-2:0 1px 2px rgba(27,36,33,.04),0 12px 32px -14px rgba(27,36,33,.16);
+  --f-body:"Noto Sans KR",system-ui,sans-serif;
+  --f-display:"Noto Serif KR",Georgia,serif;
+  --f-latin:"Outfit","Noto Sans KR",system-ui,sans-serif;
+}
+html[lang=ar]{--f-body:"IBM Plex Sans Arabic","Noto Sans KR",system-ui,sans-serif;--f-display:"Noto Naskh Arabic","IBM Plex Sans Arabic",serif}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-body);background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;-webkit-font-smoothing:antialiased;word-break:keep-all}
+html[lang=ar] body{line-height:1.85}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0}
+svg{flex-shrink:0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:8px}
+.wrap{max-width:1180px;margin-inline:auto;padding-inline:24px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.ic{width:18px;height:18px}
+html[dir=rtl] .flip{transform:scaleX(-1)}
+.back{transform:scaleX(-1)}html[dir=rtl] .back{transform:none}
+.ev-row{display:grid;grid-template-columns:minmax(130px,1.2fr) minmax(100px,1fr) repeat(3,62px) minmax(90px,1fr) minmax(110px,1fr) auto;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line-2)}
+.ev-row:last-child{border-bottom:0}
+.ev-row .select,.ev-row .input{padding-block:8px}
+.ev-h{font-size:12px;color:var(--muted);font-weight:600;padding-block:4px 8px}
+@media (max-width:1240px){.ev-row{grid-template-columns:1fr 1fr 1fr}.ev-row>:first-child,.ev-row>:nth-child(2){grid-column:span 3}.ev-h{display:none}.ev-row [data-l]::before{content:attr(data-l);display:block;font-size:11px;color:var(--muted);margin-bottom:2px}}
+.latin{font-family:var(--f-latin)}
+
+/* demo bar */
+.demo-bar{background:var(--primary-700);color:#DCEAE3;font-size:13px}
+.demo-bar .wrap{display:flex;gap:10px;align-items:center;justify-content:center;padding-block:7px;flex-wrap:wrap;text-align:center}
+.demo-bar b{background:var(--accent);color:#fff;border-radius:999px;padding:1px 8px;font-size:11px;letter-spacing:.08em;font-family:var(--f-latin)}
+.demo-bar button{text-decoration:underline;text-underline-offset:3px;color:#fff;font-size:13px}
+
+/* header */
+.hdr{position:sticky;top:0;z-index:40;background:rgba(250,246,239,.9);backdrop-filter:saturate(1.4) blur(12px);-webkit-backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--line-2)}
+.hdr-in{display:flex;align-items:center;gap:28px;height:68px;position:relative}
+.logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo svg{width:36px;height:36px}
+.logo-t{display:flex;flex-direction:column;line-height:1.15}
+.logo-t strong{font-family:var(--f-latin);font-weight:700;font-size:19px;letter-spacing:.06em}
+.logo-t small{font-size:11px;color:var(--muted)}
+.nav{display:flex;gap:2px;flex:1}
+.nav a{padding:8px 14px;border-radius:999px;font-size:15px;color:var(--ink-2);font-weight:500;transition:background .15s,color .15s;white-space:nowrap}
+.nav a:hover{background:var(--bg-2)}
+.nav a.on{background:var(--primary-50);color:var(--primary)}
+.hdr-act{display:flex;align-items:center;gap:8px;margin-inline-start:auto}
+.lang{display:flex;background:var(--bg-2);border-radius:999px;padding:3px}
+.lang button{padding:5px 12px;border-radius:999px;font-size:13px;color:var(--muted);font-weight:500}
+.lang button.on{background:#fff;color:var(--ink);box-shadow:var(--sh-1)}
+.lang .l-ar{font-family:"IBM Plex Sans Arabic",sans-serif}
+.lang .l-ko{font-family:"Noto Sans KR",sans-serif}
+.user-chip{display:flex;align-items:center;gap:8px;padding-block:4px;padding-inline:4px 12px;border:1px solid var(--line);border-radius:999px;background:#fff;font-size:14px;line-height:1.2}
+.user-chip .meta{display:flex;flex-direction:column}
+.user-chip small{font-size:11px;color:var(--muted)}
+.avatar{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-weight:600;font-size:13px;background:var(--primary-50);color:var(--primary);flex-shrink:0}
+.avatar.dz{background:var(--accent-50);color:var(--accent)}
+.avatar.lg{width:56px;height:56px;font-size:20px}
+.avatar.ad{background:var(--ink);color:#fff}
+.icon-btn{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;color:var(--ink-2)}
+.icon-btn:hover{background:var(--bg-2)}
+.burger{display:none}
+@media (max-width:1020px){
+  .burger{display:grid}
+  .nav{position:absolute;top:68px;inset-inline:-24px;flex-direction:column;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 20px 18px;display:none;box-shadow:var(--sh-2)}
+  .nav.open{display:flex}
+  .nav a{padding:12px 14px;border-radius:12px}
+  .hdr-in{gap:12px}
+}
+@media (max-width:640px){
+  .logo-t small,.user-chip .meta,.hdr .hide-sm{display:none}
+  .user-chip{padding:3px}
+  .wrap{padding-inline:18px}
+}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding-inline:20px;border-radius:999px;font-weight:600;font-size:15px;transition:background .15s,border-color .15s,color .15s,transform .05s;white-space:nowrap;border:1px solid transparent;line-height:1}
+.btn:active{transform:translateY(1px)}
+.btn-p{background:var(--primary);color:#fff}.btn-p:hover{background:var(--primary-600)}
+.btn-a{background:var(--accent);color:#fff}.btn-a:hover{background:var(--accent-600)}
+.btn-o{border-color:var(--line);background:#fff;color:var(--ink)}.btn-o:hover{border-color:var(--ink-2)}
+.btn-g{color:var(--ink-2)}.btn-g:hover{background:var(--bg-2)}
+.btn-w{background:#fff;color:var(--primary-700)}.btn-w:hover{background:var(--primary-50)}
+.btn-d{color:var(--bad);border-color:#EBCFCB;background:#fff}.btn-d:hover{background:var(--bad-50)}
+.btn-ok{color:var(--ok);border-color:#CBE3D6;background:#fff}.btn-ok:hover{background:var(--ok-50)}
+.btn-sm{height:34px;padding-inline:14px;font-size:13px}
+.btn-xs{height:28px;padding-inline:10px;font-size:12px;gap:4px}
+.btn-lg{height:52px;padding-inline:26px;font-size:16px}
+.btn-block{width:100%}
+.btn[disabled],.btn.disabled{opacity:.45;pointer-events:none}
+
+/* layout helpers */
+.row{display:flex;align-items:center;flex-wrap:wrap}
+.gap{gap:12px}.gap-s{gap:8px}.gap-l{gap:20px}
+.between{justify-content:space-between}
+.stack>*+*{margin-top:16px}
+.stack-s>*+*{margin-top:8px}
+.muted{color:var(--muted)}
+.small{font-size:14px}.xs{font-size:12.5px}
+.grow{flex:1}
+.mt{margin-top:24px}.mt-s{margin-top:12px}.mt-l{margin-top:40px}
+.center{text-align:center}
+
+/* typography */
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--primary);background:var(--primary-50);padding:6px 12px;border-radius:999px}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.display{font-family:var(--f-display);font-weight:700;letter-spacing:-.02em;line-height:1.22}
+html[lang=ar] .display{letter-spacing:0;line-height:1.5}
+.display em{font-style:normal;color:var(--primary)}
+.h1{font-size:clamp(34px,5vw,56px)}
+.h2{font-family:var(--f-display);font-weight:700;font-size:clamp(26px,3.2vw,36px);line-height:1.3;letter-spacing:-.01em}
+html[lang=ar] .h2{letter-spacing:0;line-height:1.55}
+.h3{font-size:18px;font-weight:700;line-height:1.4}
+.lead{font-size:clamp(16px,1.6vw,18px);color:var(--ink-2);max-width:620px}
+.sec{padding-block:96px}
+.sec-sm{padding-block:64px}
+.sec-head{max-width:640px;margin-bottom:44px}
+.sec-head.center{margin-inline:auto}
+.sec-head p{color:var(--muted);margin-top:10px}
+.kicker{font-family:var(--f-latin);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:10px;display:block}
+html[lang=ar] .kicker{letter-spacing:0;font-family:var(--f-body)}
+@media (max-width:640px){.sec{padding-block:64px}.sec-head{margin-bottom:32px}}
+
+/* cards */
+.card{background:var(--surface);border:1px solid var(--line-2);border-radius:var(--r-lg);padding:28px;box-shadow:var(--sh-1)}
+.card.flat{box-shadow:none}
+.card-s{padding:20px;border-radius:var(--r)}
+.card h3{margin-bottom:6px}
+.card-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+.card-head h3{margin:0;display:flex;align-items:center;gap:8px}
+.grid{display:grid;gap:20px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:960px){.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.feat-ic{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:var(--primary-50);color:var(--primary);margin-bottom:18px}
+.feat-ic.acc{background:var(--accent-50);color:var(--accent)}
+.feat-ic.gold{background:var(--gold-50);color:var(--gold)}
+.feat-ic .ic{width:22px;height:22px}
+.card p{color:var(--muted);font-size:15px}
+
+/* badges */
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--bg-2);color:var(--ink-2);white-space:nowrap;line-height:1.6}
+.b-ok{background:var(--ok-50);color:var(--ok)}
+.b-warn{background:var(--warn-50);color:var(--warn)}
+.b-bad{background:var(--bad-50);color:var(--bad)}
+.b-info{background:var(--info-50);color:var(--info)}
+.b-pri{background:var(--primary-50);color:var(--primary)}
+.b-acc{background:var(--accent-50);color:var(--accent)}
+.b-ink{background:var(--ink);color:#fff}
+.flag{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500}
+.flag i{width:8px;height:8px;border-radius:50%;background:var(--primary)}
+.flag.dz i{background:var(--accent)}
+
+/* hero */
+.hero{padding-block:72px 88px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:auto -20% -40% auto;width:720px;height:720px;border-radius:50%;background:radial-gradient(closest-side,rgba(201,98,58,.10),transparent);pointer-events:none}
+html[dir=rtl] .hero::before{inset:auto auto -40% -20%}
+.hero-in{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:center;position:relative}
+.hero-copy .display{margin:22px 0 20px}
+.hero-copy .lead{margin-bottom:32px}
+.hero-stats{display:flex;gap:32px;margin-top:44px;padding-top:28px;border-top:1px solid var(--line);flex-wrap:wrap}
+.hero-stats dt{font-family:var(--f-latin);font-size:28px;font-weight:600;color:var(--ink);line-height:1.1}
+html[lang=ar] .hero-stats dt{font-family:var(--f-body)}
+.hero-stats dd{font-size:13px;color:var(--muted);margin-top:4px}
+@media (max-width:960px){.hero-in{grid-template-columns:1fr;gap:40px}.hero{padding-block:48px 64px}}
+
+.art{position:relative;aspect-ratio:1/0.86;border-radius:32px;background:linear-gradient(160deg,#FFFFFF 0%,#F4EEE3 100%);border:1px solid var(--line-2);box-shadow:var(--sh-2);overflow:hidden;direction:ltr}
+.art::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(18,88,74,.09) 1px,transparent 1px);background-size:18px 18px;mask-image:linear-gradient(to bottom,transparent,#000 30%,#000 70%,transparent);-webkit-mask-image:linear-gradient(to bottom,transparent,#000 30%,#000 70%,transparent);pointer-events:none}
+.art-svg{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+.bubble{position:absolute;z-index:2;background:#fff;border:1px solid var(--line-2);border-radius:18px;padding:10px 16px;box-shadow:var(--sh-2);font-weight:600;font-size:15px}
+.bubble.ko{top:12%;left:7%;border-bottom-left-radius:4px;font-family:"Noto Sans KR"}
+.bubble.ar{top:19%;right:7%;border-bottom-right-radius:4px;font-family:"IBM Plex Sans Arabic";direction:rtl;color:var(--accent)}
+.bubble small{display:block;font-size:11px;color:var(--muted);font-weight:500}
+.art-card{position:absolute;z-index:2;left:50%;bottom:6%;transform:translateX(-50%);width:min(84%,340px);background:var(--ink);color:#fff;border-radius:18px;padding:14px 18px;display:flex;align-items:center;gap:14px;box-shadow:0 18px 40px -16px rgba(27,36,33,.5)}
+.art-card .dot{width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,.1);display:grid;place-items:center;flex-shrink:0}
+.art-card b{display:block;font-size:14px}
+.art-card span{font-size:12.5px;color:#BFCBC6}
+.art-card[dir=rtl]{text-align:right}
+.city{position:absolute;z-index:2;font-size:12px;font-weight:600;color:var(--ink-2);text-align:center;line-height:1.3}
+.city small{display:block;font-weight:500;color:var(--muted);font-family:var(--f-latin);letter-spacing:.08em;font-size:10.5px}
+
+/* name meaning */
+.meaning{display:grid;grid-template-columns:1fr auto 1fr;gap:28px;align-items:stretch}
+.mean-card{background:#fff;border:1px solid var(--line-2);border-radius:var(--r-lg);padding:32px}
+.mean-word{font-size:44px;font-weight:700;line-height:1.2;margin-bottom:6px}
+.mean-word.ko{font-family:"Noto Serif KR";color:var(--primary)}
+.mean-word.ar{font-family:"Noto Naskh Arabic";color:var(--accent);direction:rtl}
+.mean-pron{font-family:var(--f-latin);font-size:13px;color:var(--muted);letter-spacing:.06em;margin-bottom:12px}
+.mean-plus{display:grid;place-items:center;color:var(--muted)}
+.mean-line{grid-column:1/-1;text-align:center;font-family:var(--f-display);font-size:20px;color:var(--ink-2);margin-top:8px}
+@media (max-width:760px){.meaning{grid-template-columns:1fr}.mean-plus{transform:rotate(90deg)}}
+
+/* process */
+.steps{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px;counter-reset:s}
+.step{position:relative;background:#fff;border:1px solid var(--line-2);border-radius:var(--r);padding:22px 18px}
+.step-n{font-family:var(--f-latin);font-size:13px;font-weight:600;color:var(--accent);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.step-n::after{content:"";flex:1;height:1px;background:var(--line)}
+.step h4{font-size:16px;margin-bottom:6px}
+.step p{font-size:13.5px;color:var(--muted);line-height:1.6}
+@media (max-width:1020px){.steps{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:640px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* recruit */
+.recruit{background:var(--primary-700);color:#fff;border-radius:32px;padding:56px;display:grid;grid-template-columns:1fr 1fr;gap:48px;position:relative;overflow:hidden}
+.recruit::before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;border:1px solid rgba(255,255,255,.08);inset-inline-end:-160px;top:-180px}
+.recruit::after{content:"";position:absolute;width:360px;height:360px;border-radius:50%;border:1px solid rgba(255,255,255,.08);inset-inline-end:-80px;top:-100px}
+.recruit .h2{color:#fff}
+.recruit p{color:#BFD4CB}
+.rec-list{display:grid;gap:2px;background:rgba(255,255,255,.08);border-radius:18px;overflow:hidden;position:relative;z-index:1}
+.rec-list>div{display:flex;justify-content:space-between;gap:16px;padding:16px 20px;background:rgba(10,58,48,.6);flex-wrap:wrap}
+.rec-list dt{color:#BFD4CB;font-size:14px}
+.rec-list dd{font-weight:600;font-family:var(--f-latin);text-align:end;unicode-bidi:isolate}
+html[lang=ar] .rec-list dd{font-family:var(--f-body)}
+.dday{display:inline-flex;align-items:center;gap:6px;background:var(--accent);color:#fff;font-weight:700;font-size:13px;padding:5px 12px;border-radius:999px}
+@media (max-width:860px){.recruit{grid-template-columns:1fr;padding:36px 26px;border-radius:24px}}
+.elig{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.elig ul{list-style:none;display:grid;gap:10px;margin-top:12px}
+.elig li{display:flex;gap:10px;font-size:15px;color:var(--ink-2)}
+.elig li .ic{color:var(--primary);margin-top:4px;width:16px;height:16px}
+@media (max-width:860px){.elig{grid-template-columns:1fr}}
+
+/* faq */
+.faq{max-width:820px;margin-inline:auto;display:grid;gap:12px}
+.faq details{background:#fff;border:1px solid var(--line-2);border-radius:var(--r);padding:0 24px;transition:border-color .15s}
+.faq details[open]{border-color:var(--primary-100)}
+.faq summary{list-style:none;cursor:pointer;padding:20px 0;font-weight:600;display:flex;justify-content:space-between;gap:16px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .ic{transition:transform .2s;color:var(--muted)}
+.faq details[open] summary .ic{transform:rotate(45deg);color:var(--primary)}
+.faq details p{padding-bottom:22px;color:var(--ink-2);font-size:15px}
+
+/* footer */
+.foot{background:var(--ink);color:#C7CFCB;padding-block:64px 32px;margin-top:40px}
+.foot-g{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px}
+.foot h5{color:#fff;font-size:14px;margin-bottom:14px}
+.foot a:hover{color:#fff}
+.foot ul{list-style:none;display:grid;gap:8px;font-size:14px}
+.foot .logo-t strong{color:#fff}
+.foot .logo-t small{color:#9AA6A1}
+.foot-b{border-top:1px solid rgba(255,255,255,.1);margin-top:44px;padding-top:22px;font-size:13px;color:#8D9893;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media (max-width:760px){.foot-g{grid-template-columns:1fr}}
+
+/* page heads */
+.phead{padding-block:56px 36px}
+.phead .lead{margin-top:12px}
+.phead-band{background:linear-gradient(180deg,var(--bg-2),var(--bg));border-bottom:1px solid var(--line-2)}
+
+/* tabs */
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a,.tabs button{padding:12px 16px;font-weight:600;font-size:15px;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.tabs a:hover,.tabs button:hover{color:var(--ink)}
+.tabs .on{color:var(--primary);border-color:var(--primary)}
+.tabs .num{font-family:var(--f-latin);font-size:12px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--bg-2)}
+.tabs .on .num{background:var(--primary);color:#fff}
+.seg{display:inline-flex;background:var(--bg-2);border-radius:999px;padding:3px;gap:2px;flex-wrap:wrap}
+.seg button{padding:6px 14px;border-radius:999px;font-size:13px;font-weight:500;color:var(--muted)}
+.seg button.on{background:#fff;color:var(--ink);box-shadow:var(--sh-1)}
+
+/* forms */
+.field{display:grid;gap:6px}
+.field>label,.lbl{font-size:14px;font-weight:600;color:var(--ink-2)}
+.req{color:var(--accent)}
+.hint{font-size:12.5px;color:var(--muted)}
+.input,.select,.textarea{width:100%;border:1px solid var(--line);background:#fff;border-radius:12px;padding:11px 14px;font-size:15px;transition:border-color .15s,box-shadow .15s}
+.input:focus,.select:focus,.textarea:focus{outline:0;border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-50)}
+.textarea{min-height:110px;resize:vertical;line-height:1.6}
+.select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%236B7570' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-inline-end:36px}
+html[dir=rtl] .select{background-position:left 12px center}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--ink-2);cursor:pointer}
+.check input{width:18px;height:18px;margin-top:3px;accent-color:var(--primary);flex-shrink:0}
+.radio-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.radio-cards label{border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;gap:10px;align-items:center;cursor:pointer;font-size:14px;background:#fff}
+.radio-cards label:has(input:checked){border-color:var(--primary);background:var(--primary-50)}
+.radio-cards input{accent-color:var(--primary)}
+@media (max-width:640px){.radio-cards{grid-template-columns:1fr}}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.form-grid .full{grid-column:1/-1}
+@media (max-width:640px){.form-grid{grid-template-columns:1fr}}
+.form-err{background:var(--bad-50);color:var(--bad);padding:10px 14px;border-radius:12px;font-size:14px;display:none}
+.form-err.show{display:block}
+
+/* notes */
+.note{display:flex;gap:12px;padding:14px 16px;border-radius:14px;font-size:14px;background:var(--bg-2);color:var(--ink-2);align-items:flex-start}
+.note .ic{margin-top:2px;flex-shrink:0}
+.note.pri{background:var(--primary-50);color:var(--primary-700)}
+.note.acc{background:var(--accent-50);color:#7A3A20}
+.note.warn{background:var(--warn-50);color:#6E4A0E}
+
+/* empty / state */
+.empty{text-align:center;padding:56px 24px}
+.empty .feat-ic{margin-inline:auto}
+.empty h3{font-size:20px;margin-bottom:8px}
+.empty p{color:var(--muted);max-width:440px;margin-inline:auto;margin-bottom:22px}
+
+/* tables */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line-2);border-radius:var(--r);background:#fff}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{font-size:12.5px;font-weight:600;color:var(--muted);text-align:start;padding:12px 16px;background:#FCFAF6;border-bottom:1px solid var(--line-2);white-space:nowrap}
+td{padding:13px 16px;border-bottom:1px solid var(--line-2);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+tbody tr:hover td{background:#FDFBF8}
+.mono{font-family:var(--f-latin);font-size:13px;color:var(--muted)}
+.cell-name{display:flex;align-items:center;gap:10px;font-weight:600;white-space:nowrap}
+.cell-name .avatar{width:28px;height:28px;font-size:12px}
+
+/* timeline */
+.tl{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.tl-i{display:grid;gap:8px}
+.tl-bar{height:6px;border-radius:999px;background:var(--line)}
+.tl-i.done .tl-bar{background:var(--primary)}
+.tl-i.cur .tl-bar{background:linear-gradient(90deg,var(--primary),var(--primary-100))}
+html[dir=rtl] .tl-i.cur .tl-bar{background:linear-gradient(270deg,var(--primary),var(--primary-100))}
+.tl-i span{font-size:13px;color:var(--muted);font-weight:500}
+.tl-i.done span,.tl-i.cur span{color:var(--ink)}
+
+/* slots */
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.slot{border:1px solid var(--line);background:#fff;border-radius:14px;padding:14px;text-align:start;display:grid;gap:2px;transition:border-color .15s,background .15s}
+.slot:hover{border-color:var(--primary)}
+.slot b{font-size:15px}
+.slot span{font-size:12.5px;color:var(--muted)}
+.slot.full{opacity:.5;pointer-events:none;background:var(--bg-2)}
+.slot.sel{border-color:var(--primary);background:var(--primary-50);box-shadow:0 0 0 1px var(--primary)}
+
+/* dashboard */
+.dash-head{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-block:44px 28px}
+.dash-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:20px}
+.c4{grid-column:span 4}.c5{grid-column:span 5}.c6{grid-column:span 6}.c7{grid-column:span 7}.c8{grid-column:span 8}.c12{grid-column:span 12}
+@media (max-width:960px){.c4,.c5,.c6,.c7,.c8{grid-column:span 12}}
+.partner{display:flex;gap:16px;align-items:center}
+.partner h4{font-size:20px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;font-size:14px;margin-top:18px}
+.kv dt{color:var(--muted)}
+.kv dd{font-weight:500}
+.quote{background:var(--bg);border-radius:14px;padding:14px 16px;font-size:14.5px;color:var(--ink-2);margin-top:16px;border-inline-start:3px solid var(--accent)}
+.next{background:var(--primary-700);color:#fff;border:0;position:relative;overflow:hidden}
+.next p,.next .muted{color:#BFD4CB}
+.next .big{font-family:var(--f-display);font-size:28px;font-weight:700;margin:6px 0 2px}
+.next .dd{position:absolute;inset-inline-end:24px;top:24px;font-family:var(--f-latin);font-size:13px;background:rgba(255,255,255,.12);padding:4px 10px;border-radius:999px}
+.zoom-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px dashed rgba(255,255,255,.18);font-size:14px}
+.zoom-row:last-of-type{border-bottom:0}
+.zoom-row code{font-family:var(--f-latin);font-size:14px;letter-spacing:.04em;direction:ltr;unicode-bidi:isolate}
+.card .zoom-row{border-color:var(--line)}
+.progress{height:8px;border-radius:999px;background:var(--bg-2);overflow:hidden}
+.progress i{display:block;height:100%;background:var(--primary);border-radius:999px}
+.weeks{display:grid;grid-template-columns:repeat(8,1fr);gap:6px;margin-top:14px}
+.wk{aspect-ratio:1;border-radius:10px;display:grid;place-items:center;font-family:var(--f-latin);font-size:12px;font-weight:600;background:var(--bg-2);color:var(--muted)}
+.wk.P{background:var(--primary);color:#fff}
+.wk.M{background:var(--gold);color:#fff}
+.wk.A{background:var(--bad-50);color:var(--bad)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:10px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-inline-end:5px;vertical-align:-1px}
+.list{display:grid}
+.list-i{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line-2)}
+.list-i:last-child{border-bottom:0}
+.wk-tag{font-family:var(--f-latin);font-size:12px;font-weight:600;color:var(--primary);background:var(--primary-50);border-radius:8px;padding:4px 8px;white-space:nowrap}
+html[lang=ar] .wk-tag{font-family:var(--f-body)}
+.check-i{display:flex;gap:10px;align-items:center;padding:10px 0;font-size:15px}
+.check-i .ci{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--bg-2);color:var(--muted)}
+.check-i.ok .ci{background:var(--ok);color:#fff}
+.stars{display:flex;gap:6px;flex-wrap:wrap}
+.stars label{cursor:pointer}
+.stars input{position:absolute;opacity:0;pointer-events:none}
+.stars span{display:grid;place-items:center;width:44px;height:40px;border-radius:12px;border:1px solid var(--line);font-family:var(--f-latin);font-weight:600;background:#fff;transition:all .12s}
+.stars input:checked+span{background:var(--primary);color:#fff;border-color:var(--primary)}
+.stars input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+
+/* notice */
+.nt-list{background:#fff;border:1px solid var(--line-2);border-radius:var(--r-lg);overflow:hidden}
+.nt-i{display:flex;align-items:center;gap:16px;padding:20px 24px;border-bottom:1px solid var(--line-2);transition:background .12s}
+.nt-i:last-child{border-bottom:0}
+.nt-i:hover{background:#FDFBF7}
+.nt-i.pin{background:#FFFCF6}
+.nt-i .t{flex:1;font-weight:600;min-width:0}
+.nt-i .d{font-family:var(--f-latin);font-size:13px;color:var(--muted);white-space:nowrap}
+@media (max-width:640px){.nt-i{flex-wrap:wrap;gap:8px 12px;padding:16px 18px}.nt-i .t{flex-basis:100%;order:3}}
+.article{max-width:780px;margin-inline:auto}
+.article-body{font-size:16.5px;color:var(--ink-2);line-height:1.9}
+.article-body p+p{margin-top:16px}
+.article-nav{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:40px}
+.article-nav a{border:1px solid var(--line);border-radius:14px;padding:14px 18px;background:#fff;font-size:14px}
+.article-nav a:hover{border-color:var(--ink-2)}
+.article-nav small{display:block;color:var(--muted);font-size:12px}
+
+/* admin */
+.admin{display:grid;grid-template-columns:232px minmax(0,1fr);gap:28px;padding-block:32px 64px}
+.side{position:sticky;top:92px;align-self:start;display:grid;gap:2px}
+.side a{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;font-size:14.5px;font-weight:500;color:var(--ink-2)}
+.side a:hover{background:var(--bg-2)}
+.side a.on{background:var(--ink);color:#fff}
+.side a .cnt{margin-inline-start:auto;font-size:11px;font-family:var(--f-latin);background:var(--accent);color:#fff;border-radius:999px;padding:1px 7px}
+.side-h{font-size:11.5px;letter-spacing:.08em;color:var(--muted);padding:16px 14px 6px;font-weight:600;text-transform:uppercase}
+@media (max-width:960px){
+  .admin{grid-template-columns:1fr;gap:16px;padding-top:16px}
+  .side{position:static;display:flex;overflow-x:auto;gap:4px;padding-bottom:6px;scrollbar-width:none}
+  .side::-webkit-scrollbar{display:none}
+  .side a{white-space:nowrap;padding:8px 12px;font-size:14px}
+  .side-h{display:none}
+}
+.kpi{background:#fff;border:1px solid var(--line-2);border-radius:var(--r);padding:20px}
+.kpi span{font-size:13px;color:var(--muted)}
+.kpi b{display:block;font-family:var(--f-latin);font-size:30px;font-weight:600;margin-top:6px;line-height:1.1}
+.kpi small{font-size:12px;color:var(--muted)}
+.bars{display:grid;gap:12px}
+.bar-r{display:grid;grid-template-columns:110px 1fr 36px;gap:12px;align-items:center;font-size:13.5px}
+.bar-t{height:10px;background:var(--bg-2);border-radius:999px;overflow:hidden}
+.bar-t i{display:block;height:100%;border-radius:999px;background:var(--primary)}
+.bar-r b{font-family:var(--f-latin);text-align:end;font-weight:600}
+.vbars{display:flex;align-items:flex-end;gap:10px;height:150px;padding-top:10px}
+.vbar{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end}
+.vbar i{width:100%;max-width:36px;background:var(--primary);border-radius:8px 8px 3px 3px;min-height:3px}
+.vbar span{font-family:var(--f-latin);font-size:11.5px;color:var(--muted)}
+.vbar b{font-family:var(--f-latin);font-size:11.5px;font-weight:600}
+.todo{display:grid;gap:8px}
+.todo a{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--line-2);border-radius:12px;font-size:14.5px;background:#fff}
+.todo a:hover{border-color:var(--ink-2)}
+.todo a .ic:last-child{margin-inline-start:auto;color:var(--muted)}
+.att-grid td,.att-grid th{text-align:center;padding:8px}
+.att-grid td:first-child,.att-grid th:first-child{text-align:start}
+.att-cell{width:44px;height:32px;border-radius:8px;font-size:12px;font-weight:600;background:var(--bg-2);color:var(--muted)}
+.att-cell.P{background:var(--primary);color:#fff}
+.att-cell.A{background:var(--bad-50);color:var(--bad)}
+.att-cell.M{background:var(--gold);color:#fff}
+.pick{display:grid;gap:8px}
+.pick label{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#fff;cursor:pointer;font-size:14px}
+.pick label:has(input:checked){border-color:var(--primary);background:var(--primary-50)}
+.pick input{accent-color:var(--primary)}
+.pair-link{display:flex;align-items:center;gap:8px;color:var(--muted)}
+
+/* modal / toast */
+#modal{position:fixed;inset:0;z-index:100;display:none}
+#modal.open{display:block}
+.m-bg{position:absolute;inset:0;background:rgba(18,26,23,.42);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+.m-box{position:relative;margin:6vh auto;max-width:560px;width:calc(100% - 32px);background:#fff;border-radius:24px;box-shadow:0 30px 80px -20px rgba(0,0,0,.35);max-height:88vh;overflow:auto;padding:32px}
+.m-box.wide{max-width:720px}
+.m-close{position:absolute;top:16px;inset-inline-end:16px}
+.m-box h2{font-size:22px;margin-bottom:6px}
+.acct{display:flex;align-items:center;gap:14px;width:100%;border:1px solid var(--line);border-radius:16px;padding:14px 16px;text-align:start;transition:border-color .15s,background .15s;background:#fff}
+.acct:hover{border-color:var(--primary);background:var(--primary-50)}
+.acct b{display:block;font-size:15px}
+.acct span{font-size:13px;color:var(--muted)}
+.acct .ic:last-child{margin-inline-start:auto;color:var(--muted)}
+.divider{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:13px;margin:22px 0}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--line)}
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:120;display:grid;gap:8px;pointer-events:none}
+.toast{background:var(--ink);color:#fff;padding:12px 18px;border-radius:14px;font-size:14px;box-shadow:var(--sh-2);display:flex;gap:10px;align-items:center;animation:tin .25s ease}
+.toast .ic{color:#8FD3B3}
+@keyframes tin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* ---------- v2 additions ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;gap:4px;padding:5px 12px;border-radius:999px;border:1px solid var(--line);background:#fff;font-size:13px;color:var(--ink-2);line-height:1.5}
+button.chip:hover{border-color:var(--primary)}
+button.chip.on{background:var(--primary);color:#fff;border-color:var(--primary)}
+.chip.common{background:var(--accent-50);border-color:#F1CDB9;color:#7A3A20;font-weight:600}
+.avail{display:grid;grid-template-columns:auto repeat(7,minmax(0,1fr));gap:4px;font-size:12px}
+.avail .h{text-align:center;color:var(--muted);font-weight:600;padding:2px 0 4px}
+.avail .rl{white-space:nowrap;color:var(--muted);padding-inline-end:8px;display:flex;flex-direction:column;justify-content:center;line-height:1.25;font-family:var(--f-latin);font-size:11.5px}
+.avail .rl b{color:var(--ink-2);font-weight:600;font-size:12px}
+.av{height:30px;border-radius:7px;background:var(--bg-2);border:1px solid transparent;display:block;width:100%}
+button.av{cursor:pointer}
+button.av:hover{border-color:var(--primary)}
+.av.on{background:var(--primary)}
+.av.p{background:var(--primary-100)}
+.av.both{background:var(--accent)}
+.legend-sq{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-2px;margin-inline-end:5px}
+.prob{display:grid;gap:12px}
+.prob-r{display:grid;grid-template-columns:1fr 44px 1fr;align-items:stretch;gap:0}
+.prob-a,.prob-b{padding:18px 20px;border-radius:16px;font-size:15px;display:flex;gap:12px;align-items:center}
+.prob-a{background:#fff;border:1px dashed var(--line);color:var(--muted)}
+.prob-b{background:var(--primary-50);color:var(--primary-700);font-weight:600}
+.prob-arrow{display:grid;place-items:center;color:var(--accent)}
+.prob-n{font-family:var(--f-latin);font-size:12px;font-weight:700;color:var(--accent);flex-shrink:0}
+@media (max-width:760px){.prob-r{grid-template-columns:1fr}.prob-arrow{transform:rotate(90deg);height:32px}html[dir=rtl] .prob-arrow{transform:rotate(90deg) scaleX(-1)}}
+.fx{display:grid;gap:16px}
+.fx-r{display:grid;grid-template-columns:260px 1fr 1fr;gap:0;background:#fff;border:1px solid var(--line-2);border-radius:var(--r-lg);overflow:hidden}
+.fx-r>div{padding:22px 24px}
+.fx-h{display:flex;gap:14px;align-items:center;background:#FCFAF6;border-inline-end:1px solid var(--line-2)}
+.fx-h .feat-ic{margin:0}
+.fx-h b{font-size:16px;line-height:1.35}
+.fx-c{font-size:14.5px;color:var(--ink-2)}
+.fx-c+.fx-c{border-inline-start:1px solid var(--line-2)}
+.fx-c small{display:block;font-size:11.5px;font-weight:700;letter-spacing:.06em;margin-bottom:6px;color:var(--primary)}
+.fx-c.ad small{color:var(--accent)}
+@media (max-width:860px){.fx-r{grid-template-columns:1fr}.fx-h{border-inline-end:0;border-bottom:1px solid var(--line-2)}.fx-c+.fx-c{border-inline-start:0;border-top:1px solid var(--line-2)}}
+.flow5{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+@media (max-width:960px){.flow5{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.flow5{grid-template-columns:1fr}}
+.wk.L,.att-cell.L{background:var(--info-50);color:var(--info)}
+.att-cell{position:relative;width:52px;height:34px}
+.att-cell .nd{position:absolute;top:4px;inset-inline-end:4px;width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.8}
+.att-cell.P .nd,.att-cell.M .nd{background:#fff}
+.mat-i{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line-2)}
+.mat-i:last-child{border-bottom:0}
+.mat-i .meta{flex:1;min-width:0}
+.mat-i .meta b{display:block;font-size:15px}
+.mat-i .meta p{font-size:13px;color:var(--muted);margin-top:2px}
+.mat-i .meta .fm{font-size:12px;color:var(--muted);font-family:var(--f-latin);margin-top:4px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.mat-actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+@media (max-width:640px){.mat-i{flex-wrap:wrap}.mat-actions{width:100%;justify-content:flex-start}}
+.lang-b{font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;white-space:nowrap}
+.lang-b.ko{background:var(--primary-50);color:var(--primary)}
+.lang-b.ar{background:var(--accent-50);color:var(--accent)}
+.new-b{font-family:var(--f-latin);font-size:10.5px;font-weight:700;color:#fff;background:var(--accent);padding:1px 6px;border-radius:999px}
+pre.preview{white-space:pre-wrap;background:var(--bg);border-radius:14px;padding:18px;font-family:var(--f-body);font-size:14.5px;line-height:1.9;max-height:52vh;overflow:auto;unicode-bidi:plaintext;text-align:start}
+.preview-img{max-width:100%;border-radius:14px;border:1px solid var(--line-2)}
+.chg{display:flex;gap:12px;padding:12px 14px;border-radius:14px;background:var(--warn-50);color:#5E410C;font-size:14px;align-items:flex-start}
+.chg+.chg{margin-top:8px}
+.chg .ic{margin-top:3px;flex-shrink:0}
+.chg s{opacity:.6}
+.cand{display:grid;gap:8px}
+.cand label{display:grid;grid-template-columns:auto auto 1fr auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:#fff;cursor:pointer}
+.cand label:has(input:checked){border-color:var(--primary);background:var(--primary-50)}
+.cand input{accent-color:var(--primary)}
+.cand label>span{text-align:start;min-width:0}
+.cand .sc{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.score{font-family:var(--f-latin);font-weight:700;font-size:13px;color:var(--primary);background:var(--primary-50);border-radius:8px;padding:3px 8px;white-space:nowrap}
+.ring{--v:0;width:64px;height:64px;border-radius:50%;background:conic-gradient(var(--primary) calc(var(--v)*1%),var(--bg-2) 0);display:grid;place-items:center;flex-shrink:0}
+.ring span{width:50px;height:50px;border-radius:50%;background:#fff;display:grid;place-items:center;font-family:var(--f-latin);font-weight:700;font-size:14px}
+.cp-box{display:flex;gap:18px;align-items:center}
+.sel-pane{position:sticky;top:92px}
+.file-drop{border:1.5px dashed var(--line);border-radius:14px;padding:18px;text-align:center;background:#FDFBF8;font-size:14px;color:var(--muted)}
+.file-drop input{display:block;margin:8px auto 0;font-size:13px;max-width:100%}
+.kv2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+.kv2>div{background:var(--bg);border-radius:12px;padding:12px 14px}
+.kv2>div>span{display:block;font-size:12px;color:var(--muted)}
+.kv2 b{font-size:14.5px;font-weight:600}
+@media (max-width:520px){.kv2{grid-template-columns:1fr}}
+.bubble .clk{display:flex;align-items:center;gap:5px;margin-top:8px;padding-top:7px;border-top:1px solid var(--line-2);font-size:12px;font-weight:600;color:var(--ink-2);font-family:var(--f-body);direction:ltr;white-space:nowrap}
+.bubble .clk .ic{width:13px;height:13px;color:var(--muted)}
+.bubble .clk b{font-family:var(--f-latin);font-size:14px;color:var(--ink);letter-spacing:.02em}
+.bubble.ar .clk{justify-content:flex-end}
+.benefits-h{margin-top:40px;padding-top:24px;border-top:1px solid var(--line);font-size:12.5px;font-weight:700;color:var(--accent);letter-spacing:.04em}
+.benefits{display:grid;gap:12px;margin-top:14px}
+.bn{display:flex;gap:12px;align-items:center}
+.bn .bn-ic{width:36px;height:36px;border-radius:11px;background:var(--primary-50);color:var(--primary);display:grid;place-items:center;flex-shrink:0}
+.bn:nth-child(2) .bn-ic{background:var(--accent-50);color:var(--accent)}
+.bn:nth-child(3) .bn-ic{background:var(--gold-50);color:var(--gold)}
+.bn>div{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:10px;row-gap:0}
+.bn b{font-size:15px;line-height:1.4}
+.bn>div>span{font-size:13.5px;color:var(--muted);line-height:1.5}
+.rt{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.rt-i{border-radius:14px;padding:14px 16px;background:var(--primary-50);display:grid;gap:4px}
+.rt-i.act{background:var(--accent-50)}
+.rt-i .wk-tag{justify-self:start;background:#fff}
+.rt-i b{font-size:15px;color:var(--primary-700)}
+.rt-i.act b{color:#7A3A20}
+.rt-i span:last-child{font-size:13px;color:var(--ink-2)}
+@media (max-width:760px){.rt{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.soon{display:grid;gap:8px}
+.soon-i{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 18px;border-radius:14px;background:rgba(10,58,48,.6);border:1px solid rgba(255,255,255,.08)}
+.flow4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+@media (max-width:860px){.flow4{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (max-width:420px){.flow4{grid-template-columns:1fr}}
+.fri-h{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;color:var(--muted);margin-bottom:8px}
+.fri-h b{color:var(--ink-2);font-size:13.5px}
+.fri-row{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px}
+.fh{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:9px 2px;border-radius:10px;background:var(--bg-2);border:1px solid transparent;font-family:var(--f-latin);line-height:1.15;color:var(--ink-2)}
+.fh-k{font-size:13px;font-weight:600}.fh-d{font-size:11px;color:var(--muted)}
+button.fh{cursor:pointer}button.fh:hover{border-color:var(--primary)}
+.fh.on{background:var(--primary);color:#fff}.fh.on .fh-d{color:#CFE3D9}
+.fh.p{background:var(--primary-100)}
+.fh.both{background:var(--accent);color:#fff}.fh.both .fh-d{color:#FBE0D3}
+@media (max-width:560px){.fri-row{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.field{align-content:start}
+.cp-block{margin-top:18px;padding:16px;border-radius:14px;background:var(--bg);display:grid;gap:10px}
+.cp-block b .ic{width:16px;height:16px;vertical-align:-3px;color:var(--gold)}
+.cp-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;position:relative}
+.cp-step{display:grid;justify-items:center;gap:4px;font-size:11.5px;color:var(--muted)}
+.cp-step i{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-family:var(--f-latin);font-weight:600;background:#fff;border:2px dashed var(--line);color:var(--muted)}
+.cp-step i .ic{width:16px;height:16px}
+.cp-step.ok i{background:var(--primary);border:2px solid var(--primary);color:#fff}
+.cp-step.m i{border:2px solid var(--gold);color:var(--gold);background:var(--gold-50)}
+.cp-step.a i{border:2px solid #E9B9B4;color:var(--bad);background:var(--bad-50)}
+.rules{list-style:none;display:grid;gap:6px;margin:10px 0 14px;font-size:13.5px;color:var(--ink-2)}
+.rules li{display:flex;gap:8px;align-items:flex-start}.rules .ic{width:15px;height:15px;color:var(--primary);margin-top:3px}
+.mk-sub{border:1px solid var(--line-2);border-radius:14px;padding:14px;background:#fff}.mk-sub+.mk-sub{margin-top:10px}
+.stack>.card+.card{margin-top:0}
+.c5.stack{display:grid;grid-template-columns:minmax(0,1fr);gap:20px;align-content:start;min-width:0}
+.dash-grid>*{min-width:0}
+.select{text-overflow:ellipsis}.c5.stack>*{margin:0}
+.pt-card{display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+.pt-card .h3{margin:0}
+/* responsive fixes */
+.admin>div{min-width:0}
+@media (max-width:960px){.admin{grid-template-columns:minmax(0,1fr)}.art{max-width:540px;width:100%;margin-inline:auto}
+  .flow5{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:640px){.flow5{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:420px){.flow5{grid-template-columns:1fr}}
+.pt-grid{display:grid;gap:20px;grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:640px){.pt-grid{grid-template-columns:1fr}}
+@media (max-width:480px){.hdr .logo-t{display:none}.lang button{padding:5px 9px}.hdr-act{gap:4px}.hdr .btn-sm{padding-inline:12px}}
+.match-g{grid-template-columns:minmax(0,1fr) minmax(0,1.4fr)}@media (max-width:960px){.match-g{grid-template-columns:1fr}}
+.tz{font-family:var(--f-latin);direction:ltr;unicode-bidi:isolate;white-space:nowrap}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="modal" role="dialog" aria-modal="true"></div>
+<div id="toast" aria-live="polite"></div>
+<!-- 서버 연결 설정: config.js 가 없으면 체험(데모) 모드로 실행됩니다 -->
+<script src="config.js"></script>
+<script>
+/* =========================================================
+   DARI v2 — core-feature prototype
+   ① 매칭·프로필 ② 일정 ③ 학습자료실 ④ 출석 ⑤ 보강
+   Data: browser-only (localStorage + IndexedDB for files).
+   Every change goes through `api.*` → swap for Supabase later.
+   ========================================================= */
+const DEMO_TODAY='2026-11-13';
+const DEMO_NOW='2026-11-13T15:00'; // 체험 기준 시각 (한국 시간)
+const DARI_CFG=(window.DARI_CONFIG&&window.DARI_CONFIG.supabaseUrl&&window.DARI_CONFIG.supabaseAnonKey)?window.DARI_CONFIG:null;
+let LIVE=false; // config.js 가 있으면 liveBoot()에서 true
+const kstNow=()=>{const p=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date());const g=k=>p.find(x=>x.type===k).value;return `${g('year')}-${g('month')}-${g('day')}T${g('hour')}:${g('minute')}`};
+const NOW_=()=>LIVE?kstNow():DEMO_NOW;
+const TODAY_=()=>NOW_().slice(0,10);
+const STORE_KEY='dari-v9';
+const KST_DZ=8;
+const HOURS=[15,16,17,18,19,20,21,22]; // 금요일 참여 가능 시간 선택 범위 (한국 시간, 1시간 단위)
+const FRI=4; // 0=월 … 4=금 · 정규 활동 요일
+const hh=h=>String(h).padStart(2,'0')+':00';
+const dtOf=(d,tm)=>d+'T'+tm;
+function shiftH(iso,h){const x=new Date(iso+':00Z');x.setUTCMinutes(x.getUTCMinutes()+Math.round(h*60));return x.toISOString().slice(0,16)}
+const endTime=tm=>{const [h,m]=tm.split(':').map(Number);return String((h+2)%24).padStart(2,'0')+':'+String(m).padStart(2,'0')};
+const INTERESTS=['kpop','drama','food','travel','sport','book','history','game','beauty','photo','tech','religion'];
+const ATTENDED=['P','M'];
+const MAX_MB=10;
+const LINKS={dari:'https://www.instagram.com/dari_korxarb/',hanal:'https://www.instagram.com/han_al24/',hufs:'https://ingenium.hufs.ac.kr/'}; // Instagram URLs: fill in
+const clockFmt=tz=>new Intl.DateTimeFormat('en-GB',{timeZone:tz,hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date());
+function tickClocks(){document.querySelectorAll('[data-clock]').forEach(el=>{el.textContent=clockFmt(el.dataset.clock)})}
+setInterval(tickClocks,15000);
+const OK_EXT=['pdf','docx','pptx','xlsx','txt','md','csv','png','jpg','jpeg','webp','zip'];
+
+const S={
+/* ---------- 공통 · 헤더 ---------- */
+brandSub:['한국·알제리 언어교환','تبادل لغوي كوري جزائري'],
+nav_home:['홈','الرئيسية'],nav_about:['프로그램 소개','عن البرنامج'],nav_my:['My DARI','صفحتي'],nav_admin:['운영 관리','لوحة الإدارة'],
+login:['로그인','تسجيل الدخول'],logout:['로그아웃','تسجيل الخروج'],menu:['메뉴','القائمة'],
+role_participant:['참가자','مشارك'],role_admin:['운영진','فريق التنظيم'],
+adm_ko:['DARI 한국 운영진 · 한국어 자료 담당','فريق داري في كوريا · مسؤول المواد الكورية'],adm_ar:['HAN.AL 운영진 · 아랍어 자료 담당','فريق HAN.AL · مسؤول المواد العربية'],
+demo_bar:['체험 모드 · 계정과 화면의 데이터는 모두 5기 예시입니다. 입력한 내용은 이 브라우저에만 저장됩니다.','وضع التجربة · الحسابات والبيانات المعروضة أمثلة من الدفعة الخامسة، وما تُدخله يُحفظ في هذا المتصفح فقط.'],
+demo_reset:['예시 데이터 초기화','إعادة ضبط البيانات'],confirm_reset:['예시 데이터를 처음 상태로 되돌렸습니다.','أُعيدت البيانات التجريبية إلى حالتها الأولى.'],
+demo_cohort:['{n}기 예시 데이터','بيانات تجريبية · الدفعة {n}'],
+
+/* ---------- 홈 (설명체) ---------- */
+hero_eyebrow:['제6기 참가자 모집 중','التسجيل مفتوح للدفعة السادسة'],
+hero_t1:['서로의 언어를 배우는','نتعلّم لغة بعضنا'],hero_t2:['한국·알제리 1:1 언어교환','تبادل لغوي فردي بين كوريا والجزائر'],
+hero_sub:['DARI는 아랍어 전공생과 알제리의 한국어 학습자를 1:1로 연결하는 온라인 언어·문화교류 프로그램입니다. 매주 화상으로 만나 서로의 언어를 연습하고 문화를 나눕니다.','داري برنامج تبادل لغوي وثقافي عبر الإنترنت، يجمع في ثنائيات طلاب تخصص اللغة العربية في كوريا بمتعلّمي اللغة الكورية في الجزائر. يلتقي الشريكان أسبوعيًا عبر الفيديو للتدرّب على لغتيهما وتبادل الثقافة.'],
+cta_login:['체험 계정으로 둘러보기','جرّب الحسابات التجريبية'],cta_about:['프로그램 소개 보기','تعرّف على البرنامج'],
+ben_t:['참여 혜택','مزايا المشاركة'],
+ben1_v:['1:1 언어교환 파트너','شريك تبادل لغوي'],ben1:['운영진이 매칭한 파트너와 서로의 언어 연습','تدرّب على لغتيكما مع شريك يختاره فريق التنظيم'],
+ben2_v:['맞춤 학습·게임 자료','مواد تعليمية وألعاب'],ben2:['참가자 관심사를 반영해 회차별로 제공','تُقدَّم في كل حصة وفق اهتمامات المشاركين'],
+ben3_v:['DARI 수료증','شهادة إتمام داري'],ben3:['4회 모두 참여 시 한국외국어대학교 융합인재학부 명의로 발급','تصدر باسم 융합인재학부 بجامعة هانكوك عند حضور الحصص الأربع'],
+art_next:['매주 금요일 · 총 4회','كل جمعة · أربع حصص'],art_time:['회당 2시간 · 한국어 50분, 아랍어 50분 포함','ساعتان لكل حصة، منها 50 دقيقة للكورية و50 للعربية'],
+city_seoul:['서울','سيول'],city_alg:['알제','الجزائر'],
+intro_kicker:['About DARI','عن داري'],ab_title:['DARI를 소개합니다','تعرّف على داري'],
+ab_lead:['DARI는 원어민과 대화할 기회를 늘리고 언어 학습의 부담을 줄이기 위해 시작되었습니다. 1기부터 5기까지 운영을 이어 왔으며, 현재 제6기 참가자를 모집하고 있습니다.','انطلق داري لزيادة فرص الحديث مع الناطقين الأصليين وتخفيف عبء تعلّم اللغات. واصلنا تنظيم البرنامج من الدفعة الأولى حتى الخامسة، والتسجيل مفتوح حاليًا للدفعة السادسة.'],
+name_ko_desc:['한국어로 "다리"는 두 곳을 잇는 bridge를 뜻합니다. 한국과 알제리를 잇는 프로그램이라는 의미를 담았습니다.','تعني "다리" بالكورية الجسر، في إشارة إلى الصلة التي يبنيها البرنامج بين كوريا والجزائر.'],
+name_ar_desc:['아랍어로 "داري"는 "나의 집"이라는 뜻입니다. 새로운 언어가 집처럼 익숙해지길 바라는 마음을 담았습니다.','وتعني "داري" بالعربية "بيتي"، تعبيرًا عن أملنا في أن تصبح اللغة الجديدة مألوفة كالبيت.'],
+how_kicker:['How it works','طريقة العمل'],ab_how:['운영 방식','طريقة العمل'],
+h1:['매주 금요일, 총 4회','كل جمعة، أربع حصص'],h1d:['한 기수는 4회차로 구성되며, 정규 활동은 매주 금요일 Zoom에서 진행됩니다.','تتكوّن كل دفعة من أربع حصص تُعقد كل جمعة عبر Zoom.'],
+h2:['회당 2시간','ساعتان لكل حصة'],h2d:['한국어 50분과 아랍어 50분을 포함해 2시간 동안 진행됩니다.','تمتدّ الحصة ساعتين، منها 50 دقيقة للكورية و50 دقيقة للعربية.'],
+h3:['대화 주 · 활동 주','أسبوع الحوار وأسبوع النشاط'],h3d:['두 방식을 번갈아 운영합니다. 대화 주에는 주제별 대화를, 활동 주에는 게임과 활동으로 배운 표현을 연습합니다.','نتناوب بين أسلوبين: أسبوع الحوار للحديث حول موضوع محدّد، وأسبوع النشاط لتطبيق العبارات من خلال الألعاب والأنشطة.'],
+h4:['1:1 파트너 매칭','تعيين الشريك'],h4d:['운영진이 언어 수준과 관심사를 고려해 파트너를 정합니다. 상황에 따라 파트너가 바뀔 수 있습니다.','يختار فريق التنظيم الشريك بحسب المستوى اللغوي والاهتمامات، وقد يتغيّر الشريك حسب الظروف.'],
+rt_talk:['대화 주','أسبوع الحوار'],rt_act:['활동 주','أسبوع النشاط'],f_rtype:['회차 유형','نوع الحصة'],
+flow_kicker:['Process','المراحل'],flow_title:['참여 과정','مراحل المشاركة'],
+fs1:['지원 · 선발','التقديم والاختيار'],fs1d:['지원서 제출과 면접을 거쳐 선발됩니다.','يُختار المشاركون بعد تقديم الطلب وإجراء مقابلة.'],
+fs2:['프로필 작성','إعداد الملف الشخصي'],fs2d:['자기소개, 관심사, 언어 수준을 입력합니다. 파트너 매칭에 활용됩니다.','تُدخل نبذتك واهتماماتك ومستواك اللغوي، ليُستفاد منها في تعيين الشريك.'],
+fs3:['정규 활동','الحصص المنتظمة'],fs3d:['파트너와 함께 4회 활동에 참여합니다.','تشارك مع شريكك في الحصص الأربع.'],
+fs4:['수료','الإتمام'],fs4d:['4회 모두 참여하면 수료 요건을 충족하며, 확인을 거쳐 수료증이 발급됩니다.','بحضور الحصص الأربع تستوفي شرط الإتمام، وتصدر الشهادة بعد التحقّق.'],
+rec_kicker:['Recruiting','التسجيل'],rec_title:['제6기 참가자 모집 중','التسجيل مفتوح للدفعة السادسة'],
+rec_sub:['웹사이트 지원 기능은 현재 준비 중입니다. 모집 관련 소식은 DARI 인스타그램을 참고해 주세요.','خدمة التقديم عبر الموقع قيد الإعداد حاليًا. تابع أخبار التسجيل على حساب داري في إنستغرام.'],
+rec_insta:['DARI 인스타그램','داري على إنستغرام'],
+soon_t:['웹사이트에서 준비 중인 기능','خدمات قيد الإعداد في الموقع'],soon_badge:['준비 중','قيد الإعداد'],
+soon1:['온라인 지원서 접수','تقديم الطلب عبر الإنترنت'],soon2:['면접 일정 예약','حجز موعد المقابلة'],soon3:['선발 결과 확인','الاطّلاع على نتائج الاختيار'],
+partners_kicker:['Partners','الشركاء'],partners_title:['운영 및 협력','التنظيم والشراكة'],
+pt1:['DARI 한국 운영진','فريق داري في كوريا'],pt2:['HAN.AL','HAN.AL'],pt3:['한국외국어대학교 융합인재학부','융합인재학부، جامعة هانكوك للدراسات الأجنبية'],lk_site:['홈페이지','الموقع الإلكتروني'],
+demo_kicker:['Demo','تجربة'],demo_title:['체험 계정으로 둘러보기','جرّب الحسابات التجريبية'],
+demo_sub:['참가자와 운영진 화면을 직접 사용해 볼 수 있습니다. 체험 계정은 5기 예시 데이터로 구성되어 있으며, 6기 모집 및 실제 운영 정보와는 관계가 없습니다.','يمكنك تجربة واجهتي المشارك وفريق التنظيم. تعتمد الحسابات التجريبية على بيانات مثال من الدفعة الخامسة، ولا علاقة لها بتسجيل الدفعة السادسة أو بالبيانات الفعلية.'],
+foot_desc:['한국과 알제리 대학생이 서로의 언어를 배우는 1:1 온라인 교류 프로그램','برنامج تبادل فردي عبر الإنترنت يتعلّم فيه طلاب كوريا والجزائر لغة بعضهم'],
+foot_team:['캡스톤디자인 · 팀 쿠 바나트','مشروع التخرّج · فريق 쿠 바나트'],foot_contact:['문의','للتواصل'],foot_menu:['바로가기','روابط سريعة'],foot_partner:['운영','التنظيم'],
+foot_copy:['© 2026 DARI · 캡스톤디자인 체험용 웹사이트','© 2026 داري · موقع تجريبي لمشروع التخرّج'],
+
+/* ---------- 로그인 ---------- */
+lg_title:['체험 계정 선택','اختر حسابًا تجريبيًا'],lg_demo_d:['역할에 따라 이용할 수 있는 메뉴가 다릅니다. 모든 계정은 5기 예시 데이터를 사용합니다.','تختلف القوائم المتاحة بحسب الدور، وتستخدم جميع الحسابات بيانات مثال من الدفعة الخامسة.'],
+lg_kr_d:['한국 측 참가자','مشاركة من كوريا'],lg_dz_d:['알제리 측 참가자 · 아랍어 화면','مشاركة من الجزائر · الواجهة العربية'],lg_ako_d:['운영진 · 한국어 자료 담당','فريق التنظيم · المواد الكورية'],lg_aar_d:['운영진 · 아랍어 자료 담당','فريق التنظيم · المواد العربية'],
+lg_note:['체험용 로그인은 비밀번호 없이 역할만 전환합니다. 실제 서비스에는 이메일 인증 로그인이 필요합니다.','الدخول التجريبي يبدّل الدور فقط دون كلمة مرور، أما الخدمة الفعلية فتتطلّب تسجيل دخول موثّقًا بالبريد.'],
+toast_login:['{name} 계정으로 로그인했습니다.','تم الدخول بحساب {name}.'],toast_logout:['로그아웃했습니다.','تم تسجيل الخروج.'],hello:['{name}님, 안녕하세요','أهلًا {name}'],
+need_login_t:['로그인이 필요합니다','يلزم تسجيل الدخول'],need_login_d:['My DARI는 선발된 참가자를 위한 공간입니다.','صفحتي مخصّصة للمشاركين المقبولين.'],
+my_admin_t:['운영진 계정입니다','هذا حساب فريق التنظيم'],my_admin_d:['참가자 관리는 운영 관리 메뉴에서 할 수 있습니다.','تجد أدوات إدارة المشاركين في لوحة الإدارة.'],
+ad_forbidden_t:['접근 권한이 없습니다','لا تملك صلاحية الوصول'],ad_forbidden_d:['운영 관리는 운영진 계정으로만 이용할 수 있습니다.','لوحة الإدارة متاحة لحسابات فريق التنظيم فقط.'],
+
+/* ---------- 참가자 (친절한 존댓말) ---------- */
+my_t_dash:['대시보드','الرئيسية'],my_t_match:['파트너 · 프로필','الشريك والملف'],my_t_sched:['일정','الجدول'],my_t_mat:['학습자료실','مكتبة المواد'],my_t_att:['출석 · 보강','الحضور والتعويض'],
+cohort_n:['{n}기','الدفعة {n}'],round_n:['{n}회차','الحصة {n}'],
+partner_t:['내 파트너','شريكي'],partner_none:['아직 파트너가 배정되지 않았습니다. 프로필을 자세히 작성해 두시면 매칭에 참고됩니다.','لم يُعيَّن شريكك بعد. إكمال ملفك الشخصي يساعد فريق التنظيم في اختيار الشريك.'],
+partner_privacy:['파트너의 연락처는 공개되지 않습니다. 대화는 정규 활동 시간에 Zoom에서 나눠 주세요.','لا تظهر بيانات التواصل الخاصة بشريكك، فتحدّثا خلال الحصص المنتظمة عبر Zoom.'],
+p_level:['언어 수준','المستوى اللغوي'],p_goal:['학습 목적','هدف التعلّم'],p_learn:['배우는 언어','اللغة التي يتعلّمها'],p_interests:['관심사','الاهتمامات'],p_common:['공통 관심사','اهتمامات مشتركة'],p_regular:['정규 활동 시간','موعد الحصص'],p_intro:['자기소개','نبذة شخصية'],p_avail:['금요일 참여 가능 시간','الأوقات المتاحة يوم الجمعة'],p_univ:['소속','الجامعة'],p_side:['구분','الجهة'],
+learn_KO:['한국어','الكورية'],learn_MSA:['아랍어 (표준 아랍어)','العربية الفصحى'],learn_DARJA:['아랍어 (알제리 방언)','الدارجة الجزائرية'],learn_BOTH:['아랍어 (표준어 + 알제리 방언)','الفصحى والدارجة الجزائرية'],
+goal_talk:['일상 회화','المحادثة اليومية'],goal_exam:['시험 준비 (TOPIK 등)','التحضير للاختبارات (مثل TOPIK)'],goal_culture:['문화 이해','فهم الثقافة'],goal_career:['진로 · 유학','العمل أو الدراسة في الخارج'],
+lvs1:['입문','مبتدئ جدًا'],lvs2:['초급','مبتدئ'],lvs3:['중급','متوسط'],lvs4:['중상급','فوق المتوسط'],lvs5:['고급','متقدّم'],
+it_kpop:['K-pop · 음악','الكيبوب والموسيقى'],it_drama:['드라마 · 영화','الدراما والأفلام'],it_food:['음식 · 요리','الطعام والطبخ'],it_travel:['여행','السفر'],it_sport:['스포츠','الرياضة'],it_book:['문학 · 책','الأدب والكتب'],it_history:['역사','التاريخ'],it_game:['게임','الألعاب'],it_beauty:['패션 · 뷰티','الموضة والتجميل'],it_photo:['사진','التصوير'],it_tech:['IT · 기술','التقنية'],it_religion:['종교 · 전통','الدين والتقاليد'],
+prof_t:['내 프로필','ملفي الشخصي'],prof_d:['프로필은 매칭된 파트너와 운영진에게만 공개됩니다.','لا يطّلع على ملفك إلا شريكك وفريق التنظيم.'],prof_done:['작성률','نسبة الإكمال'],
+prof_level_note:['언어 수준은 면접 결과를 바탕으로 운영진이 지정합니다.','يحدّد فريق التنظيم مستواك بناءً على المقابلة.'],
+prof_avail_h:['정규 활동은 매주 금요일 2시간 동안 진행됩니다. 참여할 수 있는 시간대를 모두 선택해 주세요. 연속 2시간 이상 가능한 시간이 있으면 매칭이 수월합니다.','تُعقد الحصص كل جمعة لمدة ساعتين. اختر كل الساعات التي تناسبك، ووجود ساعتين متتاليتين على الأقل يسهّل تعيين الشريك.'],
+prof_save:['저장','حفظ'],toast_prof:['프로필이 저장되었습니다.','تم حفظ ملفك الشخصي.'],prof_intro_ph:['관심사, 배우고 싶은 표현, 파트너에게 전하고 싶은 말을 자유롭게 적어 주세요.','اكتب بحرية عن اهتماماتك، والعبارات التي تودّ تعلّمها، وما تريد قوله لشريكك.'],
+avail_kst:['한국','كوريا'],avail_dz:['알제리','الجزائر'],overlap_n:['공통 가능 {n}시간','{n} ساعات مشتركة'],av_mine:['내 가능 시간','أوقاتي'],av_partner:['파트너 가능 시간','أوقات الشريك'],av_both:['공통 가능 시간','وقت مشترك'],
+sched_t:['회차별 일정','جدول الحصص'],col_round:['회차','الحصة'],col_date:['날짜','التاريخ'],col_time:['시간','الوقت'],col_topic:['주제','الموضوع'],col_status:['상태','الحالة'],col_week:['활동일','موعد الحصة'],
+changed:['일정 변경','موعد معدَّل'],sched_fixed:['정규 일정은 운영진이 관리합니다. 일정이 바뀌면 이 화면과 대시보드에 함께 표시됩니다.','يدير فريق التنظيم المواعيد المنتظمة، وأي تغيير يظهر هنا وفي الصفحة الرئيسية.'],
+sched_nopair:['파트너가 배정되면 활동 일정이 표시됩니다.','ستظهر مواعيد الحصص بعد تعيين شريكك.'],
+chg_t:['일정 변경 안내','تغييرات المواعيد'],chg_none:['변경된 일정이 없습니다.','لا توجد تغييرات.'],chg_all:['모든 팀','جميع الثنائيات'],
+zoom_t:['Zoom 접속 정보','بيانات الدخول إلى Zoom'],zoom_join:['Zoom 입장','الدخول إلى Zoom'],zoom_id:['회의 ID','معرّف الاجتماع'],zoom_pw:['암호','رمز المرور'],
+show:['보기','إظهار'],hide:['숨기기','إخفاء'],copy:['접속 정보 복사','نسخ بيانات الدخول'],copied:['복사했습니다.','تم النسخ.'],copy_fail:['복사하지 못했습니다. 직접 선택해 복사해 주세요.','تعذّر النسخ، يُرجى النسخ يدويًا.'],
+zoom_demo:['예시 링크입니다. 실제 링크는 운영진이 등록합니다.','رابط تجريبي، ويضيف فريق التنظيم الرابط الفعلي.'],
+next_t:['다음 활동','الحصة القادمة'],today:['오늘','اليوم'],d_day:['D-{n}','بعد {n} أيام'],done_all:['모든 회차가 종료되었습니다.','انتهت جميع الحصص.'],st_up:['예정','قادمة'],st_unrec:['기록 전','لم يُسجَّل بعد'],
+att_P:['출석','حاضر'],att_L:['지각','متأخر'],att_A:['결석','غائب'],att_M:['보강 예정','تعويض مُجدوَل'],
+att_t:['출석 현황','سجل الحضور'],act_note:['활동 메모','ملاحظة'],
+cp_progress:['수료 진행 상황','التقدّم نحو الإتمام'],cp_rule:['수료 요건: 정규 활동 {n}회 모두 참여','شرط الإتمام: حضور جميع الحصص المنتظمة ({n})'],
+cp_mk_count:['승인된 보강은 참여 횟수에 포함됩니다.','تُحتسب الحصص التعويضية المعتمدة ضمن الحضور.'],cp_mk_exclude:['보강은 참여 횟수에 포함되지 않습니다.','لا تُحتسب الحصص التعويضية ضمن الحضور.'],cp_mk_undecided:['보강 인정 여부는 운영 방침이 정해지면 반영됩니다.','سيُحدَّد احتساب الحصص التعويضية بعد اعتماد سياسة التنظيم.'],
+cp_pending_m:['보강 승인 {n}회는 인정 여부가 정해지면 반영됩니다.','{n} حصص تعويضية معتمدة بانتظار تحديد احتسابها.'],
+st_issued:['수료증 발급 완료','صدرت الشهادة'],st_eligible:['수료 요건 충족 · 수료증 발급 대기','استوفيت الشرط · الشهادة قيد الإصدار'],st_hold:['판정 보류 · 보강 인정 여부 확정 전','الحكم معلّق · بانتظار سياسة التعويض'],st_progress:['진행 중 · {n}회 남음','جارٍ · بقيت {n} حصص'],
+cp_risk_count:['결석한 회차가 있습니다. 보강 기록을 제출해 승인을 받으면 참여로 인정됩니다.','فاتتك حصة. أرسل سجل التعويض، وعند الموافقة عليه يُحتسب حضورًا.'],
+cp_risk_exclude:['결석한 회차가 있어 이번 기수의 수료 요건을 충족하기 어렵습니다. 자세한 사항은 운영진에게 문의해 주세요.','فاتتك حصة، لذا يصعب استيفاء شرط الإتمام في هذه الدفعة. تواصل مع فريق التنظيم لمزيد من التفاصيل.'],
+cp_risk_undecided:['결석한 회차가 있습니다. 보강 기록을 제출해 두시면, 인정 정책이 확정된 뒤 반영 여부를 안내해 드립니다.','فاتتك حصة. أرسل سجل التعويض، وسنُعلمك بإمكانية احتسابه بعد اعتماد السياسة.'],
+cp_cert:['수료증은 한국외국어대학교 융합인재학부 명의로 발급됩니다.','تصدر الشهادة باسم 융합인재학부 في جامعة هانكوك للدراسات الأجنبية.'],cp_issued_on:['{d} 발급 완료','صدرت بتاريخ {d}'],
+mk_t:['보강 기록 제출','إرسال سجل الحصة التعويضية'],
+mk_d_count:['결석한 회차를 파트너와 따로 진행했다면 기록을 제출해 주세요. 운영진 승인 후 참여로 인정됩니다.','إذا عوّضت حصة فائتة مع شريكك فأرسل سجلها، وبعد موافقة فريق التنظيم تُحتسب حضورًا.'],
+mk_d_exclude:['결석한 회차를 파트너와 따로 진행했다면 기록을 제출해 주세요. 운영진 확인 후 활동 기록에 남으며, 참여 횟수에는 포함되지 않습니다.','إذا عوّضت حصة فائتة مع شريكك فأرسل سجلها، وسيُضاف إلى سجل نشاطك بعد المراجعة دون أن يُحتسب حضورًا.'],
+mk_d_undecided:['결석한 회차를 파트너와 따로 진행했다면 기록을 제출해 주세요. 운영진 확인 후 활동 기록에 반영되며, 참여 인정 여부는 운영 방침이 정해지면 안내해 드립니다.','إذا عوّضت حصة فائتة مع شريكك فأرسل سجلها، وسيُضاف إلى سجل نشاطك بعد المراجعة. سنُعلمك باحتسابه حضورًا بعد اعتماد السياسة.'],
+mk_round:['보강한 회차','الحصة التي عوّضتها'],mk_date:['진행 날짜','تاريخ الجلسة'],mk_time:['시작 시간 (한국 시간)','وقت البدء (بتوقيت كوريا)'],mk_min:['진행 시간 (분)','المدة (بالدقائق)'],mk_content:['진행 내용','ماذا فعلتما؟'],mk_content_ph:['어떤 주제로 무엇을 연습했는지 적어 주세요.','اكتب الموضوع وما تدرّبتما عليه.'],
+mk_evidence:['증빙 파일 (선택 · Zoom 화면 캡처 등)','ملف إثبات (اختياري، مثل لقطة شاشة من Zoom)'],mk_with:['파트너와 함께 진행했습니다','أجريتها مع شريكي'],mk_submit:['제출','إرسال'],mk_none_avail:['보강 기록을 제출할 결석 회차가 없습니다.','لا توجد حصص فائتة تحتاج إلى سجل تعويض.'],
+mk_list:['내 보강 기록','سجلاتي التعويضية'],mk_pending:['확인 중','قيد المراجعة'],mk_approved:['승인','مقبول'],mk_rejected:['반려','مرفوض'],mk_review:['운영진 의견','ملاحظة الفريق'],mk_empty:['제출한 기록이 없습니다.','لا توجد سجلات.'],toast_mk:['보강 기록을 제출했습니다.','تم إرسال السجل.'],
+mk_err_date:['진행 날짜는 오늘 또는 이전 날짜로 선택해 주세요.','اختر تاريخ اليوم أو تاريخًا سابقًا.'],min_n:['{n}분','{n} دقيقة'],mk_view_ev:['증빙 보기','عرض الإثبات'],mk_with_b:['파트너와 함께','مع الشريك'],mk_resubmit:['반려된 기록은 다시 제출할 수 있습니다.','يمكنك إعادة إرسال السجل المرفوض.'],
+mat_t:['학습자료실','مكتبة المواد'],mat_all_r:['전체 회차','كل الحصص'],mat_all_l:['전체 언어','كل اللغات'],lang_ko:['한국어','الكورية'],lang_ar:['아랍어','العربية'],
+mat_preview:['미리보기','معاينة'],mat_download:['다운로드','تنزيل'],mat_link:['링크 열기','فتح الرابط'],mat_new:['NEW','جديد'],mat_empty:['조건에 맞는 자료가 없습니다.','لا توجد مواد مطابقة.'],
+mat_no_preview:['미리보기를 지원하지 않는 형식입니다. 다운로드해서 확인해 주세요.','لا تتوفّر معاينة لهذا النوع من الملفات، نزّله لفتحه.'],
+dl_saved:['다운로드를 시작했습니다.','بدأ التنزيل.'],dl_fail:['파일을 내려받지 못했습니다.','تعذّر تنزيل الملف.'],
+dl_blocked:['이 화면에서는 브라우저가 파일 다운로드를 막고 있습니다. 텍스트·이미지 자료는 미리보기로 확인할 수 있습니다.','يمنع المتصفح التنزيل في هذا العرض، ويمكنك معاينة النصوص والصور.'],
+dl_missing:['파일을 찾을 수 없습니다. 체험 모드에서는 파일을 올린 브라우저에서만 열 수 있습니다.','الملف غير موجود. في وضع التجربة لا يُفتح الملف إلا في المتصفح الذي رُفع منه.'],
+mat_ko_for:['한국어를 배우는 알제리 참가자용','للمشاركين الجزائريين الذين يتعلّمون الكورية'],mat_ar_for:['아랍어를 배우는 한국 참가자용','للمشاركين الكوريين الذين يتعلّمون العربية'],
+by_ko:['DARI 한국 운영진','فريق داري في كوريا'],by_ar:['HAN.AL','HAN.AL'],
+dash_new_mat:['최근 등록된 자료','أحدث المواد'],dash_go_mat:['학습자료실','مكتبة المواد'],more:['전체 보기','عرض الكل'],
+
+/* ---------- 운영 관리 (정확·명확) ---------- */
+ad_t_overview:['대시보드','نظرة عامة'],ad_t_match:['참가자 · 매칭','المشاركون والتعيين'],ad_t_sched:['일정 · Zoom','الجدول وZoom'],ad_t_mat:['학습자료','المواد'],ad_t_att:['출석 · 수료','الحضور والإتمام'],ad_t_mk:['보강 관리','إدارة التعويض'],
+ad_sub:['{r}회차 진행 중','الحصة {r} جارية'],
+k_parts:['참가자','المشاركون'],k_pairs:['매칭된 팀','الثنائيات'],k_att:['평균 출석률','متوسط الحضور'],k_mk:['보강 확인 대기','سجلات بانتظار المراجعة'],
+ad_todo:['처리할 일','مهام معلّقة'],todo_match:['미매칭 참가자 {n}명','{n} مشاركين بلا شريك'],todo_mk:['보강 인증 확인 대기 {n}건','{n} سجلات تعويض بانتظار المراجعة'],todo_att:['출석 미기록 {n}건','{n} حالات حضور غير مسجّلة'],todo_cert:['수료증 발급 대기 {n}명','{n} مشاركين بانتظار إصدار الشهادة'],todo_none:['처리할 일이 없습니다.','لا توجد مهام معلّقة.'],
+ad_round_att:['회차별 출석률','نسبة الحضور لكل حصة'],ad_recent_chg:['최근 일정 변경','آخر تغييرات المواعيد'],ad_recent_mat:['최근 등록 자료','آخر المواد المضافة'],
+ad_match_d:['한국 측 참가자를 선택하면 알제리 측 후보가 공통 관심사가 많은 순으로 정렬됩니다. 언어 수준을 함께 확인하고 운영진이 매칭을 결정합니다.','عند اختيار مشارك من الجانب الكوري، يُرتَّب المرشّحون من الجانب الجزائري بحسب الاهتمامات المشتركة. راجع المستوى اللغوي، والقرار لفريق التنظيم.'],
+ad_unmatched_kr:['미매칭 · 한국 측','بلا شريك · الجانب الكوري'],ad_cand:['알제리 측 후보','المرشّحون من الجانب الجزائري'],ad_pick_kr:['왼쪽에서 한국 측 참가자를 먼저 선택하세요.','اختر أولًا مشاركًا من الجانب الكوري.'],
+ad_fix:['매칭 확정','تأكيد التعيين'],ad_time:['시작 시간 (한국 시간)','وقت البدء (بتوقيت كوريا)'],ad_zoom_url:['Zoom 링크','رابط Zoom'],ad_start_pick:['연속 2시간 공통 가능 시간 중 시작 시간 선택','اختر وقت البدء من الساعتين المشتركتين المتتاليتين'],ad_no_overlap:['연속 2시간 공통 가능 시간이 없습니다. 시작 시간을 직접 입력하세요.','لا توجد ساعتان مشتركتان متتاليتان، أدخل وقت البدء يدويًا.'],
+toast_matched:['매칭을 확정했습니다. 두 참가자 화면에 파트너와 활동 시간이 표시됩니다.','تم التعيين، وسيظهر الشريك وموعد الحصص لدى المشاركَين.'],toast_unmatched:['매칭을 해제했습니다.','تم إلغاء التعيين.'],
+ad_pairs:['매칭 현황','الثنائيات الحالية'],ad_unmatch:['매칭 해제','إلغاء التعيين'],ad_unmatch_warn:['매칭을 해제하면 이 팀의 Zoom 정보, 팀별 일정 변경 내역, 보강 내역이 삭제됩니다. 출석 기록은 유지됩니다.','سيؤدي الإلغاء إلى حذف بيانات Zoom وتغييرات المواعيد والحصص التعويضية الخاصة بهذا الثنائي، مع الإبقاء على سجل الحضور.'],
+ad_all_parts:['전체 참가자','جميع المشاركين'],lvl_gap:['수준 차이 {n}','فارق المستوى {n}'],ad_none:['없음','لا يوجد'],ad_prof:['프로필','الملف'],ad_set_level:['언어 수준 지정','تحديد المستوى'],confirm_t:['해제','تأكيد الإلغاء'],
+ad_rounds:['회차 관리','إدارة الحصص'],ad_round_note:['한 기수는 4회차로 고정됩니다. 회차별 활동일(금요일), 유형, 주제를 수정할 수 있습니다.','تتكوّن الدفعة من أربع حصص ثابتة، ويمكن تعديل تاريخ كل حصة (يوم جمعة) ونوعها وموضوعها.'],ad_round_edit:['회차 수정','تعديل الحصة'],
+f_actday:['활동일 (금요일)','تاريخ الحصة (يوم جمعة)'],err_friday:['금요일 날짜를 선택하세요.','اختر تاريخًا يوافق يوم جمعة.'],topic_ko:['주제 (한국어)','الموضوع (بالكورية)'],topic_ar:['주제 (아랍어)','الموضوع (بالعربية)'],
+ad_team_time:['팀별 시작 시간 · Zoom','وقت البدء وZoom لكل ثنائي'],ad_team_edit:['팀 시작 시간 · Zoom 수정','تعديل وقت البدء وZoom'],
+ad_chg_new:['일정 예외 등록','تسجيل استثناء في الموعد'],ad_chg_h:['공휴일 등으로 특정 회차의 날짜나 시간을 옮길 때 사용합니다.','يُستخدم لنقل موعد حصة معيّنة، مثلًا بسبب عطلة رسمية.'],ad_chg_target:['대상 팀','الثنائي المعني'],f_new_date:['변경 날짜','التاريخ الجديد'],f_new_time:['변경 시간 (한국 시간)','الوقت الجديد (بتوقيت كوريا)'],f_reason:['변경 사유','سبب التغيير'],
+ad_chg_list:['변경 내역','سجل التغييرات'],toast_chg:['일정 변경을 등록했습니다. 해당 참가자 화면에 안내가 표시됩니다.','تم تسجيل التغيير، وسيظهر للمشاركين المعنيين.'],team:['팀','الثنائي'],
+ad_mat_up:['자료 등록','إضافة مادة'],ad_mat_lock:['담당 언어: {l} · 담당 언어 자료만 등록하고 삭제할 수 있습니다.','لغتك: {l} · يمكنك إضافة مواد لغتك وحذفها فقط.'],
+f_title:['제목','العنوان'],f_desc:['설명 (선택)','وصف (اختياري)'],f_file:['파일','الملف'],f_or_link:['또는 외부 링크','أو رابط خارجي'],f_file_h:['PDF · Word · PowerPoint · Excel · 이미지 · 텍스트 · 최대 10MB','PDF وWord وPowerPoint وExcel وصور ونصوص · حتى 10 ميغابايت'],
+up_btn:['등록','إضافة'],err_file:['파일을 첨부하거나 링크를 입력하세요.','أرفق ملفًا أو أدخل رابطًا.'],err_size:['10MB 이하 파일만 등록할 수 있습니다.','الحد الأقصى لحجم الملف 10 ميغابايت.'],err_ext:['지원하지 않는 파일 형식입니다.','نوع الملف غير مدعوم.'],err_title:['제목을 입력하세요.','أدخل العنوان.'],
+toast_up:['자료를 등록했습니다. 참가자 학습자료실에 바로 표시됩니다.','تمت إضافة المادة، وستظهر للمشاركين فورًا.'],mat_locked:['다른 언어 담당 자료','مادة تخصّ لغة أخرى'],
+ad_att_d:['칸을 눌러 출석 상태와 활동 메모를 기록합니다. 점(•)이 있는 칸에는 메모가 있습니다.','اضغط على أي خانة لتسجيل الحضور وإضافة ملاحظة. النقطة (•) تعني وجود ملاحظة.'],
+ad_rule_t:['수료 요건','شرط الإتمام'],ad_rule_v:['정규 활동 {n}회 모두 참여','حضور جميع الحصص المنتظمة ({n})'],
+ad_mk_policy:['보강 출석 인정','احتساب التعويض حضورًا'],pol_undecided:['미정','لم يُحدَّد'],pol_count:['인정','يُحتسب'],pol_exclude:['불인정','لا يُحتسب'],
+ad_mk_policy_h:['정책이 확정되기 전까지는 "미정"을 유지하세요. 미정 상태에서는 보강 승인 회차가 수료 판정에 포함되지 않으며, 보강을 포함해야 요건을 채우는 참가자는 "판정 보류"로 표시됩니다.','أبقِ الإعداد على "لم يُحدَّد" حتى اعتماد السياسة. في هذه الحالة لا تُحتسب الحصص التعويضية في الإتمام، ويظهر المشاركون الذين يحتاجون إليها بحالة "الحكم معلّق".'],
+cert_note:['"발급 완료"는 발급 여부를 기록하는 표시입니다. 수료증 파일은 생성되지 않습니다.','"صدرت" علامة لتسجيل الإصدار فقط، ولا يُنشئ الموقع ملف الشهادة.'],
+ad_csv:['출석부 CSV 다운로드','تنزيل كشف الحضور (CSV)'],att_none_opt:['미기록','غير مسجّل'],col_total:['참여','الحضور'],col_req:['수료 요건','الشرط'],col_cert:['수료증','الشهادة'],
+req_met:['충족','مستوفٍ'],req_hold:['보류','معلّق'],req_no:['미충족','غير مستوفٍ'],cert_issue:['발급 완료 처리','تسجيل الإصدار'],cert_undo:['취소','تراجع'],toast_cert:['수료증 발급 완료로 기록했습니다.','سُجّل إصدار الشهادة.'],toast_cert_undo:['발급 기록을 취소했습니다.','أُلغي تسجيل الإصدار.'],
+ad_mk_partner:['파트너 {name}님도 {r}에 결석했습니다. 파트너에게도 보강 승인을 함께 기록합니다.','الشريك {name} غائب أيضًا في {r}. سيُسجَّل التعويض المعتمد له كذلك.'],ad_review_ph:['검토 의견 (반려 시 필수)','ملاحظة المراجعة (إلزامية عند الرفض)'],err_review:['반려 사유를 입력하세요.','أدخل سبب الرفض.'],
+col_name:['이름','الاسم'],col_side:['구분','الجهة'],col_univ:['소속','الجامعة'],col_level:['수준','المستوى'],col_email:['이메일','البريد الإلكتروني'],col_partner:['파트너','الشريك'],col_act:['관리','إجراء'],
+sideS_KR:['한국','كوريا'],sideS_DZ:['알제리','الجزائر'],
+all:['전체','الكل'],edit:['수정','تعديل'],del:['삭제','حذف'],save:['저장','حفظ'],cancel:['취소','إلغاء'],close:['닫기','إغلاق'],add:['추가','إضافة'],approve:['승인','موافقة'],reject:['반려','رفض'],
+toast_saved:['저장했습니다.','تم الحفظ.'],toast_deleted:['삭제했습니다.','تم الحذف.'],
+not_found:['페이지를 찾을 수 없습니다','الصفحة غير موجودة'],go_home:['홈으로','إلى الرئيسية'],
+lv3_1:['초','مبتدئ'],lv3_2:['중','متوسط'],lv3_3:['상','متقدّم'],
+enl_1:['초 · 의사 전달 가능','مبتدئ · يستطيع إيصال الفكرة'],enl_2:['중 · 일상 회화 가능','متوسط · محادثة يومية'],enl_3:['상 · 원어민 수준의 프리토킹','متقدّم · حديث حرّ بطلاقة قريبة من الناطقين'],
+arl_1:['초 · 알파벳·발음 + 기초 문법','مبتدئ · الحروف والنطق وقواعد أساسية'],arl_2:['중 · 문장 읽기·이해 + 중급 문법','متوسط · قراءة الجمل وفهمها وقواعد متوسطة'],arl_3:['상 · 일상 회화 가능','متقدّم · محادثة يومية'],
+kol_1:['초 · 한글·발음 + 기초 문법','مبتدئ · الحروف الكورية (الهانغل) والنطق وقواعد أساسية'],kol_2:['중 · 문장 읽기·이해 + 중급 문법','متوسط · قراءة الجمل وفهمها وقواعد متوسطة'],kol_3:['상 · 일상 회화 가능','متقدّم · محادثة يومية'],
+p_en_level:['영어 수준','مستوى الإنجليزية'],p_ar_level:['아랍어 수준','مستوى العربية'],p_ko_level:['한국어 수준','مستوى الكورية'],
+prof_level_kr:['지금 수준에 가장 가까운 항목을 골라 주세요. 파트너 매칭에 참고됩니다.','اختر أقرب وصف لمستواك الحالي، ليُستفاد منه في تعيين الشريك.'],
+reg_time:['매주 금요일 {t}','كل جمعة {t}'],
+mk_req_t:['보강 신청','طلب حصة تعويضية'],
+mk_rule_r0:['보강 신청은 1인 1회만 가능합니다.','يحقّ لكل مشارك طلب حصة تعويضية واحدة فقط.'],
+mk_rule_r5:['수업 시작 3시간 전까지는 신청을 취소할 수 있습니다.','يمكن إلغاء الطلب حتى ثلاث ساعات قبل بدء الحصة.'],
+mk_used:['보강 신청은 1인 1회만 가능하며, 이미 신청한 내역이 있습니다. 신청을 취소하면 다시 신청할 수 있습니다.','يحقّ لكل مشارك طلب واحد فقط، ولديك طلب قائم. يمكنك تقديم طلب جديد إذا ألغيت الطلب الحالي.'],
+mk_cancel:['신청 취소','إلغاء الطلب'],mk_cancel_until:['{t}까지 취소 가능','يمكن الإلغاء حتى {t}'],mk_cancel_q:['보강 신청을 취소할까요?','هل تريد إلغاء طلب الحصة التعويضية؟'],
+mk_cancel_d:['취소하면 두 참가자 모두 해당 회차의 정규 수업에 참여하게 됩니다. 취소한 신청은 1인 1회 횟수에 포함되지 않습니다.','عند الإلغاء يعود كلا المشاركَين إلى الحصة المنتظمة في موعدها، ولا يُحتسب الطلب الملغى ضمن الطلب الوحيد المتاح.'],
+toast_cancel_mk:['보강 신청을 취소했습니다.','تم إلغاء طلب الحصة التعويضية.'],err_cancel:['취소 기한이 지났거나 취소할 수 없는 신청입니다.','انتهت مهلة الإلغاء أو لا يمكن إلغاء هذا الطلب.'],mk_cancelled:['신청 취소','طلب ملغى'],
+mk_rule_r1:['수업 시작 3시간 전까지 신청할 수 있습니다.','يمكن تقديم الطلب حتى ثلاث ساعات قبل بدء الحصة.'],
+mk_rule_r2:['신청 전에 파트너에게 양해를 구하고, 함께 정한 보강 날짜와 시간을 등록해 주세요.','قبل التقديم، استأذن شريكك واتفقا معًا على تاريخ الحصة التعويضية ووقتها.'],
+mk_rule_r3:['보강은 다음 수업 시작 전까지 마쳐야 합니다.','يجب إتمام الحصة التعويضية قبل بدء الحصة التالية.'],
+mk_rule_r4:['보강 당일 자정(23:59)까지 인증 사진을 제출해야 출석으로 인정됩니다.','تُحتسب حضورًا عند إرسال صورة الإثبات قبل منتصف ليل يوم الحصة التعويضية (23:59).'],
+mk_req_round:['결석할 회차','الحصة التي ستغيب عنها'],mk_req_until:['{t}까지 신청','آخر موعد للطلب {t}'],
+mk_req_date:['보강 날짜','تاريخ الحصة التعويضية'],mk_req_time:['보강 시작 시간 (한국 시간)','وقت البدء (بتوقيت كوريا)'],
+mk_req_window:['보강은 {t} 전까지 마쳐야 합니다.','يجب إتمام الحصة التعويضية قبل {t}.'],
+mk_req_agree:['파트너와 보강 날짜·시간을 함께 정했습니다','اتفقت مع شريكي على تاريخ الحصة التعويضية ووقتها'],
+mk_req_btn:['보강 신청','إرسال الطلب'],toast_req:['보강 신청이 완료되었습니다. 파트너 화면에도 보강 일정이 표시됩니다.','تم إرسال الطلب، وسيظهر موعد الحصة التعويضية لدى شريكك أيضًا.'],
+mk_req_none:['지금 신청할 수 있는 회차가 없습니다.','لا توجد حصص يمكن طلب تعويضها الآن.'],
+err_window:['보강 일시는 지금 이후, {t} 전으로 선택해 주세요.','اختر موعدًا بعد الآن وقبل {t}.'],err_deadline:['신청 기한이 지났습니다.','انتهت مهلة الطلب.'],
+demo_now:['체험 기준 시각: {t}','وقت التجربة: {t}'],
+mk_sub_t:['보강 기록 제출','إرسال سجل الحصة التعويضية'],
+mk_sub_d:['결석한 회차에 대한 보강을 완료했다면 보강일 자정 전까지 기록을 제출해 주세요. 파트너와 본인이 함께 나온 Zoom 수업 사진을 올려 주시면 됩니다.','إذا أتممت الحصة التعويضية فأرسل سجلها قبل منتصف ليل يومها، مرفقًا بصورة من Zoom تظهر فيها أنت وشريكك.'],
+mk_photo:['인증 사진','صورة الإثبات'],mk_photo_h:['JPG, PNG · 최대 10MB','JPG أو PNG · حتى 10 ميغابايت'],mk_deadline:['제출 기한 {t}','آخر موعد للإرسال {t}'],
+mk_sub_btn:['기록 제출','إرسال السجل'],mk_sub_wait:['보강 시작 시간 이후에 제출할 수 있습니다.','يمكنك الإرسال بعد بدء الحصة التعويضية.'],mk_sub_none:['제출할 보강 일정이 없습니다.','لا توجد حصص تعويضية بانتظار السجل.'],
+err_photo:['인증 사진을 첨부해 주세요.','أرفق صورة الإثبات.'],err_img:['이미지 파일(JPG, PNG)만 올릴 수 있습니다.','يُقبل ملف صورة فقط (JPG أو PNG).'],
+toast_sub:['보강 기록을 제출했습니다. 운영진이 확인하면 출석으로 변경됩니다.','تم إرسال السجل، وتتحوّل الحالة إلى "حاضر" بعد تحقّق فريق التنظيم.'],
+mk_scheduled:['보강 예정','تعويض مُجدوَل'],mk_submitted:['확인 중','قيد المراجعة'],mk_confirmed:['출석 처리','احتُسب حضورًا'],mk_rejected:['반려','مرفوض'],mk_expired:['기한 경과','انتهت المهلة'],mk_absent:['결석 처리','احتُسب غيابًا'],
+mk_hist:['보강 내역','سجل الحصص التعويضية'],mk_by:['{name} 신청','طلبه {name}'],mk_photo_view:['사진 보기','عرض الصورة'],
+mk_note_m:['보강 인증이 확인되면 출석으로 변경됩니다.','تتحوّل الحالة إلى "حاضر" بعد التحقّق من إثبات الحصة التعويضية.'],
+mk_resub:['반려 사유를 확인하고 기한 안에 다시 제출해 주세요.','راجع سبب الرفض وأعد الإرسال قبل انتهاء المهلة.'],
+mk_orig:['정규 수업 {t}','الحصة المنتظمة {t}'],
+ad_mk_confirm:['출석 처리','احتساب الحضور'],ad_mk_absent:['결석 처리','احتساب الغياب'],ad_mk_req_at:['신청 {t}','قُدّم الطلب {t}'],ad_mk_sub_at:['제출 {t}','أُرسل السجل {t}'],
+ad_mk_expired:['제출 기한이 지났습니다. 결석 처리 여부를 결정하세요.','انتهت مهلة الإرسال، حدّد ما إذا كانت ستُحتسب غيابًا.'],
+ad_mk_d:['보강은 팀 단위로 신청됩니다. 인증 사진을 확인해 출석 처리하면 두 참가자의 해당 회차가 출석으로 바뀝니다.','تُطلب الحصة التعويضية باسم الثنائي، وعند احتساب الحضور يتغيّر سجل المشاركَين معًا.'],
+todo_mk_exp:['기한 경과 보강 {n}건','{n} حصص تعويضية انتهت مهلتها'],
+ad_regtime:['정규 활동 시간','موعد الحصص المنتظمة'],ad_regtime_h:['모든 팀이 같은 시간에 참여합니다. 변경하면 전체 일정에 바로 반영됩니다.','تشارك جميع الثنائيات في الموعد نفسه، وأي تغيير يُطبَّق فورًا على الجدول كله.'],ad_regtime_lbl:['시작 시간 (한국 시간)','وقت البدء (بتوقيت كوريا)'],
+ad_team_zoom:['팀별 Zoom 정보','بيانات Zoom لكل ثنائي'],ad_zoom_edit:['Zoom 정보 수정','تعديل بيانات Zoom'],
+toast_zoom:['Zoom 정보를 저장했습니다. 해당 팀 참가자 화면에 바로 반영됩니다.','تم حفظ بيانات Zoom، وستظهر للثنائي فورًا.'],
+lv_login_t:['이메일로 로그인','الدخول بالبريد الإلكتروني'],lv_login_d:['운영진에게 등록한 이메일을 입력하면 로그인 링크를 보내 드립니다. 메일의 링크를 누르면 바로 로그인됩니다.','أدخل البريد الإلكتروني المسجّل لدى فريق التنظيم لنرسل إليك رابط الدخول، ثم اضغط على الرابط في الرسالة.'],
+lv_send:['로그인 링크 받기','أرسل رابط الدخول'],lv_sent:['{email} 주소로 로그인 링크를 보냈습니다. 메일함을 확인해 주세요.','أرسلنا رابط الدخول إلى {email}، تفقّد بريدك.'],
+lv_unreg:['등록되지 않은 이메일입니다. 운영진에게 참가자 등록을 요청해 주세요.','هذا البريد غير مسجّل، اطلب من فريق التنظيم تسجيلك.'],lv_err:['처리하지 못했습니다. 잠시 후 다시 시도해 주세요.','تعذّرت العملية، حاول مرة أخرى بعد قليل.'],lv_loading:['불러오는 중입니다…','جارٍ التحميل…'],
+ad_add_part:['참가자 등록','تسجيل مشارك'],ad_add_part_h:['참가자가 이 이메일로 로그인하면 계정이 자동으로 연결됩니다.','عند دخول المشارك بهذا البريد يُربط حسابه تلقائيًا.'],toast_part_added:['참가자를 등록했습니다.','تم تسجيل المشارك.'],lv_dup:['이미 등록된 이메일입니다.','هذا البريد مسجّل مسبقًا.'],
+ad_mk_rounds:['4회차 일정 만들기','إنشاء الحصص الأربع'],ad_mk_rounds_h:['1회차 활동일(금요일)을 고르면 매주 금요일로 4회차가 만들어집니다. 회차 유형과 주제는 만든 뒤 수정할 수 있습니다.','اختر تاريخ الحصة الأولى (يوم جمعة)، فتُنشأ أربع حصص في أيام الجمعة المتتالية. يمكنك تعديل النوع والموضوع لاحقًا.'],f_first_fri:['1회차 활동일 (금요일)','تاريخ الحصة الأولى (جمعة)'],
+privacy_admin:['참가자 개인정보는 운영 목적으로만 확인하세요. 실제 서비스에서는 데이터베이스 권한 설정으로 운영진만 조회할 수 있게 제한합니다.','استخدم بيانات المشاركين لأغراض التنظيم فقط. في الخدمة الفعلية يُقصَر الاطّلاع عليها على فريق التنظيم عبر صلاحيات قاعدة البيانات.'],
+};
+
+/* ---------- helpers ---------- */
+let state={lang:'ko',uid:null,matR:'all',matL:'all',selKR:null,selDZ:null,pwShow:false,mkFilter:'all',lastBase:null,draftAvail:null,draftInt:null};
+let db;
+const $=(s,r=document)=>r.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+Object.assign(S,{
+k_mk_req:['보강 신청 확인','طلبات تعويض جديدة'],k_mk:['보강 확인 대기','إثباتات بانتظار المراجعة'],
+ad_mk_upcoming:['보강 신청 확인','طلبات الحصص التعويضية'],ad_mk_upcoming_none:['새로 확인할 보강 신청이 없습니다.','لا توجد طلبات تعويض جديدة.'],
+ad_match_d:['한국 측 참가자를 선택하면 알제리 측 후보가 ① 언어 수준이 비슷한 순, ② 공통 관심사가 많은 순으로 정렬됩니다. 운영진이 확인한 뒤 매칭을 확정합니다.','عند اختيار مشارك من الجانب الكوري يُرتَّب المرشحون الجزائريون حسب: ① تقارب المستوى اللغوي، ثم ② عدد الاهتمامات المشتركة. ويؤكّد فريق التنظيم التعيين بعد المراجعة.'],
+lv_gap:['수준 차이 {n}','فرق المستوى {n}'],lv_same:['수준 비슷','مستوى متقارب'],
+col_kakao:['카카오톡 ID','معرّف KakaoTalk'],p_kakao:['카카오톡 ID (선택)','معرّف KakaoTalk (اختياري)'],p_kakao_h:['운영진에게만 보이며 파트너에게는 공개되지 않습니다.','يظهر لفريق التنظيم فقط، ولا يظهر لشريكك.'],
+ad_zoom_t:['Zoom 링크 등록','تسجيل رابط Zoom'],ad_zoom_h:['모든 회차와 모든 팀이 같은 Zoom 링크로 들어옵니다. 한 번 등록하면 모든 참가자 화면에 같은 링크가 표시됩니다.','تدخل كل الثنائيات إلى جميع الحصص عبر رابط Zoom واحد. بعد تسجيله يظهر الرابط نفسه لجميع المشاركين.'],
+zoom_none:['Zoom 링크가 아직 등록되지 않았습니다. 등록되면 이곳에 표시됩니다.','لم يُسجَّل رابط Zoom بعد، وسيظهر هنا عند تسجيله.'],toast_zoom:['Zoom 링크를 저장했습니다. 모든 참가자에게 같은 링크가 표시됩니다.','تم حفظ رابط Zoom، وسيظهر لجميع المشاركين.'],
+ad_round_note:['한 기수는 4회차로 운영됩니다. 회차마다 활동일, 시작 시간, 유형, 주제를 수정할 수 있으며, 바꾼 내용은 참가자 일정에 바로 반영됩니다.','تتكوّن الدفعة من أربع حصص. يمكن تعديل التاريخ ووقت البدء والنوع والموضوع لكل حصة، ويظهر التعديل فورًا في جدول المشاركين.'],
+ad_mk_rounds_h:['1회차 활동일과 시작 시간을 고르면 일주일 간격으로 4회차가 만들어집니다. 회차별 날짜·시간·유형·주제는 만든 뒤 각각 수정할 수 있습니다.','اختر تاريخ الحصة الأولى ووقت بدئها لإنشاء أربع حصص بفاصل أسبوع. يمكن تعديل تاريخ كل حصة ووقتها ونوعها وموضوعها لاحقًا.'],
+f_first_day:['1회차 활동일','تاريخ الحصة الأولى'],f_start_time:['시작 시간 (한국 시간)','وقت البدء (بتوقيت كوريا)'],col_time_kst:['시간 (한국)','الوقت (كوريا)'],
+sched_fixed:['회차별 일정은 운영진이 관리합니다. 날짜나 시간이 바뀌면 이 표에 바로 반영됩니다.','يدير فريق التنظيم مواعيد الحصص، وأي تغيير في التاريخ أو الوقت يظهر في هذا الجدول مباشرة.'],
+f_mat_lang:['자료 언어','لغة المادة'],mat_lang_ko:['한국어 자료','مادة كورية'],mat_lang_ar:['아랍어 자료','مادة عربية'],
+ad_mat_h:['한국 운영진과 HAN.AL 모두 한국어·아랍어 자료를 등록하고 삭제할 수 있습니다. 자료 이름은 파일 이름으로 표시됩니다.','يمكن لفريق التنظيم الكوري وHAN.AL إضافة المواد الكورية والعربية وحذفها. يظهر اسم الملف عنوانًا للمادة.'],
+dl_blocked:['이 화면에서는 브라우저가 자동 다운로드를 막았습니다. 아래 버튼을 눌러 직접 저장해 주세요.','منع المتصفح التنزيل التلقائي في هذا العرض. اضغط الزر أدناه لحفظ الملف.'],dl_manual:['파일 저장','حفظ الملف'],dl_newtab:['새 탭에서 열기','فتح في علامة تبويب جديدة'],
+ad_att_d:['칸을 눌러 출석·결석·보강 예정을 기록합니다. 점(•)이 있는 칸에는 메모가 있습니다.','اضغط على أي خانة لتسجيل: حاضر أو غائب أو تعويض مُجدوَل. النقطة (•) تعني وجود ملاحظة.'],
+cert_note:['수료 요건을 충족한 참가자에게 수료증 파일(PDF 또는 이미지)을 올리면, 참가자가 출석 화면에서 내려받을 수 있습니다.','عند رفع ملف الشهادة (PDF أو صورة) للمشارك المستوفي لشرط الإتمام، يمكنه تنزيله من صفحة الحضور.'],
+cert_up:['수료증 올리기','رفع الشهادة'],cert_reup:['다시 올리기','إعادة الرفع'],cert_del:['삭제','حذف'],cert_file:['수료증 파일','ملف الشهادة'],cert_file_h:['PDF · JPG · PNG, 10MB 이하','PDF · JPG · PNG، حتى 10MB'],
+toast_cert:['수료증을 올렸습니다. 참가자가 바로 내려받을 수 있습니다.','تم رفع الشهادة، ويمكن للمشارك تنزيلها الآن.'],toast_cert_undo:['수료증을 삭제했습니다.','تم حذف الشهادة.'],err_cert_file:['PDF 또는 이미지 파일을 선택해 주세요.','اختر ملف PDF أو صورة.'],
+cert_dl:['수료증 내려받기','تنزيل الشهادة'],cert_ready:['수료증이 등록되었습니다.','تمت إضافة شهادتك.'],
+mk_rule_r0:['보강 신청은 1인 1회만 가능합니다. 파트너가 신청한 보강은 내 횟수에 포함되지 않습니다.','يحقّ لكل مشارك تقديم طلب تعويض واحد فقط، ولا يُحتسب طلب شريكك ضمن طلبك.'],
+mk_rule_r5:['인증 사진을 올리기 전이라면 다음 수업 시작 전까지 보강 일정을 수정하거나 취소할 수 있습니다.','قبل رفع صورة الإثبات، يمكن تعديل موعد الحصة التعويضية أو إلغاؤها حتى بدء الحصة التالية.'],
+mk_used:['보강 신청은 1인 1회만 가능하며, 이미 신청한 보강이 있습니다. 인증 사진을 올리기 전이라면 아래에서 일정을 수정하거나 취소할 수 있습니다.','يحقّ لكل مشارك طلب تعويض واحد فقط، ولديك طلب قائم. قبل رفع صورة الإثبات يمكنك تعديل الموعد أو إلغاؤه من الأسفل.'],
+mk_used_done:['신청한 보강의 인증 사진을 제출했기 때문에 더 이상 보강을 신청할 수 없습니다.','أرسلت صورة إثبات الحصة التعويضية التي طلبتها، لذا لا يمكنك تقديم طلب جديد.'],
+mk_cancel:['보강 취소','إلغاء التعويض'],mk_edit:['일정 수정','تعديل الموعد'],mk_cancel_until:['{t}까지 수정·취소 가능','يمكن التعديل أو الإلغاء حتى {t}'],
+mk_cancel_q:['보강 일정을 취소할까요?','هل تريد إلغاء الحصة التعويضية؟'],mk_cancel_d:['취소하면 해당 회차는 미기록 상태로 돌아가고, 파트너 화면에서도 함께 취소됩니다. 취소한 보강은 1인 1회 횟수에 포함되지 않습니다.','عند الإلغاء تعود الحصة إلى حالة "غير مسجّل"، ويُلغى الطلب لدى شريكك أيضًا. ولا يُحتسب الطلب الملغى ضمن الحد المسموح.'],
+toast_cancel_mk:['보강 일정을 취소했습니다.','تم إلغاء الحصة التعويضية.'],err_cancel:['사진을 이미 제출했거나 다음 수업이 시작되어 수정·취소할 수 없습니다.','لا يمكن التعديل أو الإلغاء بعد رفع الصورة أو بعد بدء الحصة التالية.'],
+f_actday:['활동일','تاريخ الحصة'],
+adm_ko:['DARI 한국 운영진','فريق داري في كوريا'],adm_ar:['HAN.AL 운영진','فريق HAN.AL'],
+mk_edit_t:['보강 일정 수정','تعديل موعد الحصة التعويضية'],mk_edit_d:['파트너와 다시 정한 날짜와 시간을 입력해 주세요. 바꾼 일정은 파트너와 운영진 화면에도 함께 반영됩니다.','أدخل التاريخ والوقت الجديدين اللذين اتفقت عليهما مع شريكك. يظهر التعديل لدى شريكك وفريق التنظيم أيضًا.'],
+toast_mk_edit:['보강 일정을 수정했습니다.','تم تعديل موعد الحصة التعويضية.'],
+});
+function t(k,v){const e=S[k];let s=e?e[state.lang==='ar'?1:0]:'['+k+']';if(v)for(const x in v)s=s.split('{'+x+'}').join(v[x]);return s}
+const L=o=>o==null?'':typeof o==='string'?o:(o[state.lang]||o.ko||'');
+const uid=p=>p+Date.now().toString(36).slice(-4)+Math.random().toString(36).slice(2,6);
+const D=s=>new Date(s+'T00:00:00Z');
+const iso=d=>d.toISOString().slice(0,10);
+const addDays=(s,n)=>{const d=D(s);d.setUTCDate(d.getUTCDate()+n);return iso(d)};
+const daysBetween=(a,b)=>Math.round((D(b)-D(a))/864e5);
+const loc=()=>state.lang==='ar'?'ar-DZ-u-nu-latn':'ko-KR';
+function fmtDate(s,opt){if(!s)return'';return new Intl.DateTimeFormat(loc(),Object.assign({timeZone:'UTC',month:'long',day:'numeric',weekday:'short'},opt||{})).format(D(s))}
+const fmtShort=s=>s?s.slice(5).replace('-','.'):'';
+const dayName=(d,style='short')=>new Intl.DateTimeFormat(loc(),{timeZone:'UTC',weekday:style}).format(D(addDays('2026-11-09',d)));
+function dzTime(hhmm){let [h,m]=hhmm.split(':').map(Number);h=(h-KST_DZ+24)%24;return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')}
+const dualS=hhmm=>hhmm?`<span class="tz">${hhmm}</span> ${t('avail_kst')}<br><span class="xs muted" style="font-weight:500"><span class="tz">${dzTime(hhmm)}</span> ${t('avail_dz')}</span>`:'';
+const fmtDT=iso=>`${fmtDate(iso.slice(0,10))} <span class="tz">${iso.slice(11,16)}</span>`;
+const dualRange=tm=>tm?`<span class="tz">${tm}–${endTime(tm)}</span> ${t('avail_kst')} · <span class="tz">${dzTime(tm)}–${dzTime(endTime(tm))}</span> ${t('avail_dz')}`:'';
+const dual=hhmm=>hhmm?`<span class="tz">${hhmm}</span> ${t('avail_kst')} · <span class="tz">${dzTime(hhmm)}</span> ${t('avail_dz')}`:'';
+const fmtSize=b=>b<1024?b+' B':b<1048576?(b/1024).toFixed(0)+' KB':(b/1048576).toFixed(1)+' MB';
+const extOf=n=>(n.split('.').pop()||'').toLowerCase();
+
+const IC={
+insta:'M4 8a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4zM12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM16.8 7.2v.1',ext:'M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5',
+arrow:'M5 12h14M13 6l6 6-6 6',check:'M5 12.5l4.5 4.5L19 7.5',cal:'M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM4 10h16M8 3v4M16 3v4',
+video:'M3 7a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM16 10l5-3v10l-5-3',book:'M4 4h6a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H4zM20 4h-6a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h7z',
+users:'M16 20v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 18.5V20M10 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM20 20v-1.5a3.5 3.5 0 0 0-2.5-3.35M15.5 4.2a3.5 3.5 0 0 1 0 6.6',
+user:'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21a8 8 0 0 1 16 0',bell:'M6 9a6 6 0 1 1 12 0c0 6 2.5 7.5 2.5 7.5h-17S6 15 6 9zM10 20a2 2 0 0 0 4 0',
+shield:'M12 3l8 3v6c0 4.5-3.4 8.1-8 9-4.6-.9-8-4.5-8-9V6zM9 12l2 2 4-4',chart:'M4 20h16M7 16v-4M12 16V8M17 16v-7',
+clock:'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 7v5l3 2',globe:'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z',
+x:'M6 6l12 12M18 6L6 18',menu:'M4 7h16M4 12h16M4 17h16',lock:'M6 11h12v9H6zM8.5 11V8a3.5 3.5 0 0 1 7 0v3',file:'M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M9 13h6M9 17h4',
+plus:'M12 5v14M5 12h14',logout:'M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 16l-4-4 4-4M6 12h10',chat:'M4 5h16v11H9l-5 4z',
+award:'M12 15a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM8.5 14l-1.5 7 5-3 5 3-1.5-7',eye:'M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12zM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z',
+chev:'M9 6l6 6-6 6',link:'M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1',
+grid:'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z',heart:'M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z',copy:'M9 9h11v11H9zM5 15H4V4h11v1',
+info:'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 11v6M12 7.5v.5',download:'M12 4v11M7 10l5 5 5-5M5 20h14',upload:'M12 20V9M7 14l5-5 5 5M5 4h14',alert:'M12 4l9 16H3zM12 10v4M12 17v.5',edit:'M4 20h4L19 9l-4-4L4 16zM14 6l4 4',
+};
+const ic=(n,cls='')=>`<svg class="ic ${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${IC[n]}"/></svg>`;
+const LOGO=`<svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="12" fill="#12584A"/><path d="M7 26.5h26" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".55"/><path d="M8.5 26.5Q20 6 31.5 26.5" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><path d="M14 26.5v-6.6M20 26.5V16.4M26 26.5v-6.6" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity=".8"/><circle cx="20" cy="31.5" r="1.6" fill="#E8875D"/></svg>`;
+
+/* ---------- demo learning materials (real, downloadable text) ---------- */
+const SEED_TEXT={
+r1ko:`[DARI 5기 · 1회차] 자기소개 표현 — 한국어
+(알제리 참가자용 · 한국 운영진 제작)
+
+안녕하세요.            — مرحبا / السلام عليكم
+만나서 반가워요.        — تشرفنا / سعيد بلقائك
+제 이름은 ○○예요.      — اسمي ○○
+저는 알제리에서 왔어요.  — أنا من الجزائر
+저는 대학생이에요.      — أنا طالب جامعي
+전공이 뭐예요?          — ما هو تخصصك؟
+취미가 뭐예요?          — ما هي هواياتك؟
+잘 부탁드려요.          — (تحية بداية التعارف، معناها: أتطلع للتعاون معك)
+
+✔ 연습: 위 표현으로 30초 자기소개를 만들어 보세요.`,
+r1ar:`[داري 5 · الحصة 1] التعارف — العربية
+(للمشاركين الكوريين · إعداد HAN.AL)
+
+الفصحى            | الدارجة الجزائرية   | 한국어
+السلام عليكم       | السلام عليكم        | 안녕하세요
+كيف حالك؟          | واش راك؟            | 잘 지내요?
+أنا بخير           | لاباس / راني مليح    | 잘 지내요
+ما اسمك؟           | واش سميتك؟          | 이름이 뭐예요?
+شكرًا              | صحة / يعطيك الصحة   | 고마워요
+إلى اللقاء          | بسلامة              | 안녕히 가세요
+
+✔ تمرين: قدّم نفسك بالفصحى ثم بالدارجة.`,
+r2ko:`[DARI 5기 · 1회차] 가족 호칭 — 한국어
+
+할아버지 — جد        할머니 — جدة
+아버지 / 아빠 — أب    어머니 / 엄마 — أم
+형 · 오빠 — أخ أكبر (형: 남자가, 오빠: 여자가 부를 때)
+누나 · 언니 — أخت كبرى (누나: 남자가, 언니: 여자가 부를 때)
+동생 — أخ / أخت أصغر
+
+✔ 질문: 한국어에는 왜 말하는 사람에 따라 호칭이 달라질까요?`,
+r2ar:`[داري 5 · الحصة 1] العائلة — العربية
+
+الفصحى   | الدارجة   | 한국어
+أب       | بابا      | 아버지
+أم       | يمّا      | 어머니
+أخ       | خويا      | 형제 (내 형제)
+أخت      | أختي      | 자매 (내 자매)
+جد       | جدّي      | 할아버지
+جدة      | جدّتي / مّاني | 할머니
+
+✔ تمرين: صف عائلتك في ثلاث جمل.`,
+r3ko:`[DARI 5기 · 2회차] 음식 어휘 — 한국어
+
+비빔밥 · 김치 · 떡볶이 · 불고기 · 라면
+맛있어요. — لذيذ
+매워요. — حار
+배고파요. — أنا جائع
+뭐 먹을까요? — ماذا نأكل؟
+한국 음식 중에 뭐 좋아해요? — ما الطعام الكوري الذي تحبه؟`,
+r3ar:`[داري 5 · الحصة 2] المطبخ الجزائري — العربية
+
+كسكس — 쿠스쿠스 (금요일·명절에 가족이 함께 먹는 대표 음식)
+شخشوخة — 셰크슈카 (얇은 빵을 소스에 적셔 먹는 동부 지역 음식)
+شربة — 쇼르바 (라마단 저녁에 자주 먹는 수프)
+مقروط — 막루트 (대추야자를 넣은 과자)
+بنين! — 맛있다! (알제리 방언)
+
+✔ 질문: 한국과 알제리의 '명절 음식'을 비교해 보세요.`,
+r5ko:`[DARI 5기 · 3회차] 한국의 명절 — 한국어
+
+설날 (음력 1월 1일): 세배, 떡국
+추석 (음력 8월 15일): 송편, 차례, 성묘
+명절 인사: "새해 복 많이 받으세요." / "추석 잘 보내세요."`,
+r5ar:`[داري 5 · الحصة 3] الأعياد في الجزائر — العربية
+
+عيد الفطر — 이드 알피트르 (라마단이 끝난 뒤의 명절)
+عيد الأضحى — 이드 알아드하 (희생제)
+1 نوفمبر — 혁명기념일 (1954년 독립전쟁 시작)
+5 جويلية — 독립기념일 (1962년)
+عيد مبارك! — 명절 잘 보내세요!`,
+game2:`[DARI 5기 · 2회차 · 활동 주] 음식 빙고 (게임 자료)
+
+규칙
+1. 5×5 칸에 아래 단어 25개를 자유롭게 채워요.
+2. 번갈아 단어 하나를 상대 언어로 말해요. (예: 김치 → كيمتشي)
+3. 말한 단어 칸을 지우고, 먼저 세 줄을 완성하면 승리!
+
+한국 음식: 비빔밥 · 김치 · 떡볶이 · 불고기 · 라면 · 김밥 · 만두 · 냉면 · 삼겹살 · 호떡 · 잡채 · 송편
+المطبخ الجزائري: كسكس · شخشوخة · شربة · مقروط · بوراك · محاجب · قلب اللوز · رشتة · دولمة · كسرة · حريرة · بغرير · مسمن
+
+✔ 다 끝나면 가장 먹어 보고 싶은 음식을 서로 소개해 보세요.`,
+};
+
+/* ---------- seed ---------- */
+function seed(){
+  const U={hufs:{ko:'한국외국어대학교',ar:'جامعة هانكوك للدراسات الأجنبية'},alg2:{ko:'알제 제2대학교',ar:'جامعة الجزائر 2'},oran:{ko:'오랑 제1대학교',ar:'جامعة وهران 1'},cons:{ko:'콘스탄틴 제1대학교',ar:'جامعة قسنطينة 1'}};
+  const KK={p1:'hayeon_k',p2:'junseo22',p3:'seoyun.p',p4:'minjae_c',p10:'yerin0',p5:'amina.dz',p6:'',p7:'lina_b',p8:'',p9:''};
+  const P=(id,name,side,univ,email,level,variety,goal,interests,avail,intro,lv)=>({id,name,side,univ,email,kakao:KK[id]||'',cohort:5,profile:{goal,interests,intro,...(lv||{})}});
+  const topics=[['talk','자기소개와 일상','التعارف والحياة اليومية'],['act','음식 빙고 · 퀴즈','بينغو ومسابقة الطعام'],['talk','명절과 기념일','الأعياد والمناسبات'],['act','음악 게임과 마무리','ألعاب موسيقية والختام']];
+  const M=(id,round,lang,ko,ar,key,by,createdAt,desc)=>({id,round,lang,title:{ko,ar},desc:desc||'',kind:'text',fileName:`DARI5_R${round}_${lang.toUpperCase()}.txt`,textKey:key,size:new Blob([SEED_TEXT[key]]).size,by,createdAt});
+  return {
+    settings:{cohort:5,zoom:{url:'https://zoom.us/j/00000000005',id:'000 0000 0005',pw:'dari5'}},
+    certs:{},
+    users:[
+      {id:'u-kr',name:'김하연',role:'participant',pid:'p1',lang:'ko'},
+      {id:'u-dz',name:'Amina Benali',role:'participant',pid:'p5',lang:'ar'},
+      {id:'u-ako',name:'DARI 한국 운영진',role:'admin',mlang:'ko',lang:'ko'},
+      {id:'u-aar',name:'HAN.AL 운영진',role:'admin',mlang:'ar',lang:'ar'},
+    ],
+    participants:[
+      P('p1','김하연','KR',U.hufs,'hayeon@example.com',3,'BOTH','culture',['drama','food','travel'],['4-16','4-17','4-18','4-19'],{ko:'아랍 드라마와 음식에 관심이 많아요. 알제리 방언(다르자)도 꼭 배워보고 싶어요!',ar:'أحب الدراما والطعام العربي، وأودّ كثيرًا تعلّم الدارجة الجزائرية!'},{enLevel:2,arLevel:2}),
+      P('p2','이준서','KR',U.hufs,'junseo@example.com',2,'MSA','talk',['sport','game','travel'],['4-17','4-18','4-21'],{ko:'축구와 여행을 좋아합니다. 천천히 말해 주시면 감사해요.',ar:'أحب كرة القدم والسفر. أرجو التحدث ببطء.'},{enLevel:1,arLevel:1}),
+      P('p3','박서윤','KR',U.hufs,'seoyun@example.com',4,'MSA','career',['book','history'],['4-16','4-17','4-18'],{ko:'중동 문학을 공부하고 있어요. 책 이야기를 좋아해요.',ar:'أدرس الأدب العربي وأحب الحديث عن الكتب.'},{enLevel:3,arLevel:3}),
+      P('p4','최민재','KR',U.hufs,'minjae@example.com',2,'DARJA','culture',['food','photo','sport'],['4-18','4-19','4-20'],{ko:'요리하는 걸 좋아하고 알제리 음식이 궁금해요.',ar:'أحب الطبخ وأودّ التعرّف على المطبخ الجزائري.'},{enLevel:2,arLevel:1}),
+      P('p10','정예린','KR',U.hufs,'yerin@example.com',1,'BOTH','talk',['kpop','beauty','drama'],['4-19','4-20'],{ko:'아랍어를 막 시작했어요. 쉬운 표현부터 같이 연습하고 싶어요.',ar:'بدأت تعلّم العربية للتوّ، وأودّ التدرّب على عبارات سهلة.'},{enLevel:2,arLevel:1}),
+      P('p5','Amina Benali','DZ',U.alg2,'amina@example.com',3,'KO','talk',['kpop','drama','food','beauty'],['4-17','4-18','4-19','4-20'],{ko:'케이팝과 한국 드라마로 한국어를 시작했어요. 한국 대학 생활이 궁금해요!',ar:'بدأت تعلّم الكورية من خلال الكيبوب والدراما. أودّ معرفة الحياة الجامعية في كوريا!'},{koLevel:2,enLevel:2}),
+      P('p6','Yacine Haddad','DZ',U.oran,'yacine@example.com',2,'KO','talk',['sport','game'],['4-17','4-18'],{ko:'게임과 축구를 좋아합니다. 한국어 발음을 연습하고 싶어요.',ar:'أحب الألعاب وكرة القدم، وأريد تحسين نطقي بالكورية.'},{koLevel:1,enLevel:2}),
+      P('p7','Lina Boudiaf','DZ',U.cons,'lina@example.com',4,'KO','career',['book','drama'],['4-17','4-18','4-19'],{ko:'번역가가 꿈이에요. 한국 문학을 읽고 있어요.',ar:'حلمي أن أصبح مترجمة، وأقرأ الأدب الكوري.'},{koLevel:3,enLevel:2}),
+      P('p8','Karim Mansouri','DZ',U.alg2,'karim@example.com',3,'KO','culture',['photo','travel','food'],['4-18','4-19','4-20','4-21'],{ko:'사진 찍는 걸 좋아하고 서울에 꼭 가보고 싶어요.',ar:'أحب التصوير وأحلم بزيارة سيول.'},{koLevel:2,enLevel:3}),
+      P('p9','Meriem Saidi','DZ',U.oran,'meriem@example.com',2,'KO','exam',['beauty','kpop'],['4-15','4-16'],{ko:'TOPIK 2급을 준비하고 있어요.',ar:'أستعد لامتحان TOPIK المستوى الثاني.'},{koLevel:1,enLevel:1}),
+    ],
+    pairs:[
+      {id:'m1',kr:'p1',dz:'p5'},
+      {id:'m2',kr:'p2',dz:'p6'},
+      {id:'m3',kr:'p3',dz:'p7'},
+    ],
+    rounds:topics.map((x,i)=>({no:i+1,type:x[0],date:addDays('2026-10-30',7*i),time:'21:00',topic:{ko:x[1],ar:x[2]}})),
+    att:{
+      p1:{1:{s:'P',n:'자기소개, 다르자 인사말 연습'},2:{s:'P',n:''},3:{s:'M',n:''}},
+      p5:{1:{s:'P',n:''},2:{s:'P',n:''},3:{s:'M',n:''}},
+      p2:{1:{s:'P',n:''},2:{s:'M',n:''}},
+      p6:{1:{s:'P',n:'인터넷 연결 문제로 10분 늦게 입장'},2:{s:'M',n:''}},
+      p3:{1:{s:'P',n:'↻ 11.01'},2:{s:'P',n:'음식 빙고 — 3줄 완성!'}},
+      p7:{1:{s:'P',n:'↻ 11.01'},2:{s:'P',n:''}},
+    },
+    makeups:[
+      {id:'mk1',pairId:'m3',round:1,requestedBy:'p7',requestedAt:'2026-10-29T20:10',date:'2026-11-01',time:'20:00',status:'confirmed',photo:{seed:true},submittedAt:'2026-11-01T21:50',review:''},
+      {id:'mk2',pairId:'m1',round:3,requestedBy:'p1',requestedAt:'2026-11-11T19:30',date:'2026-11-14',time:'20:00',status:'scheduled',photo:null,submittedAt:null,review:''},
+      {id:'mk3',pairId:'m2',round:2,requestedBy:'p6',requestedAt:'2026-11-05T12:00',date:'2026-11-11',time:'20:00',status:'submitted',photo:{seed:true},submittedAt:'2026-11-11T22:05',review:''},
+    ],
+    materials:[
+      M('mt1',1,'ko','자기소개 표현 모음','عبارات التعارف بالكورية','r1ko','u-ako','2026-10-24'),
+      M('mt2',1,'ar','표준어 · 방언 인사말 비교','التحية بالفصحى والدارجة','r1ar','u-aar','2026-10-24','الفصحى | الدارجة | 한국어'),
+      M('mt3',1,'ko','가족 호칭 정리','ألقاب العائلة بالكورية','r2ko','u-ako','2026-10-25'),
+      M('mt4',1,'ar','가족 어휘 (표준어 · 방언)','مفردات العائلة','r2ar','u-aar','2026-10-25'),
+      M('mt5',2,'ko','음식 어휘 카드','مفردات الطعام بالكورية','r3ko','u-ako','2026-10-31'),
+      M('mt6',2,'ar','알제리 음식 소개','المطبخ الجزائري','r3ar','u-aar','2026-11-01'),
+      M('mt7',2,'ko','음식 빙고 (게임 자료)','بينغو الطعام (لعبة)','game2','u-ako','2026-11-01','5×5 빙고판 · 한국어/아랍어 음식 단어'),
+      M('mt8',3,'ko','한국의 명절','الأعياد في كوريا','r5ko','u-ako','2026-11-11'),
+      M('mt9',3,'ar','알제리의 명절과 기념일','الأعياد في الجزائر','r5ar','u-aar','2026-11-12'),
+    ],
+  };
+}
+
+/* ---------- persistence ---------- */
+function load(){try{const raw=localStorage.getItem(STORE_KEY);if(raw){const p=JSON.parse(raw);if(p&&p.db){db=p.db;state.lang=p.lang||'ko';state.uid=p.uid||null;return}}}catch(e){}db=seed()}
+function save(){try{if(LIVE){localStorage.setItem('dari-lang',state.lang);return}localStorage.setItem(STORE_KEY,JSON.stringify({db,lang:state.lang,uid:state.uid}))}catch(e){}}
+const fileStore={_db:null,mem:new Map(),
+  open(){return new Promise((res,rej)=>{if(this._db)return res(this._db);try{const r=indexedDB.open('dari-v2-files',1);r.onupgradeneeded=()=>r.result.createObjectStore('files');r.onsuccess=()=>{this._db=r.result;res(this._db)};r.onerror=()=>rej(r.error)}catch(e){rej(e)}})},
+  async put(id,blob){try{const d=await this.open();await new Promise((res,rej)=>{const tx=d.transaction('files','readwrite');tx.objectStore('files').put(blob,id);tx.oncomplete=res;tx.onerror=()=>rej(tx.error)})}catch(e){this.mem.set(id,blob)}},
+  async get(id){if(this.mem.has(id))return this.mem.get(id);try{const d=await this.open();return await new Promise((res,rej)=>{const r=d.transaction('files').objectStore('files').get(id);r.onsuccess=()=>res(r.result||null);r.onerror=()=>rej(r.error)})}catch(e){return null}},
+  async del(id){this.mem.delete(id);try{const d=await this.open();d.transaction('files','readwrite').objectStore('files').delete(id)}catch(e){}},
+  async clear(){this.mem.clear();try{const d=await this.open();d.transaction('files','readwrite').objectStore('files').clear()}catch(e){}},
+};
+
+/* ---------- selectors ---------- */
+const me=()=>db.users.find(u=>u.id===state.uid)||null;
+const role=()=>me()?.role||'guest';
+const part=id=>db.participants.find(p=>p.id===id);
+const pairOf=pid=>db.pairs.find(x=>x.kr===pid||x.dz===pid);
+const partnerOf=pid=>{const pr=pairOf(pid);return pr?part(pr.kr===pid?pr.dz:pr.kr):null};
+const rounds=()=>[...db.rounds].sort((a,b)=>a.no-b.no);
+const totalRounds=()=>db.rounds.length;
+const curRound=()=>{const rs=rounds();return rs.find(r=>r.date>=TODAY_())||rs[rs.length-1]};
+const zoomInfo=()=>db.settings.zoom||{url:'',id:'',pw:''};
+function sessOf(pair,r){return {date:r.date,time:r.time||'21:00',changed:null}}
+const attOf=pid=>db.att[pid]||{};
+// 수료 요건: 정규 활동 4회 모두 참여. 보강은 인증 확인 후 '출석(P)'으로 바뀌어 반영됨. 'M' = 보강 예정(미반영)
+const counted=()=>['P'];
+const required=()=>totalRounds();
+const attCount=pid=>Object.values(attOf(pid)).filter(v=>counted().includes(v.s)).length;
+const mCount=pid=>Object.values(attOf(pid)).filter(v=>v.s==='M').length;
+const eligible=pid=>attCount(pid)>=required();
+function compStatus(pid){if(db.certs&&db.certs[pid])return 'issued';if(eligible(pid))return 'eligible';return 'progress'}
+// 보강
+const mkDeadline=m=>m.date+'T23:59';
+const mkStart=m=>dtOf(m.date,m.time);
+const mkState=m=>(['scheduled','rejected'].includes(m.status)&&NOW_()>mkDeadline(m))?'expired':m.status;
+const pairMakeups=pr=>db.makeups.filter(m=>m.pairId===pr.id);
+function roundWindows(pr){const rs=rounds();return rs.map((r,i)=>{const s=sessOf(pr,r);const start=dtOf(s.date,s.time);const nx=rs[i+1]?sessOf(pr,rs[i+1]):null;return {r,start,deadline:shiftH(start,-3),until:nx?dtOf(nx.date,nx.time):shiftH(start,24*7)}})}
+// 1인 1회: 본인이 신청한 보강 중 취소되지 않은 것이 있으면 추가 신청 불가
+const inPair=(m,pid)=>{const pr=db.pairs.find(x=>x.id===m.pairId);return !!pr&&(pr.kr===pid||pr.dz===pid)};
+// 1인 1회: 본인이 신청한 보강만 셈 (파트너가 신청한 보강은 포함하지 않음)
+const usedRequest=pid=>db.makeups.some(m=>m.requestedBy===pid&&m.status!=='cancelled');
+const photoDone=pid=>db.makeups.some(m=>m.requestedBy===pid&&m.status!=='cancelled'&&!!m.photo);
+// 취소: 신청자 본인 · 사진 제출 전 · 해당 회차 정규 수업 시작 3시간 전까지
+// 수정·취소: 팀원 누구나 · 사진 제출 전 · 다음 회차 수업 시작 전까지
+function cancelDeadline(m){const pr=db.pairs.find(x=>x.id===m.pairId);if(!pr)return '';const w=roundWindows(pr).find(x=>x.r.no===m.round);return w?w.until:''}
+const canCancel=(m,pid)=>inPair(m,pid)&&m.status==='scheduled'&&!m.photo&&NOW_()<cancelDeadline(m);
+function reqOptions(p){const pr=pairOf(p.id);if(!pr)return[];return roundWindows(pr).filter(x=>NOW_()<x.deadline&&!db.makeups.some(m=>m.pairId===pr.id&&m.round===x.r.no&&!['absent','cancelled'].includes(m.status))&&!attOf(p.id)[x.r.no])}
+function sessionsFor(pid){const pr=pairOf(pid);return pr?rounds().map(r=>({r,...sessOf(pr,r)})):[]}
+function nextSess(pid){return sessionsFor(pid).find(s=>s.date>=TODAY_())}
+const lvlS=n=>t('lvs'+n);
+const rtBadge=r=>`<span class="badge ${r.type==='act'?'b-acc':'b-pri'}">${t(r.type==='act'?'rt_act':'rt_talk')}</span>`;
+const sideBadge=s=>`<span class="flag ${s==='DZ'?'dz':''}"><i></i>${t('sideS_'+s)}</span>`;
+const initial=n=>esc((n||'?').trim().charAt(0).toUpperCase());
+const avatar=(p,cls='')=>`<span class="avatar ${p.side==='DZ'?'dz':''} ${cls}">${initial(p.name)}</span>`;
+const attBadge=s=>s?`<span class="badge ${{P:'b-ok',L:'b-ok',A:'b-bad',M:'b-warn'}[s]}">${t('att_'+(s==='L'?'P':s))}</span>`:'';
+const mkBadge=s=>`<span class="badge ${{scheduled:'b-warn',submitted:'b-info',confirmed:'b-ok',rejected:'b-bad',expired:'b-bad',absent:'',cancelled:''}[s]||''}">${t('mk_'+s)}</span>`;
+const learnLabel=p=>t('learn_'+(p.side==='DZ'?'KO':p.profile.variety||'MSA'));
+function matchInfo(a,b){const I=new Set(a.profile.interests),cm=b.profile.interests.filter(x=>I.has(x));return {cm,score:cm.length}}
+// 언어 수준 차이: 학습 언어(아랍어↔한국어) 수준 차이 + 영어 수준 차이. 값이 없으면 최대 차이로 봄
+function levelGap(kr,dz){const d=(a,b)=>(a&&b)?Math.abs(a-b):2;return d(kr.profile.arLevel,dz.profile.koLevel)+d(kr.profile.enLevel,dz.profile.enLevel)}
+function profileScore(p){const pr=p.profile;let s=0;if(L(pr.intro).trim().length>=20)s+=35;if(pr.interests.length>=2)s+=30;if(pr.goal)s+=15;if(LVF(p.side).every(([k])=>pr[k]))s+=20;return Math.min(100,s)}
+const LVF=side=>side==='KR'?[['arLevel','p_ar_level','arl_'],['enLevel','p_en_level','enl_']]:[['koLevel','p_ko_level','kol_'],['enLevel','p_en_level','enl_']];
+const levelText=q=>LVF(q.side).map(([k,lab])=>`${t(lab)} ${q.profile[k]?t('lv3_'+q.profile[k]):'—'}`).join(' · ');
+const _oldLevelText=q=>q.side==='KR'?`${t('p_ar_level')} ${q.profile.arLevel?t('lv3_'+q.profile.arLevel):'—'} · ${t('p_en_level')} ${q.profile.enLevel?t('lv3_'+q.profile.enLevel):'—'}`:`${t('p_ko_level')} ${lvlS(q.profile.level)}`;
+const byLabel=lang=>lang==='ar'?t('by_ar'):t('by_ko');
+
+function seedPhoto(m){const pr=db.pairs.find(x=>x.id===m.pairId);const a=pr?part(pr.kr).name:'',b=pr?part(pr.dz).name:'';
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 380"><rect width="640" height="380" fill="#1B2421"/><rect x="20" y="20" width="290" height="300" rx="14" fill="#12584A"/><rect x="330" y="20" width="290" height="300" rx="14" fill="#C9623A"/><circle cx="165" cy="140" r="50" fill="#E7F1EC"/><circle cx="475" cy="140" r="50" fill="#FBEDE5"/><rect x="105" y="200" width="120" height="80" rx="40" fill="#E7F1EC"/><rect x="415" y="200" width="120" height="80" rx="40" fill="#FBEDE5"/><text x="34" y="306" fill="#fff" font-size="16" font-family="sans-serif">${esc(a)}</text><text x="344" y="306" fill="#fff" font-size="16" font-family="sans-serif">${esc(b)}</text><text x="20" y="358" fill="#9AA6A1" font-size="14" font-family="sans-serif">Zoom · ${m.date} ${m.time} KST · DEMO</text></svg>`}
+/* ---------- toast / modal ---------- */
+function toast(msg,kind){const el=document.createElement('div');el.className='toast';el.innerHTML=ic(kind==='err'?'alert':'check')+esc(msg);$('#toast').appendChild(el);setTimeout(()=>el.remove(),3000)}
+function openModal(html,wide){const m=$('#modal');m.innerHTML=`<div class="m-bg" data-act="closeModal"></div><div class="m-box ${wide?'wide':''}"><button class="icon-btn m-close" data-act="closeModal" aria-label="${t('close')}">${ic('x')}</button>${html}</div>`;m.classList.add('open');document.body.style.overflow='hidden';setTimeout(()=>{if(m.contains(document.activeElement))return;const f=m.querySelector('input:not([type=hidden]),select,textarea,button.acct');f&&f.focus()},30)}
+function closeModal(){const m=$('#modal');m.classList.remove('open');m.innerHTML='';document.body.style.overflow='';if(state._url){URL.revokeObjectURL(state._url);state._url=null}}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+
+/* ---------- downloads (claude.ai capability, with plain-browser fallback) ---------- */
+let dlP=null;
+function getDownloads(){if(dlP)return dlP;dlP=(async()=>{try{if(!window.claude||typeof window.claude.use!=='function')return null;return await Promise.race([window.claude.use('downloads'),new Promise(r=>setTimeout(()=>r(null),5000))])}catch(e){return null}})();return dlP}
+async function saveFile(name,blob){
+  const dl=await getDownloads();
+  if(dl){try{await dl.save({filename:name,data:blob});toast(t('dl_saved'));return}catch(e){if(e&&e.code==='declined')return;if(e&&!['unavailable','not_granted','capability_disabled','capability_removed'].includes(e.code)){toast(t('dl_fail'),'err');return}}}
+  let framed=false;try{framed=window.self!==window.top}catch(e){framed=true}
+  let u='';try{u=URL.createObjectURL(blob)}catch(e){toast(t('dl_fail'),'err');return}
+  if(!framed){try{const a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),60000);toast(t('dl_saved'));return}catch(e){}}
+  // 미리보기 창 등 자동 다운로드가 막힌 환경: 사용자가 직접 누르는 저장 링크 제공
+  state._url=u;openModal(`<h2>${t('mat_download')}</h2><p class="xs muted" dir="ltr" style="text-align:start">${esc(name)}</p><div class="note warn mt">${ic('alert')}<span>${t('dl_blocked')}</span></div><div class="row gap mt"><a class="btn btn-p" href="${u}" download="${esc(name)}">${ic('download')} ${t('dl_manual')}</a><a class="btn btn-o" href="${u}" target="_blank" rel="noopener">${t('dl_newtab')}</a></div>`)
+}
+async function matBlob(m){if(m.kind==='text')return new Blob(['﻿'+SEED_TEXT[m.textKey]],{type:'text/plain;charset=utf-8'});if(m.kind==='file')return await getFile('materials',m.fileId);return null}
+
+/* =========================================================
+   Layout
+   ========================================================= */
+function demoBar(){if(LIVE)return '';return `<div class="demo-bar"><div class="wrap"><b>DEMO</b><span>${t('demo_bar')}</span><button data-act="reset">${t('demo_reset')}</button></div></div>`}
+function header(r){
+  const R=role(),u=me();
+  const items=[['home','nav_home'],['about','nav_about']];
+  if(R==='participant')items.push(['my','nav_my']);
+  if(R==='admin')items.push(['admin','nav_admin']);
+  const sub=u?(R==='admin'?(u.mlang==='ar'?'HAN.AL':t('role_admin')):t('role_participant')):'';
+  const auth=u?`<div class="user-chip"><span class="avatar ${R==='admin'?'ad':u.pid&&part(u.pid)?.side==='DZ'?'dz':''}">${initial(u.name)}</span><span class="meta"><b>${esc(u.name)}</b><small>${sub}</small></span></div><button class="icon-btn" data-act="logout" title="${t('logout')}" aria-label="${t('logout')}">${ic('logout','flip')}</button>`
+    :`<button class="btn btn-p btn-sm" data-act="login">${t('login')}</button>`;
+  return `<header class="hdr"><div class="wrap hdr-in">
+    <a href="#home" class="logo" aria-label="DARI">${LOGO}<span class="logo-t"><strong>DARI</strong><small>${t('brandSub')}</small></span></a>
+    <nav class="nav" id="nav" aria-label="main">${items.map(([k,l])=>`<a href="#${k}" class="${r.base===k?'on':''}">${t(l)}</a>`).join('')}</nav>
+    <div class="hdr-act">
+      <div class="lang" role="group" aria-label="Language"><button class="l-ko ${state.lang==='ko'?'on':''}" data-act="lang" data-l="ko">한국어</button><button class="l-ar ${state.lang==='ar'?'on':''}" data-act="lang" data-l="ar">العربية</button></div>
+      ${auth}<button class="icon-btn burger" data-act="menu" aria-label="${t('menu')}">${ic('menu')}</button>
+    </div></div></header>`;
+}
+function footer(){
+  return `<footer class="foot"><div class="wrap"><div class="foot-g">
+    <div><div class="logo">${LOGO}<span class="logo-t"><strong>DARI</strong><small>다리 · داري</small></span></div><p class="small mt-s" style="max-width:340px">${t('foot_desc')}</p><p class="xs mt-s" style="color:#8D9893">${t('foot_team')}</p></div>
+    <div><h5>${t('foot_partner')}</h5><ul><li>${t('pt1')}</li><li>HAN.AL</li><li>${t('pt3')}</li></ul><h5 class="mt">${t('foot_contact')}</h5><ul><li class="latin">dariexchange@gmail.com</li></ul></div>
+    <div><h5>${t('foot_menu')}</h5><ul><li><a href="#home">${t('nav_home')}</a></li><li><a href="#about">${t('nav_about')}</a></li>${role()==='participant'?`<li><a href="#my">${t('nav_my')}</a></li>`:''}${role()==='admin'?`<li><a href="#admin">${t('nav_admin')}</a></li>`:''}</ul></div>
+  </div><div class="foot-b"><span>${t('foot_copy')}</span><span class="latin">Seoul ⇄ Algiers</span></div></div></footer>`;
+}
+const emptyState=(icon,title,desc,action)=>`<div class="card empty"><div class="feat-ic">${ic(icon)}</div><h3>${title}</h3>${desc?`<p>${desc}</p>`:''}${action||''}</div>`;
+const pageHead=(k,title,sub)=>`<section class="phead-band"><div class="wrap phead">${k?`<span class="kicker">${k}</span>`:''}<h1 class="h2">${title}</h1>${sub?`<p class="lead">${sub}</p>`:''}</div></section>`;
+
+/* =========================================================
+   Home & About
+   ========================================================= */
+function heroArt(){
+  const hang=[[130,155.6],[175,132.7],[220,125],[265,132.7],[310,155.6]];
+  return `<div class="art" aria-hidden="true">
+    <svg class="art-svg" viewBox="0 0 440 380" preserveAspectRatio="xMidYMid meet"><defs><linearGradient id="gb" x1="0" x2="1"><stop offset="0" stop-color="#12584A"/><stop offset="1" stop-color="#C9623A"/></linearGradient></defs>
+      <g transform="translate(0,16)"><path d="M30 210H410" stroke="#D9D0C2" stroke-width="2" stroke-linecap="round"/>
+      ${hang.map(([x,y])=>`<path d="M${x} ${y}V210" stroke="url(#gb)" stroke-width="1.6" opacity=".45"/>`).join('')}
+      <path d="M70 210Q220 40 370 210" fill="none" stroke="url(#gb)" stroke-width="4" stroke-linecap="round"/>
+      <path d="M70 210Q220 72 370 210" fill="none" stroke="url(#gb)" stroke-width="1.4" stroke-dasharray="1 7" stroke-linecap="round" opacity=".7"/>
+      <circle cx="70" cy="210" r="16" fill="#E7F1EC"/><circle cx="70" cy="210" r="7" fill="#12584A"/><circle cx="370" cy="210" r="16" fill="#FBEDE5"/><circle cx="370" cy="210" r="7" fill="#C9623A"/>
+      <circle cx="220" cy="125" r="4" fill="#fff" stroke="#B8913F" stroke-width="2"/></g></svg>
+    <div class="bubble ko">안녕하세요<span class="clk">${ic('clock')}${t('city_seoul')} <b data-clock="Asia/Seoul">${clockFmt('Asia/Seoul')}</b></span></div>
+    <div class="bubble ar">مرحبا<span class="clk">${ic('clock')}${t('city_alg')} <b data-clock="Africa/Algiers">${clockFmt('Africa/Algiers')}</b></span></div>
+    <div class="city" style="left:calc(70/440*100% - 30px);top:calc(250/380*100%);width:60px">서울<small>SEOUL</small></div>
+    <div class="city" style="left:calc(370/440*100% - 40px);top:calc(250/380*100%);width:80px">الجزائر<small>ALGIERS</small></div>
+    <div class="art-card" dir="${state.lang==='ar'?'rtl':'ltr'}"><span class="dot">${ic('cal')}</span><span><b>${t('art_next')}</b><span>${t('art_time')}</span></span></div>
+  </div>`;
+}
+function demoAccounts(){
+  const acc=[['u-kr','user','lg_kr_d',''],['u-dz','user','lg_dz_d','acc'],['u-ako','shield','lg_ako_d','gold'],['u-aar','shield','lg_aar_d','gold']];
+  return acc.map(([id,i,d,c])=>{const u=db.users.find(x=>x.id===id);return `<button class="acct" data-act="demoLogin" data-id="${id}"><span class="feat-ic ${c}" style="margin:0;width:42px;height:42px">${ic(i)}</span><span><b>${esc(u.name)}</b><span>${t(d)}</span></span>${ic('chev','flip')}</button>`}).join('');
+}
+function pHome(){
+  const partners=[['pt1','insta',LINKS.dari,'Instagram',''],['pt2','insta',LINKS.hanal,'Instagram','acc'],['pt3','ext',LINKS.hufs,t('lk_site'),'gold']];
+  return `
+  <section class="hero"><div class="wrap hero-in">
+    <div class="hero-copy">
+      <span class="eyebrow"><i class="dot"></i>${t('hero_eyebrow')}</span>
+      <h1 class="display h1">${t('hero_t1')}<br><em>${t('hero_t2')}</em></h1>
+      <p class="lead">${t('hero_sub')}</p>
+      <div class="row gap"><button class="btn btn-p btn-lg" data-act="goIntro">${t('cta_about')} ${ic('arrow','flip')}</button>${me()?`<a href="#${role()==='admin'?'admin':'my'}" class="btn btn-o btn-lg">${t(role()==='admin'?'nav_admin':'nav_my')}</a>`:`<button class="btn btn-o btn-lg" data-act="login">${LIVE?t('login'):t('cta_login')}</button>`}</div>
+      <div class="benefits-h">${t('ben_t')}</div>
+      <div class="benefits">${[['users','ben1'],['book','ben2'],['award','ben3']].map(([i,k])=>`<div class="bn"><span class="bn-ic">${ic(i)}</span><div><b>${t(k+'_v')}</b><span>${t(k)}</span></div></div>`).join('')}</div>
+    </div>${heroArt()}
+  </div></section>
+
+  <section class="sec" id="intro" style="background:#fff;border-block:1px solid var(--line-2);scroll-margin-top:68px"><div class="wrap">
+    <div class="grid g2" style="align-items:center;gap:48px">
+      <div><span class="kicker">${t('intro_kicker')}</span><h2 class="display" style="font-size:clamp(26px,3.2vw,38px)">${t('ab_title')}</h2><p class="lead mt">${t('ab_lead')}</p></div>
+      <div class="meaning" style="grid-template-columns:1fr">
+        <div class="mean-card"><div class="mean-word ko">다리</div><div class="mean-pron">DA·RI — bridge</div><p class="muted">${t('name_ko_desc')}</p></div>
+        <div class="mean-card"><div class="mean-word ar">داري</div><div class="mean-pron">DĀ·RĪ — my home</div><p class="muted">${t('name_ar_desc')}</p></div>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="sec"><div class="wrap">
+    <div class="sec-head"><span class="kicker">${t('how_kicker')}</span><h2 class="h2">${t('ab_how')}</h2></div>
+    <div class="grid g4">${[['cal','h1',''],['clock','h2','acc'],['chat','h3','gold'],['users','h4','']].map(([i,k,c])=>`<div class="card"><div class="feat-ic ${c}">${ic(i)}</div><h3 class="h3">${t(k)}</h3><p>${t(k+'d')}</p></div>`).join('')}</div>
+  </div></section>
+
+  <section class="sec" style="padding-top:0"><div class="wrap">
+    <div class="sec-head"><span class="kicker">${t('flow_kicker')}</span><h2 class="h2">${t('flow_title')}</h2></div>
+    <div class="flow4">${[1,2,3,4].map(i=>`<div class="step"><div class="step-n">0${i}</div><h4>${t('fs'+i)}</h4><p>${t('fs'+i+'d')}</p></div>`).join('')}</div>
+  </div></section>
+
+  <section class="sec" style="padding-top:0"><div class="wrap"><div class="recruit">
+    <div style="position:relative;z-index:1"><span class="kicker" style="color:#F2B79B">${t('rec_kicker')}</span><h2 class="h2">${t('rec_title')}</h2><p class="mt-s">${t('rec_sub')}</p>
+      <a class="btn btn-w mt" href="${esc(LINKS.dari)}" target="_blank" rel="noopener">${ic('insta')} ${t('rec_insta')}</a></div>
+    <div style="position:relative;z-index:1"><div class="soon"><span class="small" style="color:#BFD4CB">${t('soon_t')}</span>
+      ${['soon1','soon2','soon3'].map(k=>`<div class="soon-i"><span>${t(k)}</span><span class="badge" style="background:rgba(255,255,255,.12);color:#fff">${t('soon_badge')}</span></div>`).join('')}</div></div>
+  </div></div></section>
+
+  <section class="sec" style="background:#fff;border-block:1px solid var(--line-2)"><div class="wrap">
+    <div class="sec-head"><span class="kicker">${t('partners_kicker')}</span><h2 class="h2">${t('partners_title')}</h2></div>
+    <div class="pt-grid">${partners.map(([k,i,url,label,c])=>`<div class="card flat pt-card"><div class="feat-ic ${c}" style="margin:0">${ic(k==='pt3'?'award':k==='pt2'?'globe':'users')}</div><h3 class="h3 ${k==='pt2'?'latin':''}">${t(k)}</h3>${url?`<a class="btn btn-o btn-sm" href="${esc(url)}" target="_blank" rel="noopener">${ic(i)} ${label}</a>`:''}</div>`).join('')}</div>
+  </div></section>
+
+  ${me()||LIVE?'':`<section class="sec"><div class="wrap"><div class="recruit">
+    <div style="position:relative;z-index:1"><span class="kicker" style="color:#F2B79B">${t('demo_kicker')}</span><h2 class="h2">${t('demo_title')}</h2><p class="mt-s">${t('demo_sub')}</p></div>
+    <div class="stack-s" style="position:relative;z-index:1">${demoAccounts()}</div></div></div></section>`}`;
+}
+
+/* =========================================================
+   Participant — My DARI
+   ========================================================= */
+const MY_TABS=[['','my_t_dash','grid'],['match','my_t_match','users'],['schedule','my_t_sched','cal'],['materials','my_t_mat','book'],['attendance','my_t_att','check']];
+function pMy(sub){
+  const R=role();
+  if(R==='guest')return `<section class="sec"><div class="wrap">${emptyState('lock',t('need_login_t'),t('need_login_d'),`<button class="btn btn-p" data-act="login">${t('login')}</button>`)}</div></section>`;
+  if(R==='admin')return `<section class="sec"><div class="wrap">${emptyState('shield',t('my_admin_t'),t('my_admin_d'),`<a href="#admin" class="btn btn-p">${t('nav_admin')}</a>`)}</div></section>`;
+  const p=part(me().pid);
+  const cur=MY_TABS.some(x=>x[0]===sub)?sub:'';
+  const body={'':myDash,match:myMatch,schedule:mySched,materials:myMat,attendance:myAtt}[cur](p);
+  return `<section class="phead-band"><div class="wrap">
+    <div class="dash-head"><div class="row gap">${avatar(p,'lg')}<div><span class="badge ${LIVE?'b-pri':'b-warn'}">${LIVE?t('cohort_n',{n:p.cohort}):t('demo_cohort',{n:p.cohort})}</span><h1 class="h2" style="font-size:28px;margin-top:4px">${t('hello',{name:esc(p.name)})}</h1></div></div></div>
+    <div class="tabs">${MY_TABS.map(([k,l,i])=>`<a href="#my${k?'-'+k:''}" class="${cur===k?'on':''}">${ic(i)}${t(l)}</a>`).join('')}</div>
+  </div></section>
+  <section class="sec-sm" style="padding-top:28px"><div class="wrap">${body}</div></section>`;
+}
+function zoomRows(pr,dark){const z=zoomInfo();
+  return `${z.id?`<div class="zoom-row"><span>${t('zoom_id')}</span><code>${esc(z.id)}</code></div>`:''}
+  ${z.pw?`<div class="zoom-row"><span>${t('zoom_pw')}</span><span class="row gap-s"><code>${state.pwShow?esc(z.pw):'••••••'}</code><button class="btn btn-xs ${dark?'':'btn-o'}" ${dark?'style="color:inherit;border-color:currentColor;opacity:.85"':''} data-act="pw">${state.pwShow?t('hide'):t('show')}</button></span></div>`:''}`;
+}
+function nextCard(p,cls='c5'){
+  const pr=pairOf(p.id),s=nextSess(p.id);
+  if(!pr)return `<div class="card ${cls} next"><h3 class="h3">${t('next_t')}</h3><p class="mt-s">${t('sched_nopair')}</p></div>`;
+  if(!s)return `<div class="card ${cls} next"><h3 class="h3">${t('next_t')}</h3><p class="mt-s">${t('done_all')}</p></div>`;
+  const d=daysBetween(TODAY_(),s.date);
+  return `<div class="card ${cls} next"><span class="dd">${d===0?t('today'):t('d_day',{n:d})}</span><span class="small muted">${t('next_t')} · ${t('round_n',{n:s.r.no})}${s.changed?` · <b style="color:#F2B79B">${t('changed')}</b>`:''}</span>
+    <div class="big">${fmtDate(s.date)}</div><p>${dualRange(s.time)}</p><p class="mt-s" style="color:#fff;font-weight:600">${t(s.r.type==='act'?'rt_act':'rt_talk')} · ${esc(L(s.r.topic))}</p>
+    ${zoomInfo().url?`<div class="mt">${zoomRows(pr,true)}</div>
+    <a href="${esc(zoomInfo().url)}" target="_blank" rel="noopener" class="btn btn-w btn-block mt">${ic('video')} ${t('zoom_join')}</a>
+    ${LIVE?'':`<p class="xs mt-s" style="opacity:.8">${t('zoom_demo')}</p>`}`:`<p class="xs mt" style="opacity:.85">${t('zoom_none')}</p>`}</div>`;
+}
+function partnerMini(p){
+  const q=partnerOf(p.id);
+  if(!q)return `<div class="card c7"><div class="card-head"><h3 class="h3">${ic('users')} ${t('partner_t')}</h3></div><div class="note">${ic('clock')}<span>${t('partner_none')}</span></div><a href="#my-match" class="btn btn-o btn-sm mt">${t('prof_t')}</a></div>`;
+  const mi=matchInfo(p,q);
+  return `<div class="card c7"><div class="card-head"><h3 class="h3">${ic('users')} ${t('partner_t')}</h3><a href="#my-match" class="btn btn-g btn-xs">${t('more')} ${ic('chev','flip')}</a></div>
+    <div class="partner">${avatar(q,'lg')}<div><h4>${esc(q.name)}</h4><span class="muted small">${L(q.univ)} · ${levelText(q)}</span></div></div>
+    <div class="quote">${esc(L(q.profile.intro))}</div>
+    ${mi.cm.length?`<div class="row gap-s mt-s"><span class="xs muted">${t('p_common')}</span><div class="chips">${mi.cm.map(x=>`<span class="chip common">${t('it_'+x)}</span>`).join('')}</div></div>`:''}</div>`;
+}
+function attSummary(p,cls='c6'){
+  const n=attCount(p.id),req=required(),a=attOf(p.id),st=compStatus(p.id),mN=mCount(p.id);
+  const head=st==='issued'?t('st_issued'):st==='eligible'?t('st_eligible'):t('st_progress',{n:req-n});
+  return `<div class="card ${cls}"><div class="card-head"><h3 class="h3">${ic('check')} ${t('att_t')}</h3><a href="#my-attendance" class="btn btn-g btn-xs">${t('more')} ${ic('chev','flip')}</a></div>
+    <div class="cp-box"><div class="ring" style="--v:${Math.min(100,n/req*100)}"><span>${n}/${req}</span></div><div><b>${head}</b><p class="small muted">${t('cp_rule',{n:req})}</p>${mN?`<p class="xs" style="color:var(--warn)">${t('mk_note_m')}</p>`:''}</div></div>
+    ${weeksBar(p)}</div>`;
+}
+function weeksBar(p){const a=attOf(p.id);
+  return `<div class="weeks" style="grid-template-columns:repeat(${totalRounds()},1fr)">${rounds().map(r=>{const v=a[r.no]?.s;return `<span class="wk ${v||''}" title="${v?t('att_'+v):''}">${r.no}</span>`}).join('')}</div>
+    <div class="legend"><span><i style="background:var(--primary)"></i>${t('att_P')}</span><span><i style="background:var(--gold)"></i>${t('att_M')}</span><span><i style="background:var(--bad-50)"></i>${t('att_A')}</span></div>`}
+function myDash(p){
+  const recent=db.materials.filter(m=>daysBetween(m.createdAt,TODAY_())<=7).sort((a,b)=>b.createdAt.localeCompare(a.createdAt)).slice(0,4);
+  return `<div class="dash-grid">${partnerMini(p)}${nextCard(p)}${attSummary(p)}
+    <div class="card c6"><div class="card-head"><h3 class="h3">${ic('book')} ${t('dash_new_mat')}</h3><a href="#my-materials" class="btn btn-g btn-xs">${t('dash_go_mat')} ${ic('chev','flip')}</a></div>
+      ${recent.length?recent.map(m=>`<div class="list-i"><span class="lang-b ${m.lang}">${t('lang_'+m.lang)}</span><span class="grow small" style="font-weight:500">${esc(L(m.title))}</span><span class="wk-tag">${t('round_n',{n:m.round})}</span></div>`).join(''):`<p class="muted small">${t('mat_empty')}</p>`}
+    </div></div>`;
+}
+
+/* ① 매칭 · 프로필 */
+
+function partnerFull(p){
+  const q=partnerOf(p.id),pr=pairOf(p.id);
+  if(!q)return `<div class="card"><div class="card-head"><h3 class="h3">${ic('users')} ${t('partner_t')}</h3></div><div class="note">${ic('clock')}<span>${t('partner_none')}</span></div></div>`;
+  const mi=matchInfo(p,q);
+  const lv=LVF(q.side).map(([k,lab,pre])=>`<div><span>${t(lab)}</span><b>${q.profile[k]?t(pre+q.profile[k]):'—'}</b></div>`).join('');
+  return `<div class="card"><div class="card-head"><h3 class="h3">${ic('users')} ${t('partner_t')}</h3>${sideBadge(q.side)}</div>
+    <div class="partner">${avatar(q,'lg')}<div><h4>${esc(q.name)}</h4><span class="muted small">${L(q.univ)}</span></div></div>
+    <div class="kv2">${lv}<div><span>${t('p_goal')}</span><b>${q.profile.goal?t('goal_'+q.profile.goal):'—'}</b></div></div>
+    <h4 class="small mt" style="margin-bottom:6px">${t('p_intro')}</h4><div class="quote" style="margin-top:0">${esc(L(q.profile.intro))||'—'}</div>
+    <h4 class="small mt" style="margin-bottom:8px">${t('p_interests')}</h4><div class="chips">${q.profile.interests.map(x=>`<span class="chip ${mi.cm.includes(x)?'common':''}">${t('it_'+x)}</span>`).join('')}</div>
+    <p class="xs muted mt row gap-s" style="flex-wrap:nowrap">${ic('shield')}<span>${t('partner_privacy')}</span></p></div>`;
+}
+function profileForm(p){
+  const pf=p.profile;const ints=state.draftInt||pf.interests;
+  const sc=profileScore({side:p.side,profile:{...pf,interests:ints}});
+  const sel=(name,pre,cur)=>`<select class="select" name="${name}" required><option value="" ${cur?'':'selected'} disabled>—</option>${[3,2,1].map(n=>`<option value="${n}" ${cur===n?'selected':''}>${t(pre+n)}</option>`).join('')}</select>`;
+  const levels=LVF(p.side).map(([k,lab,pre])=>`<div class="field"><label>${t(lab)}</label>${sel(k,pre,pf[k])}</div>`).join('')+`<p class="hint full" style="margin-top:-8px">${t('prof_level_kr')}</p>`;
+  return `<form class="card" data-form="profile"><div class="card-head"><h3 class="h3">${ic('user')} ${t('prof_t')}</h3><div class="row gap-s"><span class="xs muted">${t('prof_done')}</span><div class="progress" style="width:120px"><i style="width:${sc}%"></i></div><b class="latin small">${sc}%</b></div></div>
+    <p class="small muted" style="margin-top:-8px;margin-bottom:18px">${ic('lock')} ${t('prof_d')}</p>
+    <div class="form-grid">
+      ${levels}
+      <div class="field full"><label for="pf-kk">${t('p_kakao')}</label><input id="pf-kk" class="input" name="kakao" dir="ltr" value="${esc(p.kakao||'')}" maxlength="40"><span class="hint">${ic('lock')} ${t('p_kakao_h')}</span></div>
+      <div class="field full"><label for="pf-goal">${t('p_goal')}</label><select id="pf-goal" class="select" name="goal">${['talk','exam','culture','career'].map(v=>`<option value="${v}" ${pf.goal===v?'selected':''}>${t('goal_'+v)}</option>`).join('')}</select></div>
+      <div class="field full"><label for="pf-intro">${t('p_intro')}</label><textarea id="pf-intro" class="textarea" name="intro" placeholder="${t('prof_intro_ph')}">${esc(L(pf.intro))}</textarea></div>
+      <div class="field full"><span class="lbl">${t('p_interests')}</span><div class="chips">${INTERESTS.map(x=>`<button type="button" class="chip ${ints.includes(x)?'on':''}" data-act="intToggle" data-k="${x}" aria-pressed="${ints.includes(x)}">${t('it_'+x)}</button>`).join('')}</div></div>
+      <div class="full"><button class="btn btn-p">${t('prof_save')}</button></div>
+    </div></form>`;
+}
+function myMatch(p){return `<div class="grid g2" style="align-items:start">${partnerFull(p)}${profileForm(p)}</div>`}
+
+/* ② 일정 */
+function mySched(p){
+  const pr=pairOf(p.id),a=attOf(p.id),ns=nextSess(p.id);
+  const rows=rounds().map(r=>{const s=pr?sessOf(pr,r):null;const v=a[r.no]?.s;const past=s&&s.date<TODAY_();
+    const st=v?attBadge(v):s&&ns&&s.date===ns.date?`<span class="badge b-pri">${t('next_t')}</span>`:past?`<span class="badge">${t('st_unrec')}</span>`:`<span class="badge">${t('st_up')}</span>`;
+    return `<tr${s&&ns&&s.date===ns.date?' style="background:var(--primary-50)"':''}><td><span class="wk-tag">${t('round_n',{n:r.no})}</span></td><td style="white-space:nowrap">${fmtDate(r.date)}</td><td class="small" style="white-space:nowrap">${dualRange(r.time||'21:00')}</td><td>${rtBadge(r)} ${esc(L(r.topic))}</td><td>${st}</td></tr>`}).join('');
+  return `<div class="dash-grid"><div class="c8">
+      <div class="card-head"><h3 class="h3">${ic('cal')} ${t('sched_t')}</h3></div>
+      <div class="note pri" style="margin-bottom:16px">${ic('lock')}<span>${pr?t('sched_fixed'):t('sched_nopair')}</span></div>
+      <div class="tbl-wrap"><table><thead><tr><th>${t('col_round')}</th><th>${t('col_date')}</th><th>${t('col_time')}</th><th>${t('col_topic')}</th><th>${t('col_status')}</th></tr></thead><tbody>${rows}</tbody></table></div>
+    </div>
+    <div class="c4">${pr?`<div class="card"><h3 class="h3">${ic('video')} ${t('zoom_t')}</h3>${zoomInfo().url?`<div class="mt-s">${zoomRows(pr)}</div>
+      <a href="${esc(zoomInfo().url)}" target="_blank" rel="noopener" class="btn btn-p btn-block mt">${t('zoom_join')}</a><button class="btn btn-o btn-block mt-s" data-act="copyZoom">${ic('copy')} ${t('copy')}</button>${LIVE?'':`<p class="xs muted mt-s">${t('zoom_demo')}</p>`}`:`<div class="note mt-s">${ic('info')}<span>${t('zoom_none')}</span></div>`}</div>`:''}</div></div>`;
+}
+
+/* ③ 학습자료실 */
+function matItem(m,admin){
+  const isNew=daysBetween(m.createdAt,TODAY_())<=7;
+  const mine=admin;
+  const canPrev=m.kind==='text'||(m.kind==='file'&&/^(image\/|text\/)/.test(m.mime||''))||(m.kind==='file'&&['txt','md','csv','png','jpg','jpeg','webp'].includes(extOf(m.fileName||'')));
+  const fileMeta=m.kind==='link'?`<span>${ic('link')}</span><span dir="ltr">${esc(m.url)}</span>`:`<span dir="ltr">${esc(m.fileName)}</span><span>· ${fmtSize(m.size||0)}</span>`;
+  return `<div class="mat-i"><span class="feat-ic ${m.lang==='ar'?'acc':''}" style="width:42px;height:42px;margin:0;border-radius:12px">${ic(m.kind==='link'?'link':'file')}</span>
+    <div class="meta"><div class="row gap-s"><span class="lang-b ${m.lang}">${t('lang_'+m.lang)}</span><b style="display:inline;overflow-wrap:anywhere">${esc(L(m.title))}</b>${isNew?`<span class="new-b">${t('mat_new')}</span>`:''}</div>${m.desc?`<p>${esc(m.desc)}</p>`:''}<div class="fm">${fileMeta}<span>· ${byLabel(m.lang)} · ${fmtShort(m.createdAt)}</span></div></div>
+    <div class="mat-actions">${m.kind==='link'?`<a class="btn btn-o btn-sm" href="${esc(m.url)}" target="_blank" rel="noopener">${ic('link')} ${t('mat_link')}</a>`:`${canPrev?`<button class="btn btn-o btn-sm" data-act="matPreview" data-id="${m.id}">${ic('eye')} ${t('mat_preview')}</button>`:''}<button class="btn btn-p btn-sm" data-act="matDownload" data-id="${m.id}">${ic('download')} ${t('mat_download')}</button>`}
+    ${admin?(mine?`<button class="btn btn-d btn-sm" data-act="matDelete" data-id="${m.id}">${t('del')}</button>`:`<span class="badge" title="${t('mat_locked')}">${ic('lock')}</span>`):''}</div></div>`;
+}
+function matFilters(){
+  return `<div class="row gap between" style="margin-bottom:16px">
+    <div class="seg">${['all',...rounds().map(r=>r.no)].map(v=>`<button class="${String(state.matR)===String(v)?'on':''}" data-act="matR" data-v="${v}">${v==='all'?t('mat_all_r'):t('round_n',{n:v})}</button>`).join('')}</div>
+    <div class="seg">${['all','ko','ar'].map(v=>`<button class="${state.matL===v?'on':''}" data-act="matL" data-v="${v}">${v==='all'?t('mat_all_l'):t('lang_'+v)}</button>`).join('')}</div></div>`;
+}
+function matList(admin){
+  const ms=db.materials.filter(m=>(state.matR==='all'||m.round===+state.matR)&&(state.matL==='all'||m.lang===state.matL)).sort((a,b)=>a.round-b.round||a.lang.localeCompare(b.lang));
+  if(!ms.length)return `<div class="card empty"><p>${t('mat_empty')}</p></div>`;
+  const groups=[...new Set(ms.map(m=>m.round))];
+  return groups.map(g=>{const r=db.rounds.find(x=>x.no===g);return `<div class="card card-s" style="margin-bottom:14px"><div class="row gap-s"><span class="wk-tag">${t('round_n',{n:g})}</span><b>${r?esc(L(r.topic)):''}</b></div><div class="mt-s">${ms.filter(m=>m.round===g).map(m=>matItem(m,admin)).join('')}</div></div>`}).join('');
+}
+function myMat(){
+  return `<div class="card-head"><h3 class="h3">${ic('book')} ${t('mat_t')}</h3></div>
+  <div class="grid g2" style="margin-bottom:18px"><div class="note pri">${ic('book')}<span><b>${t('lang_ko')}</b> — ${t('mat_ko_for')} · ${t('by_ko')}</span></div><div class="note acc">${ic('book')}<span><b>${t('lang_ar')}</b> — ${t('mat_ar_for')} · HAN.AL</span></div></div>
+  ${matFilters()}${matList(false)}`;
+}
+
+/* ④ 출석 + ⑤ 보강 (participant) */
+function myAtt(p){
+  const a=attOf(p.id),pr=pairOf(p.id);
+  const n=attCount(p.id),req=required(),st=compStatus(p.id),mN=mCount(p.id);
+  const head=st==='issued'?t('st_issued'):st==='eligible'?t('st_eligible'):t('st_progress',{n:req-n});
+  const rows=rounds().map(r=>{const s=pr?sessOf(pr,r):null;const v=a[r.no];const past=s&&s.date<TODAY_();
+    return `<div class="list-i" style="align-items:flex-start"><span class="wk-tag">${t('round_n',{n:r.no})}</span><div class="grow small"><b>${esc(L(r.topic))}</b><span class="muted"> · ${fmtDate(r.date)}</span>${v&&v.n?`<p class="xs muted" style="margin-top:2px">${t('act_note')}: ${esc(v.n)}</p>`:''}</div>${v?attBadge(v.s):`<span class="badge">${past?t('st_unrec'):t('st_up')}</span>`}</div>`}).join('');
+  const hist=pr?pairMakeups(pr).sort((x,y)=>y.requestedAt.localeCompare(x.requestedAt)):[];
+  return `<div class="dash-grid">
+    <div class="card c7"><h3 class="h3" style="margin-bottom:6px">${ic('check')} ${t('att_t')}</h3><div class="list">${rows}</div>
+      <div class="cp-block"><div class="row between gap-s"><b>${ic('award')} ${t('cp_progress')}</b><span class="badge ${st==='progress'?'':'b-ok'}">${head}</span></div>
+        <div class="cp-steps">${rounds().map(r=>{const v=a[r.no]?.s;return `<div class="cp-step ${counted().includes(v)?'ok':v==='M'?'m':v==='A'?'a':''}"><i>${counted().includes(v)?ic('check'):r.no}</i><span>${t('round_n',{n:r.no})}</span></div>`}).join('')}</div>
+        <div class="row between xs muted"><span>${t('cp_rule',{n:req})}</span><b class="latin" style="color:var(--ink)">${n}/${req}</b></div>
+        ${mN?`<div class="note warn mt-s">${ic('clock')}<span>${t('mk_note_m')}</span></div>`:''}
+        ${st==='issued'?`<p class="small mt-s" style="color:var(--primary)">${ic('award')} ${t('cp_issued_on',{d:fmtDate(db.certs[p.id].date,{year:'numeric',weekday:undefined})})}</p>${db.certs[p.id].fileId?`<button class="btn btn-p btn-sm mt-s" data-act="certDl" data-p="${p.id}">${ic('download')} ${t('cert_dl')}</button>`:''}`:''}
+        <p class="xs muted mt-s">${t('cp_cert')}</p></div>
+    </div>
+    <div class="c5 stack">
+      <div class="card">${mkReqCard(p)}</div>
+      <div class="card">${mkSubCard(p)}</div>
+      <div class="card"><h3 class="h3" style="margin-bottom:4px">${ic('clock')} ${t('mk_hist')}</h3><div class="list">${hist.length?hist.map(m=>mkHistItem(m)).join(''):`<p class="muted small">${t('mk_empty')}</p>`}</div></div>
+    </div></div>`;
+}
+function mkReqCard(p){
+  const pr=pairOf(p.id);
+  const rules=`<ul class="rules">${['r0','r1','r2','r3','r4','r5'].map(k=>`<li>${ic('check')}<span>${t('mk_rule_'+k)}</span></li>`).join('')}</ul>`;
+  const head=`<h3 class="h3">${ic('plus')} ${t('mk_req_t')}</h3>${rules}`;
+  if(!pr)return head+`<div class="note">${ic('info')}<span>${t('sched_nopair')}</span></div>`;
+  if(photoDone(p.id))return head+`<div class="note warn">${ic('info')}<span>${t('mk_used_done')}</span></div>`;
+  if(usedRequest(p.id))return head+`<div class="note warn">${ic('info')}<span>${t('mk_used')}</span></div>`;
+  const opts=reqOptions(p);
+  if(!opts.length)return head+`<div class="note">${ic('info')}<span>${t('mk_req_none')}</span></div>`;
+  const o=opts.find(x=>x.r.no===+state.reqR)||opts[0];
+  return head+`<form data-form="mkreq" class="stack-s mt">
+    <div class="field"><label for="rq-r">${t('mk_req_round')}</label><select id="rq-r" class="select" name="round" data-chg="reqR">${opts.map(x=>`<option value="${x.r.no}" ${x.r.no===o.r.no?'selected':''}>${t('round_n',{n:x.r.no})} · ${fmtDate(x.start.slice(0,10))} ${x.start.slice(11)} · ${t('mk_req_until',{t:x.deadline.slice(11)})}</option>`).join('')}</select></div>
+    <div class="form-grid"><div class="field"><label for="rq-d">${t('mk_req_date')}</label><input id="rq-d" class="input" type="date" name="date" min="${NOW_().slice(0,10)}" max="${o.until.slice(0,10)}" required></div>
+    <div class="field"><label for="rq-t">${t('mk_req_time')}</label><input id="rq-t" class="input" type="time" name="time" required></div></div>
+    <p class="xs muted">${ic('info')} ${t('mk_req_window',{t:fmtDT(o.until)})}</p>
+    <label class="check"><input type="checkbox" name="agree" required>${t('mk_req_agree')}</label>
+    <div class="form-err" id="rq-err"></div>
+    <button class="btn btn-p">${t('mk_req_btn')}</button>
+    ${LIVE?'':`<p class="xs muted">${t('demo_now',{t:fmtDT(NOW_())})}</p>`}</form>`;
+}
+function mkSubCard(p){
+  const pr=pairOf(p.id);
+  const list=pr?pairMakeups(pr).filter(m=>['scheduled','rejected'].includes(mkState(m))):[];
+  const head=`<h3 class="h3">${ic('upload')} ${t('mk_sub_t')}</h3><p class="small muted" style="margin-bottom:12px">${t('mk_sub_d')}</p>`;
+  if(!list.length)return head+`<div class="note">${ic('info')}<span>${t('mk_sub_none')}</span></div>`;
+  return head+list.map(m=>`<div class="mk-sub"><div class="row between gap-s"><span><span class="wk-tag">${t('round_n',{n:m.round})}</span> <b class="small">${fmtDT(mkStart(m))}</b></span>${mkBadge(mkState(m))}</div>
+    <p class="xs muted" style="margin-top:4px">${t('mk_deadline',{t:fmtDT(mkDeadline(m))})}</p>
+    ${m.status==='rejected'&&m.review?`<p class="xs" style="margin-top:6px"><b>${t('mk_review')}:</b> ${esc(m.review)} · ${t('mk_resub')}</p>`:''}
+    ${NOW_()<mkStart(m)?`<div class="note mt-s">${ic('clock')}<span>${t('mk_sub_wait')}</span></div>`:`<form data-form="mksub" data-id="${m.id}" class="stack-s mt-s">
+      <div class="file-drop">${ic('upload')} <b>${t('mk_photo')}</b><input type="file" name="photo" accept="image/png,image/jpeg,image/webp" required><span class="hint" style="display:block;margin-top:6px">${t('mk_photo_h')}</span></div>
+      <div class="form-err" id="sub-err-${m.id}"></div><button class="btn btn-p btn-sm">${t('mk_sub_btn')}</button></form>`}</div>`).join('');
+}
+function mkHistItem(m){const by=part(m.requestedBy);const me_=me()?.pid;const cc=me_&&canCancel(m,me_);
+  return `<div class="list-i" style="align-items:flex-start"><span class="wk-tag">${t('round_n',{n:m.round})}</span><div class="grow small"><b>${fmtDT(mkStart(m))}</b><p class="xs muted">${t('mk_by',{name:esc(by?.name||'')})}</p>${m.review?`<p class="xs" style="margin-top:4px"><b>${t('mk_review')}:</b> ${esc(m.review)}</p>`:''}${m.photo?`<button class="btn btn-g btn-xs" style="margin-inline-start:-10px" data-act="evView" data-id="${m.id}">${ic('eye')} ${t('mk_photo_view')}</button>`:''}${cc?`<div class="row gap-s mt-s"><button class="btn btn-o btn-xs" data-act="mkEdit" data-id="${m.id}">${t('mk_edit')}</button><button class="btn btn-d btn-xs" data-act="mkCancel" data-id="${m.id}">${t('mk_cancel')}</button><span class="xs muted">${t('mk_cancel_until',{t:fmtDT(cancelDeadline(m))})}</span></div>`:''}</div>${mkBadge(mkState(m))}</div>`}
+
+
+/* =========================================================
+   Admin
+   ========================================================= */
+const AD_TABS=[['overview','ad_t_overview','grid'],['match','ad_t_match','users'],['schedule','ad_t_sched','cal'],['materials','ad_t_mat','book'],['attendance','ad_t_att','check'],['makeups','ad_t_mk','clock']];
+function pAdmin(sub){
+  if(role()!=='admin')return `<section class="sec"><div class="wrap">${emptyState('lock',t('ad_forbidden_t'),t('ad_forbidden_d'),me()?'':`<button class="btn btn-p" data-act="login">${t('login')}</button>`)}</div></section>`;
+  const cur=AD_TABS.some(x=>x[0]===sub)?sub:'overview';
+  const cnt={match:db.participants.filter(p=>!pairOf(p.id)).length,makeups:db.makeups.filter(m=>['submitted','expired'].includes(mkState(m))).length};
+  const side=AD_TABS.map(([k,l,i])=>`<a href="#admin${k==='overview'?'':'-'+k}" class="${cur===k?'on':''}">${ic(i)} ${t(l)}${cnt[k]?`<span class="cnt">${cnt[k]}</span>`:''}</a>`).join('');
+  const body={overview:adOverview,match:adMatch,schedule:adSched,materials:adMat,attendance:adAtt,makeups:adMk}[cur]();
+  const u=me();
+  return `<div class="wrap admin"><aside class="side"><div class="side-h">${u.mlang==='ar'?'HAN.AL':'DARI'}</div>${side}</aside><div>
+    <div style="margin-bottom:22px"><span class="badge b-ink">${t(u.mlang==='ar'?'adm_ar':'adm_ko')}</span><h1 class="h2" style="font-size:26px;margin-top:6px">${t(AD_TABS.find(x=>x[0]===cur)[1])}</h1><p class="small muted"><span class="badge ${LIVE?'b-pri':'b-warn'}">${LIVE?t('cohort_n',{n:db.settings.cohort}):t('demo_cohort',{n:db.settings.cohort})}</span>${curRound()?' · '+t('ad_sub',{r:curRound().no}):''}</p></div>
+    ${body}</div></div>`;
+}
+function pastSessions(){const out=[];db.pairs.forEach(pr=>rounds().forEach(r=>{const s=sessOf(pr,r);if(s.date<TODAY_())out.push({pr,r,s})}));return out}
+function adOverview(){
+  const matched=db.participants.filter(p=>pairOf(p.id));
+  const past=pastSessions();
+  const unrec=past.reduce((n,x)=>n+[x.pr.kr,x.pr.dz].filter(pid=>!attOf(pid)[x.r.no]).length,0);
+  const totalPast=past.length*2;const attended=past.reduce((n,x)=>n+[x.pr.kr,x.pr.dz].filter(pid=>counted().includes(attOf(pid)[x.r.no]?.s)).length,0);
+  const avg=totalPast?Math.round(attended/totalPast*100):0;
+  const pend=db.makeups.filter(m=>mkState(m)==='submitted').length,exp=db.makeups.filter(m=>mkState(m)==='expired').length,unm=db.participants.filter(p=>!pairOf(p.id)).length;
+  const todos=[[unm,'todo_match','match','users'],[pend,'todo_mk','makeups','clock'],[exp,'todo_mk_exp','makeups','alert'],[unrec,'todo_att','attendance','check'],[db.participants.filter(p=>compStatus(p.id)==='eligible').length,'todo_cert','attendance','award']].filter(x=>x[0]>0);
+  const byRound=rounds().map(r=>{const ps=past.filter(x=>x.r.no===r.no);const n=ps.length*2;const a=ps.reduce((c,x)=>c+[x.pr.kr,x.pr.dz].filter(pid=>counted().includes(attOf(pid)[r.no]?.s)).length,0);return [r.no,n?Math.round(a/n*100):null]});
+  const newReq=db.makeups.filter(m=>mkState(m)==='scheduled').sort((a,b)=>b.requestedAt.localeCompare(a.requestedAt));
+  const recentMat=[...db.materials].sort((a,b)=>b.createdAt.localeCompare(a.createdAt)).slice(0,4);
+  return `<div class="grid g4">${[[db.participants.length,'k_parts','match'],[avg+'%','k_att','attendance'],[newReq.length,'k_mk_req','makeups'],[pend,'k_mk','makeups']].map(([v,k,h])=>`<a class="kpi" href="#admin-${h}" style="text-decoration:none;color:inherit"><span>${t(k)}</span><b>${v}</b></a>`).join('')}</div>
+  <div class="dash-grid mt">
+    <div class="card c7"><div class="card-head"><h3 class="h3">${ic('chart')} ${t('ad_round_att')}</h3></div>
+      <div class="vbars" dir="ltr">${byRound.map(([w,v])=>`<div class="vbar"><b>${v==null?'':v+'%'}</b><i style="height:${v||0}%;${v==null?'background:var(--bg-2);min-height:6px':''}"></i><span>R${w}</span></div>`).join('')}</div></div>
+    <div class="card c5"><div class="card-head"><h3 class="h3">${ic('bell')} ${t('ad_todo')}</h3></div><div class="todo">${todos.length?todos.map(([n,k,h,i])=>`<a href="#admin-${h}">${ic(i)}<span>${t(k,{n})}</span>${ic('chev','flip')}</a>`).join(''):`<p class="muted small">${t('todo_none')}</p>`}</div></div>
+    <div class="card c6"><div class="card-head"><h3 class="h3">${ic('clock')} ${t('ad_mk_upcoming')}</h3><a href="#admin-makeups" class="btn btn-g btn-xs">${t('more')} ${ic('chev','flip')}</a></div>${newReq.slice(0,4).map(m=>{const pr=db.pairs.find(x=>x.id===m.pairId);return `<div class="list-i"><span class="wk-tag">${t('round_n',{n:m.round})}</span><div class="grow small"><b>${pr?pairName(pr):'—'}</b><br><span class="xs muted">${fmtDT(mkStart(m))} · ${t('mk_by',{name:esc(part(m.requestedBy)?.name||'')})}</span></div>${mkBadge('scheduled')}</div>`}).join('')||`<p class="muted small">${t('ad_mk_upcoming_none')}</p>`}</div>
+    <div class="card c6"><div class="card-head"><h3 class="h3">${ic('book')} ${t('ad_recent_mat')}</h3><a href="#admin-materials" class="btn btn-g btn-xs">${t('more')} ${ic('chev','flip')}</a></div>${recentMat.map(m=>`<div class="list-i"><span class="lang-b ${m.lang}">${t('lang_'+m.lang)}</span><span class="grow small" style="font-weight:500;overflow-wrap:anywhere">${esc(L(m.title))}</span><span class="wk-tag">${t('round_n',{n:m.round})}</span><span class="mono">${fmtShort(m.createdAt)}</span></div>`).join('')}</div>
+  </div>`;
+}
+const pairName=pr=>`${esc(part(pr.kr).name)} · ${esc(part(pr.dz).name)}`;
+
+/* ① admin matching */
+function adMatch(){
+  const un=s=>db.participants.filter(p=>p.side===s&&!pairOf(p.id));
+  const kr=state.selKR&&part(state.selKR);
+  const krList=un('KR').map(p=>`<label><input type="radio" name="selKR" value="${p.id}" ${state.selKR===p.id?'checked':''} data-chg="selKR">${avatar(p)}<span><b>${esc(p.name)}</b><span class="sc"><span class="badge">${levelText(p)}</span></span></span><button type="button" class="btn btn-g btn-xs" data-act="viewProf" data-id="${p.id}">${t('ad_prof')}</button></label>`).join('');
+  let cand='';
+  if(!kr)cand=`<div class="note">${ic('info')}<span>${t('ad_pick_kr')}</span></div>`;
+  else{
+    const list=un('DZ').map(q=>({q,mi:matchInfo(kr,q),gap:levelGap(kr,q)})).sort((a,b)=>a.gap-b.gap||b.mi.score-a.mi.score);
+    cand=list.length?`<div class="cand">${list.map(({q,mi,gap})=>`<label><input type="radio" name="selDZ" value="${q.id}" ${state.selDZ===q.id?'checked':''} data-chg="selDZ">${avatar(q)}<span><b>${esc(q.name)}</b> <span class="xs muted">${L(q.univ)}</span><span class="sc"><span class="badge ${gap===0?'b-ok':''}">${gap===0?t('lv_same'):t('lv_gap',{n:gap})}</span><span class="badge">${levelText(q)}</span>${mi.cm.map(x=>`<span class="chip common" style="padding:1px 8px;font-size:12px">${t('it_'+x)}</span>`).join('')}</span></span><span class="row gap-s"><span class="score" title="score">${mi.score}</span><button type="button" class="btn btn-g btn-xs" data-act="viewProf" data-id="${q.id}">${t('ad_prof')}</button></span></label>`).join('')}</div>`:`<p class="muted small">${t('ad_none')}</p>`;
+  }
+  let fix='';
+  const dz=state.selDZ&&part(state.selDZ);
+  if(kr&&dz&&!pairOf(dz.id)){
+    fix=`<form class="card mt" data-form="match" style="border-color:var(--primary)"><div class="card-head"><h3 class="h3">${ic('link')} ${esc(kr.name)} ↔ ${esc(dz.name)}</h3></div>
+      <div class="kv2" style="margin-top:0"><div><span>${esc(kr.name)}</span><b>${levelText(kr)}</b></div><div><span>${esc(dz.name)}</span><b>${levelText(dz)}</b></div></div>
+      <div class="mt"><button class="btn btn-p">${ic('check')} ${t('ad_fix')}</button></div></form>`}
+  const pairs=db.pairs.map(pr=>{const k=part(pr.kr),d=part(pr.dz);return `<tr><td><div class="cell-name">${avatar(k)}${esc(k.name)}</div></td><td class="muted">${ic('link')}</td><td><div class="cell-name">${avatar(d)}${esc(d.name)}</div></td><td><button class="btn btn-d btn-xs" data-act="unmatch" data-id="${pr.id}">${t('ad_unmatch')}</button></td></tr>`}).join('');
+  const all=db.participants.map(p=>{const q=partnerOf(p.id);return `<tr><td><div class="cell-name">${avatar(p)}${esc(p.name)}</div></td><td>${sideBadge(p.side)}</td><td class="small" style="min-width:96px">${L(p.univ)}</td><td class="small" style="white-space:nowrap">${levelText(p).split(' · ').join('<br>')}</td><td class="small">${q?esc(q.name):`<span class="badge b-warn">${t('ad_none')}</span>`}</td><td class="mono" dir="ltr" style="text-align:start;font-size:12.5px">${esc(p.email)}<br><span class="muted">${p.kakao?'K · '+esc(p.kakao):'K · —'}</span></td><td><button class="btn btn-o btn-xs" data-act="viewProf" data-id="${p.id}">${t('ad_prof')}</button></td></tr>`}).join('');
+  return `<div class="note pri" style="margin-bottom:16px">${ic('shield')}<span>${t('ad_match_d')}</span></div>
+  <div class="grid match-g" style="align-items:start">
+    <div class="card"><h3 class="h3" style="margin-bottom:12px">${sideBadge('KR')} <span class="small muted" style="font-weight:500">${t('ad_unmatched_kr')}</span></h3><div class="cand">${krList||`<p class="muted small">${t('ad_none')}</p>`}</div></div>
+    <div><div class="card"><h3 class="h3" style="margin-bottom:12px">${sideBadge('DZ')} <span class="small muted" style="font-weight:500">${t('ad_cand')}</span></h3>${cand}</div>${fix}</div>
+  </div>
+  <h3 class="h3 mt-l" style="margin-bottom:12px">${t('ad_pairs')} <span class="badge">${db.pairs.length}</span></h3>
+  <div class="tbl-wrap"><table><thead><tr><th>${t('sideS_KR')}</th><th></th><th>${t('sideS_DZ')}</th><th></th></tr></thead><tbody>${pairs||`<tr><td colspan="4" class="center muted">${t('ad_none')}</td></tr>`}</tbody></table></div>
+  <h3 class="h3 mt-l" style="margin-bottom:12px">${t('ad_all_parts')}</h3>
+  <form class="card card-s" data-form="addPart" style="margin-bottom:14px"><b class="small">${ic('plus')} ${t('ad_add_part')}</b><p class="xs muted">${t('ad_add_part_h')}</p>
+    <div class="row gap mt-s" style="align-items:flex-end"><div class="field grow"><label>${t('col_name')}</label><input class="input" name="name" required></div><div class="field grow"><label>${t('col_email')}</label><input class="input" type="email" name="email" dir="ltr" required></div>
+    <div class="field"><label>${t('col_side')}</label><select class="select" name="side"><option value="KR">${t('sideS_KR')}</option><option value="DZ">${t('sideS_DZ')}</option></select></div><div class="field grow"><label>${t('col_univ')}</label><input class="input" name="univ"></div><div class="field grow"><label>${t('col_kakao')}</label><input class="input" name="kakao" dir="ltr"></div><button class="btn btn-p btn-sm" style="margin-bottom:6px">${t('add')}</button></div></form>
+  <div class="note" style="margin-bottom:12px">${ic('shield')}<span class="xs">${t('privacy_admin')}</span></div>
+  <div class="tbl-wrap"><table><thead><tr><th>${t('col_name')}</th><th>${t('col_side')}</th><th>${t('col_univ')}</th><th>${t('col_level')}</th><th>${t('col_partner')}</th><th>${t('col_email')}<br><span style="font-weight:400">${t('col_kakao')}</span></th><th></th></tr></thead><tbody>${all}</tbody></table></div>`;
+}
+function profModal(p){
+  const pf=p.profile;
+  const lvForm=LVF(p.side).map(([k,lab,pre])=>`<div class="field grow"><label>${t(lab)}</label><select class="select" name="${k}">${[3,2,1].map(n=>`<option value="${n}" ${pf[k]===n?'selected':''}>${t(pre+n)}</option>`).join('')}</select></div>`).join('');
+  return `<div class="partner">${avatar(p,'lg')}<div><h2 style="margin:0">${esc(p.name)}</h2><span class="small muted">${L(p.univ)} · <span dir="ltr">${esc(p.email)}</span>${p.kakao?` · ${t('col_kakao')} <span dir="ltr">${esc(p.kakao)}</span>`:''}</span></div></div>
+    <div class="kv2"><div><span>${t('p_side')}</span><b>${t('sideS_'+p.side)}</b></div><div><span>${t('p_goal')}</span><b>${pf.goal?t('goal_'+pf.goal):'—'}</b></div></div>
+    <div class="quote">${esc(L(pf.intro))||'—'}</div>
+    <div class="chips mt-s">${pf.interests.map(x=>`<span class="chip">${t('it_'+x)}</span>`).join('')}</div>
+    <form data-form="setLevel" data-id="${p.id}" class="row gap mt" style="align-items:flex-end">${lvForm}<div class="field grow"><label>${t('col_kakao')}</label><input class="input" name="kakao" dir="ltr" value="${esc(p.kakao||'')}"></div><button class="btn btn-p">${t('save')}</button></form>`;
+}
+
+/* ② admin schedule */
+function adSched(){
+  const rs=rounds();const z=zoomInfo();
+  const zoomForm=`<form class="card ${rs.length?'mt':''}" data-form="zoom"><div class="card-head"><h3 class="h3">${ic('video')} ${t('ad_zoom_t')}</h3></div><p class="small muted" style="margin:-8px 0 14px">${t('ad_zoom_h')}</p>
+    <div class="form-grid"><div class="field full"><label for="zm-u">${t('ad_zoom_url')}</label><input id="zm-u" class="input" name="url" dir="ltr" placeholder="https://zoom.us/j/..." value="${esc(z.url)}" required></div>
+    <div class="field"><label for="zm-i">${t('zoom_id')}</label><input id="zm-i" class="input" name="zid" dir="ltr" value="${esc(z.id)}"></div><div class="field"><label for="zm-p">${t('zoom_pw')}</label><input id="zm-p" class="input" name="zpw" dir="ltr" value="${esc(z.pw)}"></div>
+    <div class="full"><button class="btn btn-p">${t('save')}</button></div></div></form>`;
+  if(!rs.length)return `<form class="card" data-form="mkRounds"><h3 class="h3">${ic('cal')} ${t('ad_mk_rounds')}</h3><p class="small muted">${t('ad_mk_rounds_h')}</p><div class="row gap mt" style="align-items:flex-end"><div class="field"><label>${t('f_first_day')}</label><input class="input" type="date" name="day" required></div><div class="field"><label>${t('f_start_time')}</label><input class="input" type="time" name="time" value="21:00" required></div><button class="btn btn-p btn-sm" style="margin-bottom:6px">${t('add')}</button></div></form>`+`<div class="mt">${zoomForm}</div>`;
+  return `<div class="card"><div class="card-head"><h3 class="h3">${ic('cal')} ${t('ad_rounds')}</h3></div><p class="small muted" style="margin:-8px 0 14px">${t('ad_round_note')}</p>
+    <div class="tbl-wrap"><table><thead><tr><th>${t('col_round')}</th><th>${t('col_date')}</th><th>${t('col_time_kst')}</th><th>${t('f_rtype')}</th><th>${t('topic_ko')}</th><th>${t('topic_ar')}</th><th></th></tr></thead><tbody>
+    ${rs.map(r=>`<tr${r.no===curRound()?.no?' style="background:var(--primary-50)"':''}><td><span class="wk-tag">${t('round_n',{n:r.no})}</span></td><td style="white-space:nowrap">${fmtDate(r.date)}</td><td class="small" style="white-space:nowrap">${dualS(r.time||'21:00')}</td><td>${rtBadge(r)}</td><td>${esc(r.topic.ko)}</td><td dir="rtl" style="text-align:start">${esc(r.topic.ar)}</td><td><button class="btn btn-o btn-xs" data-act="roundEdit" data-no="${r.no}">${t('edit')}</button></td></tr>`).join('')}
+    </tbody></table></div></div>
+  ${zoomForm}`;
+}
+
+/* ③ admin materials */
+function adMat(){
+  const u=me(),ml=u.mlang;
+  return `<form class="card" data-form="material" style="margin-bottom:22px"><h3 class="h3">${ic('upload')} ${t('ad_mat_up')}</h3>
+    <p class="small muted mt-s">${t('ad_mat_h')}</p>
+    <div class="form-grid mt">
+      <div class="field"><label for="mu-r">${t('col_round')}</label><select id="mu-r" class="select" name="round">${rounds().map(r=>`<option value="${r.no}" ${r.no===(curRound()?.no||0)+1?'selected':''}>${t('round_n',{n:r.no})} · ${esc(L(r.topic))}</option>`).join('')}</select></div>
+      <div class="field"><label for="mu-l">${t('f_mat_lang')}</label><select id="mu-l" class="select" name="lang"><option value="ko" ${ml!=='ar'?'selected':''}>${t('mat_lang_ko')}</option><option value="ar" ${ml==='ar'?'selected':''}>${t('mat_lang_ar')}</option></select></div>
+      <div class="field full"><label for="mu-d">${t('f_desc')}</label><input id="mu-d" class="input" name="desc" dir="auto"></div>
+      <div class="field"><label for="mu-f">${t('f_file')}</label><div class="file-drop">${ic('upload')}<input id="mu-f" type="file" name="file" accept="${OK_EXT.map(e=>'.'+e).join(',')}"><span class="hint" style="display:block;margin-top:6px">${t('f_file_h')}</span></div></div>
+      <div class="field"><label for="mu-u">${t('f_or_link')}</label><input id="mu-u" class="input" name="url" dir="ltr" placeholder="https://"></div>
+      <div class="form-err full" id="mu-err"></div>
+      <div class="full"><button class="btn btn-p">${ic('upload')} ${t('up_btn')}</button></div>
+    </div></form>
+  ${matFilters()}${matList(true)}`;
+}
+
+/* ④ admin attendance */
+function adAtt(){
+  const ps=db.participants.filter(p=>pairOf(p.id)).sort((a,b)=>db.pairs.indexOf(pairOf(a.id))-db.pairs.indexOf(pairOf(b.id))||a.side.localeCompare(b.side));
+  const rs=rounds();
+  return `<div class="card card-s" style="margin-bottom:16px"><div class="row gap between">
+      <div><span class="xs muted">${t('ad_rule_t')}</span><div><b>${t('ad_rule_v',{n:required()})}</b></div></div>
+      <button class="btn btn-p btn-sm" data-act="csv">${ic('download')} ${t('ad_csv')}</button></div>
+    <p class="xs muted mt-s">${ic('info')} ${t('mk_note_m')}</p></div>
+  <p class="small muted" style="margin-bottom:12px">${t('ad_att_d')}</p>
+  <div class="tbl-wrap"><table class="att-grid"><thead><tr><th>${t('col_name')}</th>${rs.map(r=>`<th title="${esc(L(r.topic))}">R${r.no}<br><span style="font-weight:400">${fmtShort(r.date)}</span></th>`).join('')}<th>${t('col_total')}</th><th>${t('col_req')}</th><th>${t('col_cert')}</th></tr></thead><tbody>
+  ${ps.map(p=>{const pr=pairOf(p.id);return `<tr><td><div class="cell-name">${avatar(p)}<span>${esc(p.name)}<br><span class="xs muted" style="font-weight:400">${ic('link')} ${esc(partnerOf(p.id)?.name||'')}</span></span></div></td>${rs.map(r=>{const v=attOf(p.id)[r.no];const s=sessOf(pr,r);const fut=s.date>=TODAY_();
+    return `<td><button class="att-cell ${v?.s||''}" style="${!v&&fut?'opacity:.45':''}" data-act="attEdit" data-p="${p.id}" data-r="${r.no}" title="${fmtDate(s.date)}${v?.n?' · '+esc(v.n):''}">${v?t('att_'+(v.s==='L'?'P':v.s)).slice(0,state.lang==='ko'?2:7):'·'}${v?.n?'<i class="nd"></i>':''}</button></td>`}).join('')}<td class="mono"><b>${attCount(p.id)}</b>/${rs.length}</td><td>${reqBadge(p.id)}</td><td>${certCell(p.id)}</td></tr>`}).join('')}
+  </tbody></table></div><p class="xs muted mt-s">${ic('info')} ${t('cert_note')}</p>`;
+}
+function attModal(pid,rno){
+  const p=part(pid),r=db.rounds.find(x=>x.no===rno),v=attOf(pid)[rno]||{s:'',n:''};const pr=pairOf(pid);const s=pr?sessOf(pr,r):null;
+  return `<h2>${esc(p.name)} · ${t('round_n',{n:rno})}</h2><p class="small muted">${esc(L(r.topic))}${s?' · '+fmtDate(s.date)+' '+dual(s.time):''}</p>
+  <form data-form="att" data-p="${pid}" data-r="${rno}" class="stack mt">
+    <div class="radio-cards" style="grid-template-columns:repeat(auto-fit,minmax(120px,1fr))">${[['','att_none_opt'],['P','att_P'],['A','att_A'],['M','att_M']].map(([k,l])=>`<label><input type="radio" name="s" value="${k}" ${v.s===k?'checked':''}>${t(l)}</label>`).join('')}</div>
+    <div class="field"><label for="at-n">${t('act_note')}</label><textarea id="at-n" class="textarea" name="n" style="min-height:80px" dir="auto">${esc(v.n)}</textarea></div>
+    <div class="row gap"><button class="btn btn-p">${t('save')}</button><button type="button" class="btn btn-g" data-act="closeModal">${t('cancel')}</button></div></form>`;
+}
+
+function reqBadge(pid){const st=compStatus(pid);return st==='issued'||st==='eligible'?`<span class="badge b-ok">${t('req_met')}</span>`:`<span class="badge">${t('req_no')}</span>`}
+function certCell(pid){const st=compStatus(pid);if(st==='issued'){const c=db.certs[pid];return `<span class="row gap-s" style="flex-wrap:nowrap;justify-content:center"><span class="badge b-pri">${ic('award')}${fmtShort(c.date)}</span>${c.fileId?`<button class="btn btn-o btn-xs" data-act="certDl" data-p="${pid}" title="${esc(c.fileName||'')}">${ic('download')}</button>`:''}<button class="btn btn-g btn-xs" data-act="certIssue" data-p="${pid}">${t('cert_reup')}</button><button class="btn btn-g btn-xs" data-act="certUndo" data-p="${pid}">${t('cert_del')}</button></span>`}if(st==='eligible')return `<button class="btn btn-p btn-xs" data-act="certIssue" data-p="${pid}">${ic('upload')} ${t('cert_up')}</button>`;return '<span class="muted">—</span>'}
+/* ⑤ admin makeups */
+
+function adMk(){
+  const f=state.mkFilter;const STS=['scheduled','submitted','confirmed','rejected','expired','absent','cancelled'];
+  const order={submitted:0,expired:1,scheduled:2,rejected:3,confirmed:4,absent:5,cancelled:6};
+  const list=db.makeups.filter(m=>f==='all'||mkState(m)===f).sort((a,b)=>order[mkState(a)]-order[mkState(b)]||b.requestedAt.localeCompare(a.requestedAt));
+  return `<div class="note pri" style="margin-bottom:14px">${ic('info')}<span>${t('ad_mk_d')}</span></div>
+  <div class="seg" style="margin-bottom:16px">${['all',...STS].map(s=>`<button class="${f===s?'on':''}" data-act="mkFilter" data-s="${s}">${s==='all'?t('all'):t('mk_'+s)} <span class="latin">${s==='all'?db.makeups.length:db.makeups.filter(m=>mkState(m)===s).length}</span></button>`).join('')}</div>
+  <div class="card">${list.length?list.map(m=>adMkItem(m)).join(''):`<p class="muted small">${t('mk_empty')}</p>`}</div>`;
+}
+function adMkItem(m){
+  const pr=db.pairs.find(x=>x.id===m.pairId);const r=db.rounds.find(x=>x.no===m.round);const st=mkState(m);const by=part(m.requestedBy);
+  const orig=pr&&r?sessOf(pr,r):null;
+  return `<div class="list-i" style="align-items:flex-start;flex-wrap:wrap"><span class="wk-tag">${t('round_n',{n:m.round})}</span>
+    <div class="grow small" style="min-width:220px"><b>${pr?pairName(pr):'—'}</b><br>${fmtDT(mkStart(m))} <span class="xs muted">· ${t('mk_deadline',{t:fmtDT(mkDeadline(m))})}</span>
+      <p class="xs muted">${orig?t('mk_orig',{t:fmtDT(dtOf(orig.date,orig.time))})+' · ':''}${t('mk_by',{name:esc(by?.name||'')})} · ${t('ad_mk_req_at',{t:fmtDT(m.requestedAt)})}${m.submittedAt?' · '+t('ad_mk_sub_at',{t:fmtDT(m.submittedAt)}):''}</p>
+      ${m.photo?`<button class="btn btn-o btn-xs mt-s" data-act="evView" data-id="${m.id}">${ic('eye')} ${t('mk_photo_view')}</button>`:''}
+      ${m.review?`<p class="xs" style="margin-top:6px"><b>${t('mk_review')}:</b> ${esc(m.review)}</p>`:''}
+      ${st==='submitted'?`<form data-form="mkreview" data-id="${m.id}" class="stack-s" style="margin-top:12px;background:var(--bg);padding:12px;border-radius:12px">
+        <input class="input" name="review" placeholder="${t('ad_review_ph')}" dir="auto">
+        <div class="row gap-s"><button class="btn btn-ok btn-sm" name="decision" value="confirmed">${ic('check')} ${t('ad_mk_confirm')}</button><button class="btn btn-d btn-sm" name="decision" value="rejected">${t('reject')}</button></div></form>`:''}
+      ${st==='expired'?`<div class="row gap-s mt-s"><span class="xs" style="color:var(--bad)">${t('ad_mk_expired')}</span><button class="btn btn-d btn-xs" data-act="mkAbsent" data-id="${m.id}">${t('ad_mk_absent')}</button></div>`:''}
+    </div>${mkBadge(st)}</div>`;
+}
+
+/* =========================================================
+   Router
+   ========================================================= */
+function route(){const h=decodeURIComponent((location.hash||'#home').slice(1));const i=h.indexOf('-');return i<0?{base:h||'home',sub:''}:{base:h.slice(0,i),sub:h.slice(i+1)}}
+function render(){
+  if(LIVE&&!liveReady){$('#app').innerHTML=header(route())+`<main id="main"><section class="sec"><div class="wrap center muted">${t('lv_loading')}</div></section></main>`;document.documentElement.lang=state.lang;document.documentElement.dir=state.lang==='ar'?'rtl':'ltr';return}
+  const r=route();
+  document.documentElement.lang=state.lang;document.documentElement.dir=state.lang==='ar'?'rtl':'ltr';
+  const pages={home:pHome,about:pHome,my:pMy,admin:pAdmin};
+  const page=pages[r.base]?pages[r.base](r.sub):`<section class="sec"><div class="wrap">${emptyState('info',t('not_found'),'',`<a href="#home" class="btn btn-p">${t('go_home')}</a>`)}</div></section>`;
+  $('#app').innerHTML=demoBar()+header(r)+`<main id="main">${page}</main>`+footer();
+  if(state.lastBase!==r.base){window.scrollTo(0,0);state.lastBase=r.base}
+  if(r.base==='about')requestAnimationFrame(()=>document.getElementById('intro')?.scrollIntoView());
+  tickClocks();
+}
+window.addEventListener('hashchange',()=>{state.draftAvail=null;state.draftInt=null;render()});
+
+/* =========================================================
+   Data API — replace bodies with Supabase calls (schema.sql)
+   ========================================================= */
+const demoApi={
+  addParticipant(p){db.participants.push({id:uid('p'),name:p.name,side:p.side,univ:p.univ||'',email:p.email,kakao:p.kakao||'',cohort:db.settings.cohort,profile:{goal:'',interests:[],intro:''}});save()},
+  createRounds(first,time){db.rounds=[0,1,2,3].map(i=>({no:i+1,type:'talk',date:addDays(first,7*i),time,topic:{ko:'',ar:''}}));save()},
+  login(id){state.uid=id;const u=me();if(u&&u.lang)state.lang=u.lang;save()},
+  logout(){state.uid=null;save()},
+  saveProfile(pid,f){const p=part(pid);if('kakao' in f){p.kakao=f.kakao;f={...f};delete f.kakao}Object.assign(p.profile,f);save()},
+  setLevel(pid,n){part(pid).profile.level=n;save()},
+  match(kr,dz){db.pairs.push({id:uid('m'),kr,dz});save()},
+  unmatch(id){db.pairs=db.pairs.filter(p=>p.id!==id);db.makeups=db.makeups.filter(m=>m.pairId!==id);save()},
+  saveRound(no,f){Object.assign(db.rounds.find(r=>r.no===+no),f);save()},
+  setZoom(z){db.settings.zoom=z;save()},
+  async addMaterial(m,file){const rec={id:uid('mt'),createdAt:TODAY_(),by:state.uid,...m};if(file){rec.kind='file';rec.fileId=uid('f');rec.fileName=file.name;rec.size=file.size;rec.mime=file.type;await fileStore.put(rec.fileId,file)}else rec.kind='link';db.materials.push(rec);save()},
+  delMaterial(id){const m=db.materials.find(x=>x.id===id);if(m?.fileId)fileStore.del(m.fileId);db.materials=db.materials.filter(x=>x.id!==id);save()},
+  setAtt(pid,r,s,n){const o=db.att[pid]=db.att[pid]||{};if(!s&&!n)delete o[r];else o[r]={s,n};save()},
+  async issueCert(pid,file){db.certs=db.certs||{};const old=db.certs[pid];if(old&&old.fileId)fileStore.del(old.fileId);const fid=uid('f');await fileStore.put(fid,file);db.certs[pid]={date:TODAY_(),fileId:fid,fileName:file.name,mime:file.type};save()},
+  undoCert(pid){if(db.certs){const c=db.certs[pid];if(c&&c.fileId)fileStore.del(c.fileId);delete db.certs[pid]}save()},
+  rescheduleMakeup(id,date,time){const m=db.makeups.find(x=>x.id===id);m.date=date;m.time=time;m.updatedAt=NOW_();save()},
+  cancelMakeup(id){const m=db.makeups.find(x=>x.id===id);const pr=db.pairs.find(x=>x.id===m.pairId);m.status='cancelled';m.cancelledAt=NOW_();if(pr)[pr.kr,pr.dz].forEach(pid=>{const a=db.att[pid];if(a&&a[m.round]&&a[m.round].s==='M')delete a[m.round]});save()},
+  requestMakeup(pr,round,by,date,time){db.makeups.push({id:uid('mk'),pairId:pr.id,round,requestedBy:by,requestedAt:NOW_(),date,time,status:'scheduled',photo:null,submittedAt:null,review:''});[pr.kr,pr.dz].forEach(pid=>{(db.att[pid]=db.att[pid]||{})[round]={s:'M',n:''}});save()},
+  async submitMakeupPhoto(id,file){const m=db.makeups.find(x=>x.id===id);const fid=uid('f');await fileStore.put(fid,file);m.photo={fileId:fid,name:file.name,mime:file.type};m.status='submitted';m.submittedAt=NOW_();save()},
+  markAbsent(id){const m=db.makeups.find(x=>x.id===id);const pr=db.pairs.find(x=>x.id===m.pairId);m.status='absent';if(pr)[pr.kr,pr.dz].forEach(pid=>{(db.att[pid]=db.att[pid]||{})[m.round]={s:'A',n:''}});save()},
+  reviewMakeup(id,decision,review){const m=db.makeups.find(x=>x.id===id);m.status=decision;m.review=review;
+    if(decision==='confirmed'){const pr=db.pairs.find(x=>x.id===m.pairId);if(pr)[pr.kr,pr.dz].forEach(pid=>{(db.att[pid]=db.att[pid]||{})[m.round]={s:'P',n:'↻ '+fmtShort(m.date)}})}save()},
+};
+
+let api=demoApi;
+/* =========================================================
+   Actions
+   ========================================================= */
+function loginModal(){if(LIVE)return liveLoginModal();
+  openModal(`<div style="margin-bottom:6px">${LOGO.replace('<svg','<svg width="44" height="44"')}</div><h2>${t('lg_title')}</h2><p class="small muted">${t('lg_demo_d')}</p>
+  <div class="stack-s mt">${demoAccounts()}</div><div class="note mt">${ic('info')}<span class="xs">${t('lg_note')}</span></div>`);
+}
+async function previewMat(m){
+  const blob=await matBlob(m);if(!blob){toast(t('dl_missing'),'err');return}
+  let body;const ext=extOf(m.fileName||'');
+  if(m.kind==='text'||/^text\//.test(m.mime||'')||['txt','md','csv'].includes(ext)){const tx=(await blob.text()).replace(/^﻿/,'');body=`<pre class="preview">${esc(tx)}</pre>`}
+  else if(/^image\//.test(m.mime||'')||['png','jpg','jpeg','webp'].includes(ext)){state._url=URL.createObjectURL(blob);body=`<img class="preview-img" src="${state._url}" alt="">`}
+  else body=`<div class="note">${ic('info')}<span>${t('mat_no_preview')}</span></div>`;
+  openModal(`<div class="row gap-s"><span class="wk-tag">${t('round_n',{n:m.round})}</span><span class="lang-b ${m.lang}">${t('lang_'+m.lang)}</span></div><h2 class="mt-s">${esc(L(m.title))}</h2><p class="xs muted" dir="ltr" style="text-align:start">${esc(m.fileName)} · ${fmtSize(m.size||blob.size)}</p><div class="mt">${body}</div>
+    <button class="btn btn-p mt" data-act="matDownload" data-id="${m.id}">${ic('download')} ${t('mat_download')}</button>`,true);
+}
+const A={
+  closeModal,login:loginModal,
+  goIntro(){if(route().base==='home'||route().base==='about')document.getElementById('intro')?.scrollIntoView({behavior:'smooth'});else location.hash='#about'},
+  menu(){$('#nav').classList.toggle('open')},
+  lang(el){state.lang=el.dataset.l;save();render()},
+  async reset(){try{localStorage.removeItem(STORE_KEY)}catch(e){}await fileStore.clear();const l=state.lang;db=seed();state.uid=null;state.lang=l;state.selKR=state.selDZ=null;save();location.hash='#home';render();toast(t('confirm_reset'))},
+  demoLogin(el){api.login(el.dataset.id);closeModal();toast(t('toast_login',{name:me().name}));location.hash=role()==='admin'?'#admin':'#my';render()},
+  async logout(){await api.logout();toast(t('toast_logout'));location.hash='#home';render()},
+  pw(){state.pwShow=!state.pwShow;render()},
+  copyZoom(){const z=zoomInfo();const txt=`${z.url}\n${t('zoom_id')}: ${z.id}\n${t('zoom_pw')}: ${z.pw}`;try{navigator.clipboard.writeText(txt).then(()=>toast(t('copied')),()=>toast(t('copy_fail'),'err'))}catch(e){toast(t('copy_fail'),'err')}},
+
+  intToggle(el){const p=part(me().pid);const cur=new Set(state.draftInt||p.profile.interests);const k=el.dataset.k;cur.has(k)?cur.delete(k):cur.add(k);state.draftInt=INTERESTS.filter(x=>cur.has(x));render()},
+  matR(el){state.matR=el.dataset.v;render()},matL(el){state.matL=el.dataset.v;render()},
+  matPreview(el){previewMat(db.materials.find(m=>m.id===el.dataset.id))},
+  async matDownload(el){const m=db.materials.find(x=>x.id===el.dataset.id);const b=await matBlob(m);if(!b){toast(t('dl_missing'),'err');return}saveFile(m.fileName,b)},
+  matDelete(el){const m=db.materials.find(x=>x.id===el.dataset.id);if(m&&role()==='admin'){api.delMaterial(m.id);toast(t('toast_deleted'));render()}},
+  viewProf(el){openModal(profModal(part(el.dataset.id)),true)},
+
+  unmatch(el){const id=el.dataset.id;const pr=db.pairs.find(p=>p.id===id);openModal(`<h2>${t('ad_unmatch')}</h2><p class="small"><b>${pairName(pr)}</b></p><div class="note warn mt">${ic('alert')}<span>${t('ad_unmatch_warn')}</span></div><div class="row gap mt"><button class="btn btn-d" data-act="unmatchYes" data-id="${id}">${t('confirm_t')}</button><button class="btn btn-g" data-act="closeModal">${t('cancel')}</button></div>`)},
+  unmatchYes(el){api.unmatch(el.dataset.id);closeModal();toast(t('toast_unmatched'));render()},
+  roundEdit(el){const r=db.rounds.find(x=>x.no===+el.dataset.no);if(!r)return;
+    openModal(`<h2>${t('ad_round_edit')} · ${t('round_n',{n:r.no})}</h2><form data-form="round" data-no="${r.no}" class="form-grid mt">
+      <div class="field"><label>${t('f_actday')}</label><input class="input" type="date" name="day" value="${r.date}" required></div>
+      <div class="field"><label>${t('f_start_time')}</label><input class="input" type="time" name="time" value="${r.time||'21:00'}" required></div>
+      <div class="field"><label>${t('f_rtype')}</label><select class="select" name="type"><option value="talk" ${r.type!=='act'?'selected':''}>${t('rt_talk')}</option><option value="act" ${r.type==='act'?'selected':''}>${t('rt_act')}</option></select></div>
+      <div class="field"><label>${t('topic_ko')}</label><input class="input" name="ko" value="${esc(r.topic.ko)}" required></div>
+      <div class="field full"><label>${t('topic_ar')}</label><input class="input" name="ar" dir="rtl" value="${esc(r.topic.ar)}"></div>
+      <div class="full row gap"><button class="btn btn-p">${t('save')}</button><button type="button" class="btn btn-g" data-act="closeModal">${t('cancel')}</button></div></form>`)},
+  attEdit(el){openModal(attModal(el.dataset.p,+el.dataset.r))},
+  csv(){const rs=rounds();const ps=db.participants.filter(p=>pairOf(p.id));
+    const head=[t('col_name'),t('col_side'),...rs.map(r=>t('round_n',{n:r.no})),t('col_total'),t('col_req'),t('col_cert')];
+    const q=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
+    const lines=[head.map(q).join(',')].concat(ps.map(p=>[p.name,t('sideS_'+p.side),...rs.map(r=>{const v=attOf(p.id)[r.no];return v?t('att_'+v.s)+(v.n?' ('+v.n+')':''):''}),attCount(p.id),{issued:t('req_met'),eligible:t('req_met'),progress:t('req_no')}[compStatus(p.id)],db.certs&&db.certs[p.id]?db.certs[p.id].date:''].map(q).join(',')));
+    saveFile(`DARI_${db.settings.cohort}_attendance.csv`,new Blob(['﻿'+lines.join('\r\n')],{type:'text/csv;charset=utf-8'}))},
+
+  certIssue(el){const p=part(el.dataset.p);openModal(`<h2>${t('cert_up')}</h2><p class="small muted">${esc(p.name)} · ${t('sideS_'+p.side)}</p><form data-form="cert" data-p="${p.id}" class="stack-s mt"><div class="file-drop">${ic('upload')} <b>${t('cert_file')}</b><input type="file" name="file" accept="application/pdf,image/png,image/jpeg,.pdf,.png,.jpg,.jpeg" required><span class="hint" style="display:block;margin-top:6px">${t('cert_file_h')}</span></div><div class="form-err" id="ct-err"></div><div class="row gap"><button class="btn btn-p">${ic('upload')} ${t('cert_up')}</button><button type="button" class="btn btn-g" data-act="closeModal">${t('cancel')}</button></div></form>`)},
+  async certDl(el){const c=db.certs[el.dataset.p];if(!c||!c.fileId)return;const b=await getFile('certs',c.fileId);if(!b){toast(t('dl_missing'),'err');return}saveFile(c.fileName||'certificate.pdf',b)},
+  certUndo(el){api.undoCert(el.dataset.p);toast(t('toast_cert_undo'));render()},
+  mkFilter(el){state.mkFilter=el.dataset.s;render()},
+  async evView(el){const m=db.makeups.find(x=>x.id===el.dataset.id);if(!m||!m.photo)return;let src;
+    if(m.photo.seed){src='data:image/svg+xml;utf8,'+encodeURIComponent(seedPhoto(m))}else{const b=await getFile('evidence',m.photo.fileId);if(!b){toast(t('dl_missing'),'err');return}state._url=URL.createObjectURL(b);src=state._url}
+    openModal(`<h2>${t('mk_photo')} · ${t('round_n',{n:m.round})}</h2><p class="small muted">${fmtDT(mkStart(m))}</p><img class="preview-img mt" src="${src}" alt="">`,true)},
+  mkCancel(el){const m=db.makeups.find(x=>x.id===el.dataset.id);openModal(`<h2>${t('mk_cancel_q')}</h2><p class="small muted">${t('round_n',{n:m.round})} · ${fmtDT(mkStart(m))}</p><div class="note warn mt">${ic('info')}<span>${t('mk_cancel_d')}</span></div><div class="row gap mt"><button class="btn btn-d" data-act="mkCancelYes" data-id="${m.id}">${t('mk_cancel')}</button><button class="btn btn-g" data-act="closeModal">${t('cancel')}</button></div>`)},
+  mkEdit(el){const m=db.makeups.find(x=>x.id===el.dataset.id);if(!m)return;const until=cancelDeadline(m);
+    openModal(`<h2>${t('mk_edit_t')}</h2><p class="small muted">${t('round_n',{n:m.round})} · ${fmtDT(mkStart(m))}</p><p class="small mt-s">${t('mk_edit_d')}</p><form data-form="mkedit" data-id="${m.id}" class="stack-s mt"><div class="form-grid"><div class="field"><label for="me-d">${t('mk_req_date')}</label><input id="me-d" class="input" type="date" name="date" value="${m.date}" min="${NOW_().slice(0,10)}" max="${until.slice(0,10)}" required></div><div class="field"><label for="me-t">${t('mk_req_time')}</label><input id="me-t" class="input" type="time" name="time" value="${m.time}" required></div></div><p class="xs muted">${ic('info')} ${t('mk_req_window',{t:fmtDT(until)})}</p><div class="form-err" id="me-err"></div><div class="row gap"><button class="btn btn-p">${t('save')}</button><button type="button" class="btn btn-g" data-act="closeModal">${t('cancel')}</button></div></form>`)},
+  mkCancelYes(el){const m=db.makeups.find(x=>x.id===el.dataset.id);closeModal();if(!m||!canCancel(m,me()?.pid)){toast(t('err_cancel'),'err');render();return}api.cancelMakeup(m.id);toast(t('toast_cancel_mk'));render()},
+  mkAbsent(el){api.markAbsent(el.dataset.id);toast(t('toast_saved'));render()},
+};
+const F={
+  profile(f,fd){const p=part(me().pid);const f2={goal:fd.get('goal'),intro:fd.get('intro').trim(),interests:state.draftInt||p.profile.interests};LVF(p.side).forEach(([k])=>{f2[k]=+fd.get(k)});f2.kakao=(fd.get('kakao')||'').trim();api.saveProfile(p.id,f2);state.draftInt=null;toast(t('toast_prof'));render()},
+  setLevel(f,fd){const p=part(f.dataset.id);const f2={kakao:(fd.get('kakao')||'').trim()};LVF(p.side).forEach(([k])=>{f2[k]=+fd.get(k)});api.saveProfile(p.id,f2);closeModal();toast(t('toast_saved'));render()},
+  match(f,fd){if(!state.selKR||!state.selDZ)return;api.match(state.selKR,state.selDZ);state.selKR=state.selDZ=null;toast(t('toast_matched'));render()},
+  round(f,fd){api.saveRound(f.dataset.no,{type:fd.get('type'),date:fd.get('day'),time:fd.get('time'),topic:{ko:fd.get('ko').trim(),ar:fd.get('ar').trim()||fd.get('ko').trim()}});closeModal();toast(t('toast_saved'));render()},
+  zoom(f,fd){api.setZoom({url:fd.get('url').trim(),id:fd.get('zid').trim(),pw:fd.get('zpw').trim()});toast(t('toast_zoom'));render()},
+  addPart(f,fd){const email=fd.get('email').trim().toLowerCase();if(db.participants.some(x=>(x.email||'').toLowerCase()===email)){toast(t('lv_dup'),'err');return}api.addParticipant({name:fd.get('name').trim(),email,side:fd.get('side'),univ:fd.get('univ').trim(),kakao:(fd.get('kakao')||'').trim()});toast(t('toast_part_added'));render()},
+  mkRounds(f,fd){api.createRounds(fd.get('day'),fd.get('time'));toast(t('toast_saved'));render()},
+  async magic(f,fd){await sendMagic(f,fd)},
+  async cert(f,fd){const file=fd.get('file');const err=$('#ct-err');const show=m=>{err.textContent=m;err.classList.add('show')};
+    if(!file||!file.size)return show(t('err_cert_file'));if(!['pdf','png','jpg','jpeg'].includes(extOf(file.name)))return show(t('err_cert_file'));if(file.size>MAX_MB*1048576)return show(t('err_size'));
+    await api.issueCert(f.dataset.p,file);closeModal();toast(t('toast_cert'));render()},
+  mkedit(f,fd){const m=db.makeups.find(x=>x.id===f.dataset.id);const err=$('#me-err');const show=x=>{err.textContent=x;err.classList.add('show')};
+    if(!m||!canCancel(m,me()?.pid))return show(t('err_cancel'));const until=cancelDeadline(m);const when=dtOf(fd.get('date'),fd.get('time'));
+    if(!(when>NOW_()&&when<until))return show(t('err_window',{t:until.slice(5,10).replace('-','.')+' '+until.slice(11)}));
+    api.rescheduleMakeup(m.id,fd.get('date'),fd.get('time'));closeModal();toast(t('toast_mk_edit'));render()},
+  async material(f,fd){const err=$('#mu-err');const show=m=>{err.textContent=m;err.classList.add('show')};
+    const file=fd.get('file'),url=fd.get('url').trim();
+    const hasFile=file&&file.size>0;
+    if(!hasFile&&!url)return show(t('err_file'));
+    if(hasFile&&file.size>MAX_MB*1048576)return show(t('err_size'));
+    if(hasFile&&!OK_EXT.includes(extOf(file.name)))return show(t('err_ext'));
+    if(!hasFile&&!/^https?:\/\//i.test(url))return show(t('err_file'));
+    const nm=hasFile?file.name:url;await api.addMaterial({round:+fd.get('round'),lang:fd.get('lang')==='ar'?'ar':'ko',title:{ko:nm,ar:nm},desc:fd.get('desc').trim(),url:hasFile?'':url},hasFile?file:null);
+    toast(t('toast_up'));render()},
+  att(f,fd){api.setAtt(f.dataset.p,+f.dataset.r,fd.get('s')||'',fd.get('n').trim());closeModal();toast(t('toast_saved'));render()},
+  mkreq(f,fd){const p=part(me().pid);const err=$('#rq-err');const show=m=>{err.textContent=m;err.classList.add('show')};
+    if(usedRequest(p.id))return show(t('mk_used'));
+    const o=reqOptions(p).find(x=>x.r.no===+fd.get('round'));if(!o)return show(t('err_deadline'));
+    const when=dtOf(fd.get('date'),fd.get('time'));if(!(when>NOW_()&&when<o.until))return show(t('err_window',{t:o.until.slice(0,10).slice(5).replace('-','.')+' '+o.until.slice(11)}));
+    if(!fd.get('agree'))return show(t('mk_req_agree'));
+    api.requestMakeup(pairOf(p.id),o.r.no,p.id,fd.get('date'),fd.get('time'));state.reqR=null;toast(t('toast_req'));render()},
+  async mksub(f,fd){const id=f.dataset.id;const err=$('#sub-err-'+id);const show=m=>{err.textContent=m;err.classList.add('show')};
+    const file=fd.get('photo');if(!file||!file.size)return show(t('err_photo'));
+    if(!/^image\/(png|jpe?g|webp)$/.test(file.type)&&!['png','jpg','jpeg','webp'].includes(extOf(file.name)))return show(t('err_img'));
+    if(file.size>MAX_MB*1048576)return show(t('err_size'));
+    const m=db.makeups.find(x=>x.id===id);if(!m||!['scheduled','rejected'].includes(mkState(m))||NOW_()<mkStart(m))return show(t('err_deadline'));
+    await api.submitMakeupPhoto(id,file);toast(t('toast_sub'));render()},
+  mkreview(f,fd,sub){const decision=sub?.value;const review=fd.get('review').trim();if(decision==='rejected'&&!review){toast(t('err_review'),'err');f.review.focus();return}
+    api.reviewMakeup(f.dataset.id,decision,review);toast(t('toast_saved'));render()},
+
+};
+document.addEventListener('click',e=>{const el=e.target.closest('[data-act]');if(el){const fn=A[el.dataset.act];if(fn){e.preventDefault();fn(el)}}
+  const ab=e.target.closest('a[href="#about"]');if(ab&&location.hash==='#about'){e.preventDefault();document.getElementById('intro')?.scrollIntoView({behavior:'smooth'})}
+  if(e.target.closest('.nav a'))$('#nav')?.classList.remove('open')});
+document.addEventListener('submit',e=>{const f=e.target;const fn=F[f.dataset.form];if(!fn)return;e.preventDefault();if(!f.reportValidity())return;fn(f,new FormData(f),e.submitter)});
+document.addEventListener('change',e=>{const el=e.target.closest('[data-chg]');if(!el)return;
+  if(el.dataset.chg==='selKR'){state.selKR=el.value;state.selDZ=null;render()}
+  if(el.dataset.chg==='selDZ'){state.selDZ=el.value;render()}
+  if(el.dataset.chg==='reqR'){state.reqR=el.value;render()}});
+
+/* =========================================================
+   LIVE MODE — Supabase 연결 (config.js 에 DARI_CONFIG 가 있을 때만 동작)
+   config.js 가 없으면 이 코드는 쓰이지 않고 체험(데모) 모드로 실행됩니다.
+   데이터 구조는 체험 모드의 db 객체와 같게 맞춰, 화면 코드는 그대로 씁니다.
+   ========================================================= */
+let sb=null,rtTimer=null,rtPending=false,liveReady=false;
+const emptyDb=()=>({settings:{cohort:0,zoom:{url:'',id:'',pw:''}},certs:{},users:[],participants:[],pairs:[],rounds:[],att:{},makeups:[],materials:[]});
+const hm=t_=>t_?String(t_).slice(0,5):'';
+const ymd=t_=>t_?String(t_).slice(0,10):'';
+const ymdhm=t_=>t_?String(t_).replace(' ','T').slice(0,16):'';
+function loadScript(src){return new Promise((res,rej)=>{const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s)})}
+async function q(p){const {data,error}=await p;if(error)throw error;return data}
+
+function mapParticipant(r){return {id:r.id,name:r.name,side:r.side,univ:r.univ||'',email:r.email||'',kakao:r.kakao_id||'',cohort:r.cohort,
+  profile:{goal:r.goal||'',interests:r.interests||[],intro:r.intro||'',enLevel:r.en_level||null,arLevel:r.ar_level||null,koLevel:r.ko_level||null}}}
+
+async function liveLoad(){
+  const {data:{user}}=await sb.auth.getUser();
+  if(!user){db=emptyDb();state.uid=null;return}
+  const prof=await q(sb.from('profiles').select('*').eq('id',user.id).maybeSingle());
+  const isAdmin=prof&&prof.role==='admin';
+  let mine=null;
+  if(!isAdmin)mine=await q(sb.from('participants').select('*').eq('user_id',user.id).maybeSingle());
+  let st=mine?await q(sb.from('settings').select('*').eq('cohort',mine.cohort).maybeSingle()):await q(sb.from('settings').select('*').eq('active',true).maybeSingle());
+  const cohort=st?st.cohort:(mine?mine.cohort:0);
+  const d=emptyDb();
+  d.settings={cohort,zoom:{url:(st&&st.zoom_url)||'',id:(st&&st.zoom_id)||'',pw:(st&&st.zoom_pw)||''}};
+  if(isAdmin){d.participants=(await q(sb.from('participants').select('*').eq('cohort',cohort).order('name'))).map(mapParticipant)}
+  else if(mine){d.participants=[mapParticipant(mine)];const pt=await q(sb.rpc('my_partner'));(pt||[]).forEach(r=>d.participants.push(mapParticipant(r)))}
+  d.pairs=(await q(sb.from('pairs').select('*').eq('cohort',cohort))).map(r=>({id:r.id,kr:r.kr_id,dz:r.dz_id}));
+  d.rounds=(await q(sb.from('rounds').select('*').eq('cohort',cohort))).map(r=>({no:r.no,type:r.type,date:ymd(r.date),time:hm(r.time)||'21:00',topic:{ko:r.topic_ko||'',ar:r.topic_ar||r.topic_ko||''}}));
+  d.materials=(await q(sb.from('materials').select('*').eq('cohort',cohort))).map(r=>({id:r.id,round:r.round,lang:r.lang,title:{ko:r.title,ar:r.title},desc:r.descr||'',kind:r.kind,fileId:r.file_path,fileName:r.file_name||'',size:r.size||0,mime:r.mime||'',url:r.url||'',by:r.created_by,createdAt:ymd(r.created_at)}));
+  const pids=new Set(d.participants.map(p=>p.id));
+  (await q(sb.from('attendance').select('*'))).forEach(r=>{if(!pids.has(r.participant_id))return;(d.att[r.participant_id]=d.att[r.participant_id]||{})[r.round]={s:r.s,n:r.n||''}});
+  const pairIds=new Set(d.pairs.map(p=>p.id));
+  d.makeups=(await q(sb.from('makeups').select('*'))).filter(r=>pairIds.has(r.pair_id)).map(r=>({id:r.id,pairId:r.pair_id,round:r.round,requestedBy:r.requested_by,requestedAt:ymdhm(r.requested_at),date:ymd(r.date),time:hm(r.time),status:r.status,photo:r.photo_path?{fileId:r.photo_path,name:r.photo_name}:null,submittedAt:ymdhm(r.submitted_at),review:r.review||''}));
+  (await q(sb.from('certs').select('*'))).forEach(r=>{if(pids.has(r.participant_id))d.certs[r.participant_id]={date:ymd(r.date),fileId:r.file_path||null,fileName:r.file_name||'',mime:r.mime||''}});
+  const name=prof?prof.name:(mine?mine.name:user.email);
+  d.users=[{id:user.id,name,role:isAdmin?'admin':'participant',pid:mine?mine.id:null,mlang:prof?prof.mlang:null,lang:state.lang}];
+  db=d;state.uid=user.id;liveReady=true;
+}
+
+// 다른 기기·다른 운영진의 변경을 받아 다시 그리기 (입력 중이면 잠시 미룸)
+function busy(){const a=document.activeElement;return $('#modal').classList.contains('open')||(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)&&(a.value||a.type==='file'))}
+function scheduleReload(){clearTimeout(rtTimer);rtTimer=setTimeout(async()=>{if(busy()){rtPending=true;scheduleReload();return}rtPending=false;try{await liveLoad();render()}catch(e){console.error(e)}},500)}
+function subscribeRealtime(){sb.channel('dari-live').on('postgres_changes',{event:'*',schema:'public'},scheduleReload).subscribe()}
+
+const ERRMAP={already_requested:'mk_used',not_cancellable:'err_cancel',deadline_passed:'err_deadline',out_of_window:'err_deadline',round_taken:'mk_req_none',already_recorded:'mk_req_none',
+  not_allowed:'err_cancel',too_early:'mk_sub_wait',not_submittable:'err_deadline',review_required:'err_review',admins_only:'ad_forbidden_t'};
+function liveErr(e){const m=String(e&&(e.message||e.error_description||e)||'');const k=Object.keys(ERRMAP).find(x=>m.includes(x));console.error(e);toast(k?t(ERRMAP[k]):t('lv_err'),'err')}
+async function run(fn){try{await fn()}catch(e){liveErr(e)}try{await liveLoad()}catch(e){console.error(e)}render()}
+const safeExt=n=>{const e=extOf(n||'');return /^[a-z0-9]{1,5}$/.test(e)?e:'bin'};
+const newId=()=>(crypto.randomUUID?crypto.randomUUID():uid('x'));
+
+const liveApi={
+  login(){},
+  async logout(){await sb.auth.signOut();db=emptyDb();state.uid=null},
+  saveProfile(pid,f){const row={};if('kakao' in f)row.kakao_id=f.kakao||null;if('goal' in f)row.goal=f.goal;if('intro' in f)row.intro=f.intro;if('interests' in f)row.interests=f.interests;
+    if('enLevel' in f)row.en_level=f.enLevel||null;if('arLevel' in f)row.ar_level=f.arLevel||null;if('koLevel' in f)row.ko_level=f.koLevel||null;
+    return run(()=>q(sb.from('participants').update(row).eq('id',pid)))},
+  setLevel(pid,n){return run(()=>q(sb.from('participants').update({ko_level:n}).eq('id',pid)))},
+  addParticipant(p){return run(()=>q(sb.from('participants').insert({cohort:db.settings.cohort,name:p.name,email:p.email.toLowerCase(),side:p.side,univ:p.univ||null,kakao_id:p.kakao||null})))},
+  match(kr,dz){return run(()=>q(sb.from('pairs').insert({cohort:db.settings.cohort,kr_id:kr,dz_id:dz})))},
+  unmatch(id){return run(()=>q(sb.from('pairs').delete().eq('id',id)))},
+  saveRound(no,f){return run(()=>q(sb.from('rounds').update({type:f.type,date:f.date,time:f.time,topic_ko:f.topic.ko,topic_ar:f.topic.ar}).eq('cohort',db.settings.cohort).eq('no',+no)))},
+  createRounds(first,time){return run(()=>q(sb.from('rounds').insert([0,1,2,3].map(i=>({cohort:db.settings.cohort,no:i+1,type:'talk',date:addDays(first,7*i),time,topic_ko:''})))))},
+  setZoom(z){return run(()=>q(sb.from('settings').update({zoom_url:z.url||null,zoom_id:z.id||null,zoom_pw:z.pw||null}).eq('cohort',db.settings.cohort)))},
+  addMaterial(m,file){return run(async()=>{const row={cohort:db.settings.cohort,round:m.round,lang:m.lang,title:L(m.title),descr:m.desc||null,created_by:state.uid};
+    if(file){const path=`${db.settings.cohort}/${m.round}/${m.lang}/${newId()}.${safeExt(file.name)}`;await q(sb.storage.from('materials').upload(path,file,{contentType:file.type||undefined}));
+      Object.assign(row,{kind:'file',file_path:path,file_name:file.name,size:file.size,mime:file.type})}else Object.assign(row,{kind:'link',url:m.url});
+    await q(sb.from('materials').insert(row))})},
+  delMaterial(id){const m=db.materials.find(x=>x.id===id);return run(async()=>{await q(sb.from('materials').delete().eq('id',id));if(m&&m.fileId)await sb.storage.from('materials').remove([m.fileId])})},
+  setAtt(pid,r,s,n){return run(()=>!s?q(sb.from('attendance').delete().eq('participant_id',pid).eq('round',r)):q(sb.from('attendance').upsert({participant_id:pid,round:r,s,n:n||''})))},
+  issueCert(pid,file){const old=db.certs[pid];return run(async()=>{const path=`${pid}/${newId()}.${safeExt(file.name)}`;await q(sb.storage.from('certs').upload(path,file,{contentType:file.type||undefined}));
+    await q(sb.from('certs').upsert({participant_id:pid,date:TODAY_(),file_path:path,file_name:file.name,mime:file.type||null}));if(old&&old.fileId)await sb.storage.from('certs').remove([old.fileId])})},
+  undoCert(pid){const old=db.certs[pid];return run(async()=>{await q(sb.from('certs').delete().eq('participant_id',pid));if(old&&old.fileId)await sb.storage.from('certs').remove([old.fileId])})},
+  rescheduleMakeup(id,date,time){return run(()=>q(sb.rpc('reschedule_makeup',{p_id:id,p_date:date,p_time:time})))},
+  requestMakeup(pr,round,by,date,time){return run(()=>q(sb.rpc('request_makeup',{p_round:round,p_date:date,p_time:time})))},
+  cancelMakeup(id){return run(()=>q(sb.rpc('cancel_makeup',{p_id:id})))},
+  submitMakeupPhoto(id,file){const m=db.makeups.find(x=>x.id===id);return run(async()=>{const path=`${m.pairId}/${id}-${Date.now()}.${safeExt(file.name)}`;
+    await q(sb.storage.from('evidence').upload(path,file,{contentType:file.type||undefined}));await q(sb.rpc('submit_makeup_photo',{p_id:id,p_path:path,p_name:file.name}))})},
+  markAbsent(id){return run(()=>q(sb.rpc('mark_makeup_absent',{p_id:id})))},
+  reviewMakeup(id,decision,review){return run(()=>q(sb.rpc('review_makeup',{p_id:id,p_decision:decision,p_review:review})))},
+};
+
+async function getFile(bucket,id){
+  if(!LIVE)return fileStore.get(id);
+  try{const {data,error}=await sb.storage.from(bucket).download(id);if(error)throw error;return data}catch(e){console.error(e);return null}
+}
+
+async function handleSession(session){
+  if(!session){db=emptyDb();state.uid=null;liveReady=true;render();return}
+  try{
+    const r=await q(sb.rpc('claim_participant'));
+    if(r==='unregistered'){await sb.auth.signOut();db=emptyDb();state.uid=null;liveReady=true;render();openModal(`<h2>${t('lv_login_t')}</h2><div class="note warn mt">${ic('alert')}<span>${t('lv_unreg')}</span></div>`);return}
+    await liveLoad();
+    const b_=route().base;if(me()&&(['home','about',''].includes(b_)||(b_==='admin'&&role()!=='admin')||(b_==='my'&&role()==='admin')))location.hash=role()==='admin'?'#admin':'#my';
+  }catch(e){liveErr(e)}
+  render();
+}
+
+async function liveBoot(){
+  LIVE=true;api=liveApi;db=emptyDb();
+  try{state.lang=localStorage.getItem('dari-lang')||'ko'}catch(e){}
+  render();
+  try{
+    if(!window.supabase)await loadScript('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js');
+    sb=window.supabase.createClient(DARI_CFG.supabaseUrl,DARI_CFG.supabaseAnonKey);
+    subscribeRealtime();
+    let last=null;
+    sb.auth.onAuthStateChange((ev,session)=>{const id=session?session.user.id:null;if(id===last&&ev!=='SIGNED_OUT')return;last=id;setTimeout(()=>handleSession(session),0)});
+  }catch(e){liveErr(e);liveReady=true;render()}
+}
+
+function liveLoginModal(){
+  openModal(`<div style="margin-bottom:6px">${LOGO.replace('<svg','<svg width="44" height="44"')}</div><h2>${t('lv_login_t')}</h2><p class="small muted">${t('lv_login_d')}</p>
+  <form data-form="magic" class="stack mt"><div class="field"><label for="lv-e">${t('col_email')}</label><input id="lv-e" class="input" type="email" name="email" required dir="ltr" autocomplete="email"></div>
+  <div class="form-err" id="lv-err"></div><button class="btn btn-p btn-block">${t('lv_send')}</button></form>`);
+}
+async function sendMagic(f,fd){const email=fd.get('email').trim();const btn=f.querySelector('button');btn.disabled=true;
+  const {error}=await sb.auth.signInWithOtp({email,options:{shouldCreateUser:true,emailRedirectTo:location.origin+location.pathname}});
+  if(error){const e=$('#lv-err');e.textContent=t('lv_err');e.classList.add('show');btn.disabled=false;console.error(error);return}
+  f.outerHTML=`<div class="note pri mt">${ic('check')}<span>${t('lv_sent',{email:esc(email)})}</span></div>`}
+
+if(DARI_CFG){liveBoot()}else{load();render()}getDownloads();
+</script>
+</body>
+</html>
