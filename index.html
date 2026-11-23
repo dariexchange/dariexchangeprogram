@@ -718,7 +718,7 @@ partner_t:['내 파트너','شريكي'],partner_none:['아직 파트너가 배�
 partner_privacy:['파트너의 연락처는 공개되지 않습니다. 대화는 정규 활동 시간에 Zoom에서 나눠 주세요.','لا تظهر بيانات التواصل الخاصة بشريكك، فتحدّثا خلال الحصص المنتظمة عبر Zoom.'],
 p_level:['언어 수준','المستوى اللغوي'],p_goal:['학습 목적','هدف التعلّم'],p_learn:['배우는 언어','اللغة التي يتعلّمها'],p_interests:['관심사','الاهتمامات'],p_common:['공통 관심사','اهتمامات مشتركة'],p_regular:['정규 활동 시간','موعد الحصص'],p_intro:['자기소개','نبذة شخصية'],p_avail:['금요일 참여 가능 시간','الأوقات المتاحة يوم الجمعة'],p_univ:['소속','الجامعة'],p_side:['구분','الجهة'],
 learn_KO:['한국어','الكورية'],learn_MSA:['아랍어 (표준 아랍어)','العربية الفصحى'],learn_DARJA:['아랍어 (알제리 방언)','الدارجة الجزائرية'],learn_BOTH:['아랍어 (표준어 + 알제리 방언)','الفصحى والدارجة الجزائرية'],
-goal_talk:['일상 회화','المحادثة اليومية'],goal_exam:['시험 준비 (TOPIK 등)','التحضير للاختبارات (مثل TOPIK)'],goal_culture:['문화 이해','فهم الثقافة'],goal_career:['진로 · 유학','العمل أو الدراسة في الخارج'],
+goal_talk:['일상 회화','المحادثة اليومية'],goal_exam:['자격증 준비','التحضير للشهادات'],goal_culture:['문화 이해','فهم الثقافة'],goal_career:['진로 · 유학','العمل أو الدراسة في الخارج'],
 lvs1:['입문','مبتدئ جدًا'],lvs2:['초급','مبتدئ'],lvs3:['중급','متوسط'],lvs4:['중상급','فوق المتوسط'],lvs5:['고급','متقدّم'],
 it_kpop:['K-pop · 음악','الكيبوب والموسيقى'],it_drama:['드라마 · 영화','الدراما والأفلام'],it_food:['음식 · 요리','الطعام والطبخ'],it_travel:['여행','السفر'],it_sport:['스포츠','الرياضة'],it_book:['문학 · 책','الأدب والكتب'],it_history:['역사','التاريخ'],it_game:['게임','الألعاب'],it_beauty:['패션 · 뷰티','الموضة والتجميل'],it_photo:['사진','التصوير'],it_tech:['IT · 기술','التقنية'],it_religion:['종교 · 전통','الدين والتقاليد'],
 prof_t:['내 프로필','ملفي الشخصي'],prof_d:['프로필은 매칭된 파트너와 운영진에게만 공개됩니다.','لا يطّلع على ملفك إلا شريكك وفريق التنظيم.'],prof_done:['작성률','نسبة الإكمال'],
@@ -885,6 +885,21 @@ f_actday:['활동일','تاريخ الحصة'],
 adm_ko:['DARI 한국 운영진','فريق داري في كوريا'],adm_ar:['HAN.AL 운영진','فريق HAN.AL'],
 mk_edit_t:['보강 일정 수정','تعديل موعد الحصة التعويضية'],mk_edit_d:['파트너와 다시 정한 날짜와 시간을 입력해 주세요. 바꾼 일정은 파트너와 운영진 화면에도 함께 반영됩니다.','أدخل التاريخ والوقت الجديدين اللذين اتفقت عليهما مع شريكك. يظهر التعديل لدى شريكك وفريق التنظيم أيضًا.'],
 toast_mk_edit:['보강 일정을 수정했습니다.','تم تعديل موعد الحصة التعويضية.'],
+});
+
+Object.assign(S,{
+sh_bar:['공유 모드 · 이 링크를 연 모든 사람이 같은 5기 예시 데이터를 보고, 바꾼 내용이 바로 함께 반영됩니다.','الوضع المشترك · يرى كل من يفتح هذا الرابط بيانات الدفعة الخامسة التجريبية نفسها، وتظهر التعديلات للجميع فورًا.'],
+sh_readonly_bar:['보기 권한만 있어 내가 바꾼 내용은 저장되지 않습니다. 소유자에게 편집 권한을 요청해 주세요.','لديك صلاحية العرض فقط، فلن تُحفظ تعديلاتك. اطلب صلاحية التحرير من المالك.'],
+sh_readonly:['저장 권한이 없어 변경 내용을 공유하지 못했습니다. 소유자에게 편집 권한을 요청해 주세요.','تعذّرت مشاركة التعديل لعدم وجود صلاحية الحفظ. اطلب صلاحية التحرير من المالك.'],
+sh_fail:['변경 내용을 공유 저장소에 저장하지 못했습니다. 잠시 후 다시 시도해 주세요.','تعذّر حفظ التعديل في المساحة المشتركة. حاول مرة أخرى بعد قليل.'],
+sh_quota:['공유 저장소 용량이 가득 찼습니다. 오래된 자료를 지운 뒤 다시 시도해 주세요.','امتلأت المساحة المشتركة. احذف بعض المواد القديمة ثم حاول مجددًا.'],
+sh_slow:['· 공유 데이터에 아직 연결 중입니다. 보이는 내용이 최신이 아닐 수 있습니다.','· ما زال الاتصال بالبيانات المشتركة جاريًا، وقد لا يكون المعروض محدّثًا.'],
+sh_error:['· 공유 데이터에 접근할 수 없습니다.','· تعذّر الوصول إلى البيانات المشتركة.'],
+sh_loading:['공유 데이터를 불러오는 중입니다…','جارٍ تحميل البيانات المشتركة…'],
+sh_empty_t:['공유 데이터가 아직 없습니다','لا توجد بيانات مشتركة بعد'],
+sh_empty_d:['편집 권한이 있는 사람이 5기 예시 데이터로 시작하면 모든 사람에게 같은 데이터가 보입니다.','عندما يبدأ صاحب صلاحية التحرير ببيانات الدفعة الخامسة التجريبية، تظهر البيانات نفسها للجميع.'],
+sh_seed:['5기 예시 데이터로 시작','البدء ببيانات الدفعة الخامسة التجريبية'],
+sh_reset_q:['모든 사람이 함께 쓰는 데이터가 5기 예시 상태로 되돌아갑니다. 지금까지 함께 입력한 프로필·매칭·출석·보강·자료가 모두 사라집니다.','ستعود البيانات المشتركة بين الجميع إلى حالة الدفعة الخامسة التجريبية، وستُحذف كل الملفات الشخصية والتعيينات والحضور والتعويضات والمواد المُدخلة.'],
 });
 function t(k,v){const e=S[k];let s=e?e[state.lang==='ar'?1:0]:'['+k+']';if(v)for(const x in v)s=s.split('{'+x+'}').join(v[x]);return s}
 const L=o=>o==null?'':typeof o==='string'?o:(o[state.lang]||o.ko||'');
@@ -1075,7 +1090,9 @@ function seed(){
 
 /* ---------- persistence ---------- */
 function load(){try{const raw=localStorage.getItem(STORE_KEY);if(raw){const p=JSON.parse(raw);if(p&&p.db){db=p.db;state.lang=p.lang||'ko';state.uid=p.uid||null;return}}}catch(e){}db=seed()}
-function save(){try{if(LIVE){localStorage.setItem('dari-lang',state.lang);return}localStorage.setItem(STORE_KEY,JSON.stringify({db,lang:state.lang,uid:state.uid}))}catch(e){}}
+function save(){try{if(LIVE){localStorage.setItem('dari-lang',state.lang);return}
+  if(SHARED){localStorage.setItem('dari-shared-me',JSON.stringify({lang:state.lang,uid:state.uid}));sharedSync();return}
+  localStorage.setItem(STORE_KEY,JSON.stringify({db,lang:state.lang,uid:state.uid}))}catch(e){}}
 const fileStore={_db:null,mem:new Map(),
   open(){return new Promise((res,rej)=>{if(this._db)return res(this._db);try{const r=indexedDB.open('dari-v2-files',1);r.onupgradeneeded=()=>r.result.createObjectStore('files');r.onsuccess=()=>{this._db=r.result;res(this._db)};r.onerror=()=>rej(r.error)}catch(e){rej(e)}})},
   async put(id,blob){try{const d=await this.open();await new Promise((res,rej)=>{const tx=d.transaction('files','readwrite');tx.objectStore('files').put(blob,id);tx.oncomplete=res;tx.onerror=()=>rej(tx.error)})}catch(e){this.mem.set(id,blob)}},
@@ -1094,6 +1111,8 @@ const rounds=()=>[...db.rounds].sort((a,b)=>a.no-b.no);
 const totalRounds=()=>db.rounds.length;
 const curRound=()=>{const rs=rounds();return rs.find(r=>r.date>=TODAY_())||rs[rs.length-1]};
 const zoomInfo=()=>db.settings.zoom||{url:'',id:'',pw:''};
+// 'zoom.us/j/...' 처럼 https:// 없이 입력해도 열리도록 주소를 정리
+const zoomHref=u=>{u=String(u||'').trim();if(!u)return '';return /^https?:\/\//i.test(u)?u:'https://'+u.replace(/^\/+/,'')};
 function sessOf(pair,r){return {date:r.date,time:r.time||'21:00',changed:null}}
 const attOf=pid=>db.att[pid]||{};
 // 수료 요건: 정규 활동 4회 모두 참여. 보강은 인증 확인 후 '출석(P)'으로 바뀌어 반영됨. 'M' = 보강 예정(미반영)
@@ -1163,7 +1182,10 @@ async function matBlob(m){if(m.kind==='text')return new Blob(['﻿'+SEED_TEXT[m.
 /* =========================================================
    Layout
    ========================================================= */
-function demoBar(){if(LIVE)return '';return `<div class="demo-bar"><div class="wrap"><b>DEMO</b><span>${t('demo_bar')}</span><button data-act="reset">${t('demo_reset')}</button></div></div>`}
+function demoBar(){if(LIVE)return '';
+  if(SHARED){const st=SH.loadState==='slow'?`<span>${t('sh_slow')}</span>`:SH.loadState==='error'?`<span>${t('sh_error')}</span>`:'';
+    return `<div class="demo-bar"><div class="wrap"><b>SHARED</b><span>${t('sh_bar')}</span>${SH.readOnly?`<span style="color:#ffd27a">${t('sh_readonly_bar')}</span>`:''}${st}${SHARED.isEditor?`<button data-act="reset">${t('demo_reset')}</button>`:''}</div></div>`}
+  return `<div class="demo-bar"><div class="wrap"><b>DEMO</b><span>${t('demo_bar')}</span><button data-act="reset">${t('demo_reset')}</button></div></div>`}
 function header(r){
   const R=role(),u=me();
   const items=[['home','nav_home'],['about','nav_about']];
@@ -1294,7 +1316,7 @@ function nextCard(p,cls='c5'){
   return `<div class="card ${cls} next"><span class="dd">${d===0?t('today'):t('d_day',{n:d})}</span><span class="small muted">${t('next_t')} · ${t('round_n',{n:s.r.no})}${s.changed?` · <b style="color:#F2B79B">${t('changed')}</b>`:''}</span>
     <div class="big">${fmtDate(s.date)}</div><p>${dualRange(s.time)}</p><p class="mt-s" style="color:#fff;font-weight:600">${t(s.r.type==='act'?'rt_act':'rt_talk')} · ${esc(L(s.r.topic))}</p>
     ${zoomInfo().url?`<div class="mt">${zoomRows(pr,true)}</div>
-    <a href="${esc(zoomInfo().url)}" target="_blank" rel="noopener" class="btn btn-w btn-block mt">${ic('video')} ${t('zoom_join')}</a>
+    <a href="${esc(zoomHref(zoomInfo().url))}" target="_blank" rel="noopener" class="btn btn-w btn-block mt">${ic('video')} ${t('zoom_join')}</a>
     ${LIVE?'':`<p class="xs mt-s" style="opacity:.8">${t('zoom_demo')}</p>`}`:`<p class="xs mt" style="opacity:.85">${t('zoom_none')}</p>`}</div>`;
 }
 function partnerMini(p){
@@ -1338,8 +1360,15 @@ function partnerFull(p){
     <h4 class="small mt" style="margin-bottom:8px">${t('p_interests')}</h4><div class="chips">${q.profile.interests.map(x=>`<span class="chip ${mi.cm.includes(x)?'common':''}">${t('it_'+x)}</span>`).join('')}</div>
     <p class="xs muted mt row gap-s" style="flex-wrap:nowrap">${ic('shield')}<span>${t('partner_privacy')}</span></p></div>`;
 }
+// 프로필 입력 중인 값 보관: 다른 사람의 변경으로 화면이 다시 그려져도 입력값이 사라지지 않게 함
+function keepProfileDraft(){const f=document.querySelector('form[data-form=profile]');if(!f)return;const d={};f.querySelectorAll('[name]').forEach(el=>{d[el.name]=el.value});state.profDraft=d}
+document.addEventListener('input',e=>{if(e.target.closest&&e.target.closest('form[data-form=profile]'))keepProfileDraft()});
+document.addEventListener('change',e=>{if(e.target.closest&&e.target.closest('form[data-form=profile]'))keepProfileDraft()});
 function profileForm(p){
-  const pf=p.profile;const ints=state.draftInt||pf.interests;
+  const dr=state.profDraft||null;const pf0=p.profile;
+  const pf=dr?{...pf0,goal:dr.goal??pf0.goal,intro:dr.intro??pf0.intro,...Object.fromEntries(LVF(p.side).map(([k])=>[k,dr[k]?+dr[k]:pf0[k]]))}:pf0;
+  const kakaoV=dr&&dr.kakao!=null?dr.kakao:(p.kakao||'');
+  const ints=state.draftInt||pf.interests;
   const sc=profileScore({side:p.side,profile:{...pf,interests:ints}});
   const sel=(name,pre,cur)=>`<select class="select" name="${name}" required><option value="" ${cur?'':'selected'} disabled>—</option>${[3,2,1].map(n=>`<option value="${n}" ${cur===n?'selected':''}>${t(pre+n)}</option>`).join('')}</select>`;
   const levels=LVF(p.side).map(([k,lab,pre])=>`<div class="field"><label>${t(lab)}</label>${sel(k,pre,pf[k])}</div>`).join('')+`<p class="hint full" style="margin-top:-8px">${t('prof_level_kr')}</p>`;
@@ -1347,7 +1376,7 @@ function profileForm(p){
     <p class="small muted" style="margin-top:-8px;margin-bottom:18px">${ic('lock')} ${t('prof_d')}</p>
     <div class="form-grid">
       ${levels}
-      <div class="field full"><label for="pf-kk">${t('p_kakao')}</label><input id="pf-kk" class="input" name="kakao" dir="ltr" value="${esc(p.kakao||'')}" maxlength="40"><span class="hint">${ic('lock')} ${t('p_kakao_h')}</span></div>
+      <div class="field full"><label for="pf-kk">${t('p_kakao')}</label><input id="pf-kk" class="input" name="kakao" dir="ltr" value="${esc(kakaoV)}" maxlength="40"><span class="hint">${ic('lock')} ${t('p_kakao_h')}</span></div>
       <div class="field full"><label for="pf-goal">${t('p_goal')}</label><select id="pf-goal" class="select" name="goal">${['talk','exam','culture','career'].map(v=>`<option value="${v}" ${pf.goal===v?'selected':''}>${t('goal_'+v)}</option>`).join('')}</select></div>
       <div class="field full"><label for="pf-intro">${t('p_intro')}</label><textarea id="pf-intro" class="textarea" name="intro" placeholder="${t('prof_intro_ph')}">${esc(L(pf.intro))}</textarea></div>
       <div class="field full"><span class="lbl">${t('p_interests')}</span><div class="chips">${INTERESTS.map(x=>`<button type="button" class="chip ${ints.includes(x)?'on':''}" data-act="intToggle" data-k="${x}" aria-pressed="${ints.includes(x)}">${t('it_'+x)}</button>`).join('')}</div></div>
@@ -1368,7 +1397,7 @@ function mySched(p){
       <div class="tbl-wrap"><table><thead><tr><th>${t('col_round')}</th><th>${t('col_date')}</th><th>${t('col_time')}</th><th>${t('col_topic')}</th><th>${t('col_status')}</th></tr></thead><tbody>${rows}</tbody></table></div>
     </div>
     <div class="c4">${pr?`<div class="card"><h3 class="h3">${ic('video')} ${t('zoom_t')}</h3>${zoomInfo().url?`<div class="mt-s">${zoomRows(pr)}</div>
-      <a href="${esc(zoomInfo().url)}" target="_blank" rel="noopener" class="btn btn-p btn-block mt">${t('zoom_join')}</a><button class="btn btn-o btn-block mt-s" data-act="copyZoom">${ic('copy')} ${t('copy')}</button>${LIVE?'':`<p class="xs muted mt-s">${t('zoom_demo')}</p>`}`:`<div class="note mt-s">${ic('info')}<span>${t('zoom_none')}</span></div>`}</div>`:''}</div></div>`;
+      <a href="${esc(zoomHref(zoomInfo().url))}" target="_blank" rel="noopener" class="btn btn-p btn-block mt">${t('zoom_join')}</a><button class="btn btn-o btn-block mt-s" data-act="copyZoom">${ic('copy')} ${t('copy')}</button>${LIVE?'':`<p class="xs muted mt-s">${t('zoom_demo')}</p>`}`:`<div class="note mt-s">${ic('info')}<span>${t('zoom_none')}</span></div>`}</div>`:''}</div></div>`;
 }
 
 /* ③ 학습자료실 */
@@ -1630,13 +1659,16 @@ function render(){
   const r=route();
   document.documentElement.lang=state.lang;document.documentElement.dir=state.lang==='ar'?'rtl':'ltr';
   const pages={home:pHome,about:pHome,my:pMy,admin:pAdmin};
-  const page=pages[r.base]?pages[r.base](r.sub):`<section class="sec"><div class="wrap">${emptyState('info',t('not_found'),'',`<a href="#home" class="btn btn-p">${t('go_home')}</a>`)}</div></section>`;
+  const page0=pages[r.base]?pages[r.base](r.sub):`<section class="sec"><div class="wrap">${emptyState('info',t('not_found'),'',`<a href="#home" class="btn btn-p">${t('go_home')}</a>`)}</div></section>`;
+  let page=page0;
+  if(sharedEmpty())page=`<section class="section"><div class="wrap"><div class="card" style="max-width:640px;margin:0 auto;text-align:center"><h2 class="h3">${t('sh_empty_t')}</h2><p class="small muted mt-s">${t('sh_empty_d')}</p>${SHARED.isEditor?`<button class="btn btn-p mt" data-act="resetShared">${t('sh_seed')}</button>`:''}</div></div></section>`;
+  else if(SHARED&&SH.loadState==='loading'&&!db.participants.length)page=`<section class="section"><div class="wrap"><p class="muted" style="text-align:center">${t('sh_loading')}</p></div></section>`;
   $('#app').innerHTML=demoBar()+header(r)+`<main id="main">${page}</main>`+footer();
   if(state.lastBase!==r.base){window.scrollTo(0,0);state.lastBase=r.base}
   if(r.base==='about')requestAnimationFrame(()=>document.getElementById('intro')?.scrollIntoView());
   tickClocks();
 }
-window.addEventListener('hashchange',()=>{state.draftAvail=null;state.draftInt=null;render()});
+window.addEventListener('hashchange',()=>{state.draftAvail=null;state.draftInt=null;state.profDraft=null;render()});
 
 /* =========================================================
    Data API — replace bodies with Supabase calls (schema.sql)
@@ -1652,15 +1684,15 @@ const demoApi={
   unmatch(id){db.pairs=db.pairs.filter(p=>p.id!==id);db.makeups=db.makeups.filter(m=>m.pairId!==id);save()},
   saveRound(no,f){Object.assign(db.rounds.find(r=>r.no===+no),f);save()},
   setZoom(z){db.settings.zoom=z;save()},
-  async addMaterial(m,file){const rec={id:uid('mt'),createdAt:TODAY_(),by:state.uid,...m};if(file){rec.kind='file';rec.fileId=uid('f');rec.fileName=file.name;rec.size=file.size;rec.mime=file.type;await fileStore.put(rec.fileId,file)}else rec.kind='link';db.materials.push(rec);save()},
-  delMaterial(id){const m=db.materials.find(x=>x.id===id);if(m?.fileId)fileStore.del(m.fileId);db.materials=db.materials.filter(x=>x.id!==id);save()},
+  async addMaterial(m,file){const rec={id:uid('mt'),createdAt:TODAY_(),by:state.uid,...m};if(file){rec.kind='file';rec.fileId=await FS.put(file);rec.fileName=file.name;rec.size=file.size;rec.mime=file.type}else rec.kind='link';db.materials.push(rec);save()},
+  delMaterial(id){const m=db.materials.find(x=>x.id===id);if(m?.fileId)FS.del(m.fileId);db.materials=db.materials.filter(x=>x.id!==id);save()},
   setAtt(pid,r,s,n){const o=db.att[pid]=db.att[pid]||{};if(!s&&!n)delete o[r];else o[r]={s,n};save()},
-  async issueCert(pid,file){db.certs=db.certs||{};const old=db.certs[pid];if(old&&old.fileId)fileStore.del(old.fileId);const fid=uid('f');await fileStore.put(fid,file);db.certs[pid]={date:TODAY_(),fileId:fid,fileName:file.name,mime:file.type};save()},
-  undoCert(pid){if(db.certs){const c=db.certs[pid];if(c&&c.fileId)fileStore.del(c.fileId);delete db.certs[pid]}save()},
+  async issueCert(pid,file){db.certs=db.certs||{};const old=db.certs[pid];const fid=await FS.put(file);if(old&&old.fileId)FS.del(old.fileId);db.certs[pid]={date:TODAY_(),fileId:fid,fileName:file.name,mime:file.type};save()},
+  undoCert(pid){if(db.certs){const c=db.certs[pid];if(c&&c.fileId)FS.del(c.fileId);delete db.certs[pid]}save()},
   rescheduleMakeup(id,date,time){const m=db.makeups.find(x=>x.id===id);m.date=date;m.time=time;m.updatedAt=NOW_();save()},
   cancelMakeup(id){const m=db.makeups.find(x=>x.id===id);const pr=db.pairs.find(x=>x.id===m.pairId);m.status='cancelled';m.cancelledAt=NOW_();if(pr)[pr.kr,pr.dz].forEach(pid=>{const a=db.att[pid];if(a&&a[m.round]&&a[m.round].s==='M')delete a[m.round]});save()},
   requestMakeup(pr,round,by,date,time){db.makeups.push({id:uid('mk'),pairId:pr.id,round,requestedBy:by,requestedAt:NOW_(),date,time,status:'scheduled',photo:null,submittedAt:null,review:''});[pr.kr,pr.dz].forEach(pid=>{(db.att[pid]=db.att[pid]||{})[round]={s:'M',n:''}});save()},
-  async submitMakeupPhoto(id,file){const m=db.makeups.find(x=>x.id===id);const fid=uid('f');await fileStore.put(fid,file);m.photo={fileId:fid,name:file.name,mime:file.type};m.status='submitted';m.submittedAt=NOW_();save()},
+  async submitMakeupPhoto(id,file){const m=db.makeups.find(x=>x.id===id);const fid=await FS.put(file);m.photo={fileId:fid,name:file.name,mime:file.type};m.status='submitted';m.submittedAt=NOW_();save()},
   markAbsent(id){const m=db.makeups.find(x=>x.id===id);const pr=db.pairs.find(x=>x.id===m.pairId);m.status='absent';if(pr)[pr.kr,pr.dz].forEach(pid=>{(db.att[pid]=db.att[pid]||{})[m.round]={s:'A',n:''}});save()},
   reviewMakeup(id,decision,review){const m=db.makeups.find(x=>x.id===id);m.status=decision;m.review=review;
     if(decision==='confirmed'){const pr=db.pairs.find(x=>x.id===m.pairId);if(pr)[pr.kr,pr.dz].forEach(pid=>{(db.att[pid]=db.att[pid]||{})[m.round]={s:'P',n:'↻ '+fmtShort(m.date)}})}save()},
@@ -1688,13 +1720,17 @@ const A={
   goIntro(){if(route().base==='home'||route().base==='about')document.getElementById('intro')?.scrollIntoView({behavior:'smooth'});else location.hash='#about'},
   menu(){$('#nav').classList.toggle('open')},
   lang(el){state.lang=el.dataset.l;save();render()},
-  async reset(){try{localStorage.removeItem(STORE_KEY)}catch(e){}await fileStore.clear();const l=state.lang;db=seed();state.uid=null;state.lang=l;state.selKR=state.selDZ=null;save();location.hash='#home';render();toast(t('confirm_reset'))},
+  async reset(){if(SHARED){openModal(`<h2>${t('demo_reset')}</h2><p class="small mt-s">${t('sh_reset_q')}</p><div class="row gap mt"><button class="btn btn-d" data-act="resetShared">${t('demo_reset')}</button><button class="btn btn-g" data-act="closeModal">${t('cancel')}</button></div>`);return}
+    try{localStorage.removeItem(STORE_KEY)}catch(e){}await fileStore.clear();const l=state.lang;db=seed();state.uid=null;state.lang=l;state.selKR=state.selDZ=null;save();location.hash='#home';render();toast(t('confirm_reset'))},
   demoLogin(el){api.login(el.dataset.id);closeModal();toast(t('toast_login',{name:me().name}));location.hash=role()==='admin'?'#admin':'#my';render()},
   async logout(){await api.logout();toast(t('toast_logout'));location.hash='#home';render()},
   pw(){state.pwShow=!state.pwShow;render()},
   copyZoom(){const z=zoomInfo();const txt=`${z.url}\n${t('zoom_id')}: ${z.id}\n${t('zoom_pw')}: ${z.pw}`;try{navigator.clipboard.writeText(txt).then(()=>toast(t('copied')),()=>toast(t('copy_fail'),'err'))}catch(e){toast(t('copy_fail'),'err')}},
 
-  intToggle(el){const p=part(me().pid);const cur=new Set(state.draftInt||p.profile.interests);const k=el.dataset.k;cur.has(k)?cur.delete(k):cur.add(k);state.draftInt=INTERESTS.filter(x=>cur.has(x));render()},
+  async resetShared(){closeModal();await sharedSeed();state.selKR=state.selDZ=null;location.hash='#home';render();toast(t('confirm_reset'))},
+  intToggle(el){const p=part(me().pid);const cur=new Set(state.draftInt||p.profile.interests);const k=el.dataset.k;cur.has(k)?cur.delete(k):cur.add(k);state.draftInt=INTERESTS.filter(x=>cur.has(x));
+    // 화면 전체를 다시 그리지 않고 칩만 바꿔서, 저장 전 입력해 둔 수준·목적·소개가 그대로 남도록 함
+    const on=cur.has(k);el.classList.toggle('on',on);el.setAttribute('aria-pressed',String(on));keepProfileDraft()},
   matR(el){state.matR=el.dataset.v;render()},matL(el){state.matL=el.dataset.v;render()},
   matPreview(el){previewMat(db.materials.find(m=>m.id===el.dataset.id))},
   async matDownload(el){const m=db.materials.find(x=>x.id===el.dataset.id);const b=await matBlob(m);if(!b){toast(t('dl_missing'),'err');return}saveFile(m.fileName,b)},
@@ -1732,11 +1768,11 @@ const A={
   mkAbsent(el){api.markAbsent(el.dataset.id);toast(t('toast_saved'));render()},
 };
 const F={
-  profile(f,fd){const p=part(me().pid);const f2={goal:fd.get('goal'),intro:fd.get('intro').trim(),interests:state.draftInt||p.profile.interests};LVF(p.side).forEach(([k])=>{f2[k]=+fd.get(k)});f2.kakao=(fd.get('kakao')||'').trim();api.saveProfile(p.id,f2);state.draftInt=null;toast(t('toast_prof'));render()},
+  profile(f,fd){const p=part(me().pid);const f2={goal:fd.get('goal'),intro:fd.get('intro').trim(),interests:state.draftInt||p.profile.interests};LVF(p.side).forEach(([k])=>{f2[k]=+fd.get(k)});f2.kakao=(fd.get('kakao')||'').trim();api.saveProfile(p.id,f2);state.draftInt=null;state.profDraft=null;toast(t('toast_prof'));render()},
   setLevel(f,fd){const p=part(f.dataset.id);const f2={kakao:(fd.get('kakao')||'').trim()};LVF(p.side).forEach(([k])=>{f2[k]=+fd.get(k)});api.saveProfile(p.id,f2);closeModal();toast(t('toast_saved'));render()},
   match(f,fd){if(!state.selKR||!state.selDZ)return;api.match(state.selKR,state.selDZ);state.selKR=state.selDZ=null;toast(t('toast_matched'));render()},
   round(f,fd){api.saveRound(f.dataset.no,{type:fd.get('type'),date:fd.get('day'),time:fd.get('time'),topic:{ko:fd.get('ko').trim(),ar:fd.get('ar').trim()||fd.get('ko').trim()}});closeModal();toast(t('toast_saved'));render()},
-  zoom(f,fd){api.setZoom({url:fd.get('url').trim(),id:fd.get('zid').trim(),pw:fd.get('zpw').trim()});toast(t('toast_zoom'));render()},
+  zoom(f,fd){api.setZoom({url:zoomHref(fd.get('url')),id:fd.get('zid').trim(),pw:fd.get('zpw').trim()});toast(t('toast_zoom'));render()},
   addPart(f,fd){const email=fd.get('email').trim().toLowerCase();if(db.participants.some(x=>(x.email||'').toLowerCase()===email)){toast(t('lv_dup'),'err');return}api.addParticipant({name:fd.get('name').trim(),email,side:fd.get('side'),univ:fd.get('univ').trim(),kakao:(fd.get('kakao')||'').trim()});toast(t('toast_part_added'));render()},
   mkRounds(f,fd){api.createRounds(fd.get('day'),fd.get('time'));toast(t('toast_saved'));render()},
   async magic(f,fd){await sendMagic(f,fd)},
@@ -1867,8 +1903,108 @@ const liveApi={
   reviewMakeup(id,decision,review){return run(()=>q(sb.rpc('review_makeup',{p_id:id,p_decision:decision,p_review:review})))},
 };
 
+
+/* =========================================================
+   SHARED MODE — 공개된 사이트(Claude 아티팩트)에서 열면
+   모든 데이터를 아티팩트 공용 저장소에 두고, 다른 사람의 변경을 실시간으로 받습니다.
+   (같은 링크를 연 모든 사람이 같은 데이터를 봄 · 파일은 공용 파일 저장소)
+   ========================================================= */
+let SHARED=null;               // {db, assets, user, canWrite}
+const SCOLLS=['participants','pairs','rounds','materials','makeups','att','certs','settings'];
+const SH={synced:{},snap:{},ready:new Set(),queue:Promise.resolve(),pending:0,renderWanted:false,loadTimer:null,loadState:'loading',readOnly:false};
+SCOLLS.forEach(c=>{SH.synced[c]={}});
+const recOf={ // db → {docId: body}
+  participants:()=>Object.fromEntries(db.participants.map(x=>[x.id,x])),
+  pairs:()=>Object.fromEntries(db.pairs.map(x=>[x.id,x])),
+  rounds:()=>Object.fromEntries(db.rounds.map(x=>['r'+x.no,x])),
+  materials:()=>Object.fromEntries(db.materials.map(x=>[x.id,x])),
+  makeups:()=>Object.fromEntries(db.makeups.map(x=>[x.id,x])),
+  att:()=>Object.fromEntries(Object.entries(db.att||{}).map(([k,v])=>[k,{r:v}])),
+  certs:()=>Object.fromEntries(Object.entries(db.certs||{}).map(([k,v])=>[k,v])),
+  settings:()=>({main:db.settings}),
+};
+const applyColl={ // {docId: body} → db
+  participants:m=>{db.participants=Object.values(m)},
+  pairs:m=>{db.pairs=Object.values(m)},
+  rounds:m=>{db.rounds=Object.values(m).sort((a,b)=>a.no-b.no)},
+  materials:m=>{db.materials=Object.values(m).sort((a,b)=>String(a.createdAt).localeCompare(String(b.createdAt)))},
+  makeups:m=>{db.makeups=Object.values(m)},
+  att:m=>{db.att=Object.fromEntries(Object.entries(m).map(([k,v])=>[k,v.r||{}]))},
+  certs:m=>{db.certs=m},
+  settings:m=>{db.settings=m.main||{cohort:5,zoom:{url:'',id:'',pw:''}}},
+};
+const jclone=o=>JSON.parse(JSON.stringify(o));
+function sharedEnqueue(fn){SH.pending++;SH.queue=SH.queue.then(fn).catch(e=>{console.error('[DARI shared]',e);
+  if(e&&e.code==='invalid_argument'){SH.readOnly=true;toast(t('sh_readonly'),'err')}else if(e&&e.code==='quota_exceeded'){toast(t('sh_quota'),'err')}else toast(t('sh_fail'),'err')})
+  .finally(()=>{SH.pending--;if(!SH.pending)sharedFlush()})}
+// 바뀐 문서만 골라 공용 저장소에 씀 (문서마다 한 번에 하나씩)
+function sharedSync(){if(!SHARED)return;
+  for(const c of SCOLLS){const now=recOf[c]();const prev=SH.synced[c];
+    for(const [id,body] of Object.entries(now)){const js=JSON.stringify(body);if(prev[id]!==js){prev[id]=js;const data=jclone(body);sharedEnqueue(()=>SHARED.db.doc(c+'/'+id).set(data))}}
+    for(const id of Object.keys(prev)){if(!(id in now)){delete prev[id];sharedEnqueue(()=>SHARED.db.doc(c+'/'+id).delete())}}
+  }}
+// 받은 스냅숏을 화면 데이터에 반영 (내가 보내는 중인 쓰기가 있으면 다 끝난 뒤 반영)
+function sharedFlush(){if(SH.pending)return;let changed=false;
+  for(const c of SCOLLS){const sn=SH.snap[c];if(!sn)continue;SH.snap[c]=null;
+    const m={};const js={};sn.forEach(([id,body])=>{m[id]=jclone(body);js[id]=JSON.stringify(body)});
+    SH.synced[c]=js;applyColl[c](m);changed=true}
+  if(changed)sharedRender()}
+// 입력 중이거나 창이 열려 있으면 화면 갱신을 잠시 미룸
+function uiBusy(){const a=document.activeElement;if($('#modal')&&$('#modal').classList.contains('open'))return true;return !!(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)&&a.type!=='checkbox'&&a.type!=='radio'&&a.type!=='file')}
+function sharedRender(){if(uiBusy()){SH.renderWanted=true;return}SH.renderWanted=false;render()}
+setInterval(()=>{if(SH.renderWanted&&!uiBusy())sharedRender()},700);
+
+const FS={ // 파일: 공유 모드면 공용 파일 저장소, 아니면 이 브라우저(IndexedDB)
+  async put(file){if(!SHARED){const id=uid('f');await fileStore.put(id,file);return id}
+    if(SHARED.assets){try{const r=await SHARED.assets.upload(file);if(r&&r.id)return 'asset:'+r.id}catch(e){console.warn('asset upload failed, using chunks',e)}}
+    if(file.size>4*1048576)throw {code:'too_big'};
+    const b64=await new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>res(String(fr.result).split(',')[1]||'');fr.onerror=()=>rej(fr.error);fr.readAsDataURL(file)});
+    const fid=uid('fb'),CH=180000,n=Math.max(1,Math.ceil(b64.length/CH));
+    for(let i=0;i<n;i++)await SHARED.db.doc('filechunks/'+fid+'_'+i).set({d:b64.slice(i*CH,(i+1)*CH)});
+    await SHARED.db.doc('filemeta/'+fid).set({n,mime:file.type||'application/octet-stream',name:file.name||''});
+    return 'chunk:'+fid},
+  async get(id){if(!id)return null;
+    if(id.startsWith('asset:')){try{const r=await fetch('/_blob/'+id.slice(6));if(!r.ok)return null;return await r.blob()}catch(e){return null}}
+    if(id.startsWith('chunk:')&&SHARED){try{const fid=id.slice(6);const meta=await SHARED.db.doc('filemeta/'+fid).get();if(!meta.exists)return null;const {n,mime}=meta.data();let b64='';
+      for(let i=0;i<n;i++){const d=await SHARED.db.doc('filechunks/'+fid+'_'+i).get();if(!d.exists)return null;b64+=d.data().d}
+      const bin=atob(b64),u8=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u8[i]=bin.charCodeAt(i);return new Blob([u8],{type:mime})}catch(e){console.error(e);return null}}
+    return fileStore.get(id)},
+  del(id){if(!id||!SHARED){if(id)fileStore.del(id);return}
+    if(id.startsWith('chunk:')){const fid=id.slice(6);SHARED.db.doc('filemeta/'+fid).get().then(m=>{if(!m.exists)return;const n=m.data().n;sharedEnqueue(async()=>{for(let i=0;i<n;i++)await SHARED.db.doc('filechunks/'+fid+'_'+i).delete();await SHARED.db.doc('filemeta/'+fid).delete()})}).catch(()=>{})}
+    // asset 파일은 업로드한 사람·편집자만 지울 수 있어 목록에서만 제거
+  },
+};
+
+async function sharedBoot(){
+  if(LIVE||!window.claude||typeof window.claude.use!=='function')return;
+  let sdb=null;try{sdb=await window.claude.use('db')}catch(e){}
+  if(!sdb)return;   // 로그인하지 않았거나 지원되지 않는 보기 → 이 브라우저에만 저장(체험 모드)
+  let user=null,assets=null;try{user=await window.claude.use('user')}catch(e){}try{assets=await window.claude.use('assets')}catch(e){}
+  let canWrite=null;try{canWrite=user?await user.can('data.write'):null}catch(e){}
+  SHARED={db:sdb,assets,user,canWrite};SH.readOnly=canWrite===false;
+  let isEditor=false;try{isEditor=!!(user&&await user.canEdit())}catch(e){}SHARED.isEditor=isEditor;
+  try{const raw=localStorage.getItem('dari-shared-me');const me_=raw?JSON.parse(raw):null;state.uid=me_&&me_.uid||null;state.lang=me_&&me_.lang||state.lang}catch(e){}
+  const users=seed().users;db={...emptyShared(),users};SH.loadState='loading';render();
+  SH.loadTimer=setTimeout(()=>{if(SH.loadState==='loading'){SH.loadState='slow';render()}},10000);
+  SCOLLS.forEach(c=>{sdb.collection(c).onSnapshot(snap=>{
+      SH.snap[c]=snap.docs.map(d=>[d.id,d.data()]);
+      if(!snap.metadata.fromCache)SH.ready.add(c);
+      if(SH.ready.size===SCOLLS.length&&SH.loadState!=='ready'){SH.loadState='ready';clearTimeout(SH.loadTimer);SH.snap[c]&&0}
+      sharedFlush();
+    },err=>{console.error('[DARI shared]',c,err);if(err&&err.code==='revoked'){SH.loadState='error'}render()})});
+}
+function emptyShared(){return {settings:{cohort:5,zoom:{url:'',id:'',pw:''}},certs:{},participants:[],pairs:[],rounds:[],att:{},makeups:[],materials:[]}}
+const sharedEmpty=()=>SHARED&&SH.loadState==='ready'&&!db.participants.length&&!db.rounds.length;
+async function sharedSeed(){const s=seed();const keepUsers=db.users;
+  // 기존 공용 데이터를 모두 지우고 5기 예시 데이터로 채움
+  for(const c of SCOLLS){Object.keys(SH.synced[c]).forEach(id=>{})}
+  db={...s,users:keepUsers};sharedSync();
+  const want=Object.fromEntries(SCOLLS.map(c=>[c,new Set(Object.keys(recOf[c]()))]));
+  for(const c of SCOLLS){try{const snap=await SHARED.db.collection(c).get();snap.docs.forEach(d=>{if(!want[c].has(d.id))sharedEnqueue(()=>SHARED.db.doc(c+'/'+d.id).delete())})}catch(e){}}
+}
+
 async function getFile(bucket,id){
-  if(!LIVE)return fileStore.get(id);
+  if(!LIVE)return FS.get(id);
   try{const {data,error}=await sb.storage.from(bucket).download(id);if(error)throw error;return data}catch(e){console.error(e);return null}
 }
 
@@ -1906,7 +2042,7 @@ async function sendMagic(f,fd){const email=fd.get('email').trim();const btn=f.qu
   if(error){const e=$('#lv-err');e.textContent=t('lv_err');e.classList.add('show');btn.disabled=false;console.error(error);return}
   f.outerHTML=`<div class="note pri mt">${ic('check')}<span>${t('lv_sent',{email:esc(email)})}</span></div>`}
 
-if(DARI_CFG){liveBoot()}else{load();render()}getDownloads();
+if(DARI_CFG){liveBoot()}else{load();render();sharedBoot()}getDownloads();
 </script>
 </body>
 </html>
