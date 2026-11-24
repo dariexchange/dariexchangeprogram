@@ -842,7 +842,7 @@ ad_team_zoom:['팀별 Zoom 정보','بيانات Zoom لكل ثنائي'],ad_zoo
 toast_zoom:['Zoom 정보를 저장했습니다. 해당 팀 참가자 화면에 바로 반영됩니다.','تم حفظ بيانات Zoom، وستظهر للثنائي فورًا.'],
 lv_login_t:['이메일로 로그인','الدخول بالبريد الإلكتروني'],lv_login_d:['운영진에게 등록한 이메일을 입력하면 로그인 링크를 보내 드립니다. 메일의 링크를 누르면 바로 로그인됩니다.','أدخل البريد الإلكتروني المسجّل لدى فريق التنظيم لنرسل إليك رابط الدخول، ثم اضغط على الرابط في الرسالة.'],
 lv_send:['로그인 링크 받기','أرسل رابط الدخول'],lv_sent:['{email} 주소로 로그인 링크를 보냈습니다. 메일함을 확인해 주세요.','أرسلنا رابط الدخول إلى {email}، تفقّد بريدك.'],
-lv_unreg:['등록되지 않은 이메일입니다. 운영진에게 참가자 등록을 요청해 주세요.','هذا البريد غير مسجّل، اطلب من فريق التنظيم تسجيلك.'],lv_err:['처리하지 못했습니다. 잠시 후 다시 시도해 주세요.','تعذّرت العملية، حاول مرة أخرى بعد قليل.'],lv_loading:['불러오는 중입니다…','جارٍ التحميل…'],
+lv_unreg:['등록되지 않은 이메일입니다. 운영진에게 참가자 등록을 요청해 주세요.','هذا البريد غير مسجّل، اطلب من فريق التنظيم تسجيلك.'],lv_err:['처리하지 못했습니다. 잠시 후 다시 시도해 주세요.','تعذّرت العملية، حاول مرة أخرى بعد قليل.'],lv_loading:['불러오는 중입니다…','جارٍ التحميل…'],lv_slow:['서버 응답이 늦어지고 있습니다. 잠시 후 새로고침해 주세요.','استجابة الخادم بطيئة، أعد تحميل الصفحة بعد قليل.'],
 ad_add_part:['참가자 등록','تسجيل مشارك'],ad_add_part_h:['참가자가 이 이메일로 로그인하면 계정이 자동으로 연결됩니다.','عند دخول المشارك بهذا البريد يُربط حسابه تلقائيًا.'],toast_part_added:['참가자를 등록했습니다.','تم تسجيل المشارك.'],lv_dup:['이미 등록된 이메일입니다.','هذا البريد مسجّل مسبقًا.'],
 ad_mk_rounds:['4회차 일정 만들기','إنشاء الحصص الأربع'],ad_mk_rounds_h:['1회차 활동일(금요일)을 고르면 매주 금요일로 4회차가 만들어집니다. 회차 유형과 주제는 만든 뒤 수정할 수 있습니다.','اختر تاريخ الحصة الأولى (يوم جمعة)، فتُنشأ أربع حصص في أيام الجمعة المتتالية. يمكنك تعديل النوع والموضوع لاحقًا.'],f_first_fri:['1회차 활동일 (금요일)','تاريخ الحصة الأولى (جمعة)'],
 privacy_admin:['참가자 개인정보는 운영 목적으로만 확인하세요. 실제 서비스에서는 데이터베이스 권한 설정으로 운영진만 조회할 수 있게 제한합니다.','استخدم بيانات المشاركين لأغراض التنظيم فقط. في الخدمة الفعلية يُقصَر الاطّلاع عليها على فريق التنظيم عبر صلاحيات قاعدة البيانات.'],
@@ -2014,9 +2014,10 @@ async function handleSession(session){
     const r=await q(sb.rpc('claim_participant'));
     if(r==='unregistered'){await sb.auth.signOut();db=emptyDb();state.uid=null;liveReady=true;render();openModal(`<h2>${t('lv_login_t')}</h2><div class="note warn mt">${ic('alert')}<span>${t('lv_unreg')}</span></div>`);return}
     await liveLoad();
+    liveReady=true;
     const b_=route().base;if(me()&&(['home','about',''].includes(b_)||(b_==='admin'&&role()!=='admin')||(b_==='my'&&role()==='admin')))location.hash=role()==='admin'?'#admin':'#my';
   }catch(e){liveErr(e)}
-  render();
+  liveReady=true;render();
 }
 
 async function liveBoot(){
@@ -2027,8 +2028,10 @@ async function liveBoot(){
     if(!window.supabase)await loadScript('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js');
     sb=window.supabase.createClient(DARI_CFG.supabaseUrl,DARI_CFG.supabaseAnonKey);
     subscribeRealtime();
-    let last=null;
-    sb.auth.onAuthStateChange((ev,session)=>{const id=session?session.user.id:null;if(id===last&&ev!=='SIGNED_OUT')return;last=id;setTimeout(()=>handleSession(session),0)});
+    let last;   // 처음에는 undefined: 로그인하지 않은 첫 방문(null)도 반드시 처리
+    sb.auth.onAuthStateChange((ev,session)=>{const id=session?session.user.id:null;if(last!==undefined&&id===last&&ev!=='SIGNED_OUT')return;last=id;setTimeout(()=>handleSession(session),0)});
+    // 서버 응답이 10초 넘게 없으면 멈춰 있지 말고 안내 표시
+    setTimeout(()=>{if(!liveReady){liveReady=true;render();toast(t('lv_slow'),'err')}},10000);
   }catch(e){liveErr(e);liveReady=true;render()}
 }
 
