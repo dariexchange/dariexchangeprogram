@@ -317,6 +317,10 @@ create policy own_cert       on certs        for select using (participant_id = 
 -- 보강 신청·수정·취소·제출·검토는 위 함수로만 가능 (makeups에 직접 쓰기 정책 없음)
 
 -- 참가자가 직접 고칠 수 있는 열은 프로필 항목뿐
+-- 사이트(로그인한 사용자)가 표와 함수에 접근할 수 있도록 권한 부여 (실제 범위는 위 RLS 규칙이 제한)
+grant usage on schema public to anon, authenticated;
+grant select, insert, update, delete on all tables in schema public to authenticated;
+grant execute on all functions in schema public to anon, authenticated;
 revoke update on participants from authenticated;
 grant update (goal, interests, intro, en_level, ar_level, ko_level, kakao_id) on participants to authenticated;
 
