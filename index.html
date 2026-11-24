@@ -842,7 +842,14 @@ ad_team_zoom:['팀별 Zoom 정보','بيانات Zoom لكل ثنائي'],ad_zoo
 toast_zoom:['Zoom 정보를 저장했습니다. 해당 팀 참가자 화면에 바로 반영됩니다.','تم حفظ بيانات Zoom، وستظهر للثنائي فورًا.'],
 lv_login_t:['이메일로 로그인','الدخول بالبريد الإلكتروني'],lv_login_d:['운영진에게 등록한 이메일을 입력하면 로그인 링크를 보내 드립니다. 메일의 링크를 누르면 바로 로그인됩니다.','أدخل البريد الإلكتروني المسجّل لدى فريق التنظيم لنرسل إليك رابط الدخول، ثم اضغط على الرابط في الرسالة.'],
 lv_send:['로그인 링크 받기','أرسل رابط الدخول'],lv_sent:['{email} 주소로 로그인 링크를 보냈습니다. 메일함을 확인해 주세요.','أرسلنا رابط الدخول إلى {email}، تفقّد بريدك.'],
-lv_unreg:['등록되지 않은 이메일입니다. 운영진에게 참가자 등록을 요청해 주세요.','هذا البريد غير مسجّل، اطلب من فريق التنظيم تسجيلك.'],lv_err:['처리하지 못했습니다. 잠시 후 다시 시도해 주세요.','تعذّرت العملية، حاول مرة أخرى بعد قليل.'],lv_loading:['불러오는 중입니다…','جارٍ التحميل…'],lv_slow:['서버 응답이 늦어지고 있습니다. 잠시 후 새로고침해 주세요.','استجابة الخادم بطيئة، أعد تحميل الصفحة بعد قليل.'],
+lv_unreg:['등록되지 않은 이메일입니다. 운영진에게 참가자 등록을 요청해 주세요.','هذا البريد غير مسجّل، اطلب من فريق التنظيم تسجيلك.'],lv_err:['처리하지 못했습니다. 잠시 후 다시 시도해 주세요.','تعذّرت العملية، حاول مرة أخرى بعد قليل.'],lv_loading:['불러오는 중입니다…','جارٍ التحميل…'],lv_e_rate:['로그인 메일 발송 한도에 걸렸습니다. Supabase 기본 메일은 1시간에 몇 통만 보낼 수 있어요. 잠시 후 다시 시도해 주세요.','تم بلوغ حدّ إرسال رسائل الدخول. حاول مرة أخرى بعد قليل.'],
+lv_e_wait:['같은 이메일로는 1분에 한 번만 보낼 수 있어요. 1분 뒤 다시 눌러 주세요.','يمكن الإرسال إلى البريد نفسه مرة كل دقيقة. حاول بعد دقيقة.'],
+lv_e_signup:['Supabase에서 새 사용자 가입이 꺼져 있습니다. Authentication 설정에서 이메일 가입을 허용해 주세요.','التسجيل معطّل في Supabase. فعّل التسجيل بالبريد في إعدادات Authentication.'],
+lv_e_key:['서버 연결 키가 올바르지 않습니다. config.js의 키를 확인해 주세요.','مفتاح الاتصال بالخادم غير صحيح. تحقّق من المفتاح في config.js.'],
+lv_e_net:['서버에 연결하지 못했습니다. 인터넷 연결이나 광고 차단 확장 프로그램을 확인해 주세요.','تعذّر الاتصال بالخادم. تحقّق من الإنترنت أو من إضافات حظر الإعلانات.'],
+lv_e_link:['로그인 링크가 만료되었거나 이미 사용되었습니다. 로그인 링크를 다시 받아 주세요.','انتهت صلاحية رابط الدخول أو استُخدم من قبل. اطلب رابطًا جديدًا.'],
+lv_e_schema:['데이터베이스 설정이 끝나지 않았습니다. schema.sql을 Supabase SQL Editor에서 실행했는지 확인해 주세요.','لم يكتمل إعداد قاعدة البيانات. تأكّد من تشغيل schema.sql في محرّر SQL.'],
+lv_slow:['서버 응답이 늦어지고 있습니다. 잠시 후 새로고침해 주세요.','استجابة الخادم بطيئة، أعد تحميل الصفحة بعد قليل.'],
 ad_add_part:['참가자 등록','تسجيل مشارك'],ad_add_part_h:['참가자가 이 이메일로 로그인하면 계정이 자동으로 연결됩니다.','عند دخول المشارك بهذا البريد يُربط حسابه تلقائيًا.'],toast_part_added:['참가자를 등록했습니다.','تم تسجيل المشارك.'],lv_dup:['이미 등록된 이메일입니다.','هذا البريد مسجّل مسبقًا.'],
 ad_mk_rounds:['4회차 일정 만들기','إنشاء الحصص الأربع'],ad_mk_rounds_h:['1회차 활동일(금요일)을 고르면 매주 금요일로 4회차가 만들어집니다. 회차 유형과 주제는 만든 뒤 수정할 수 있습니다.','اختر تاريخ الحصة الأولى (يوم جمعة)، فتُنشأ أربع حصص في أيام الجمعة المتتالية. يمكنك تعديل النوع والموضوع لاحقًا.'],f_first_fri:['1회차 활동일 (금요일)','تاريخ الحصة الأولى (جمعة)'],
 privacy_admin:['참가자 개인정보는 운영 목적으로만 확인하세요. 실제 서비스에서는 데이터베이스 권한 설정으로 운영진만 조회할 수 있게 제한합니다.','استخدم بيانات المشاركين لأغراض التنظيم فقط. في الخدمة الفعلية يُقصَر الاطّلاع عليها على فريق التنظيم عبر صلاحيات قاعدة البيانات.'],
@@ -1867,7 +1874,17 @@ function subscribeRealtime(){sb.channel('dari-live').on('postgres_changes',{even
 
 const ERRMAP={already_requested:'mk_used',not_cancellable:'err_cancel',deadline_passed:'err_deadline',out_of_window:'err_deadline',round_taken:'mk_req_none',already_recorded:'mk_req_none',
   not_allowed:'err_cancel',too_early:'mk_sub_wait',not_submittable:'err_deadline',review_required:'err_review',admins_only:'ad_forbidden_t'};
-function liveErr(e){const m=String(e&&(e.message||e.error_description||e)||'');const k=Object.keys(ERRMAP).find(x=>m.includes(x));console.error(e);toast(k?t(ERRMAP[k]):t('lv_err'),'err')}
+function authErrText(m){m=String(m||'');const l=m.toLowerCase();
+  if(l.includes('rate limit')||l.includes('too many'))return t('lv_e_rate');
+  if(l.includes('after')&&l.includes('second'))return t('lv_e_wait');
+  if(l.includes('signup')||l.includes('signups not allowed'))return t('lv_e_signup');
+  if(l.includes('invalid api key')||l.includes('no api key')||l.includes('apikey'))return t('lv_e_key');
+  if(l.includes('failed to fetch')||l.includes('network'))return t('lv_e_net');
+  if(l.includes('expired')||l.includes('otp')||l.includes('invalid')&&l.includes('link'))return t('lv_e_link');
+  if(l.includes('does not exist')||l.includes('could not find'))return t('lv_e_schema');
+  return '';}
+function liveErr(e){const m=String(e&&(e.message||e.error_description||e)||'');const k=Object.keys(ERRMAP).find(x=>m.includes(x));console.error(e);
+  if(k)return toast(t(ERRMAP[k]),'err');const why=authErrText(m);toast(why||(t('lv_err')+(m?' ('+m.slice(0,140)+')':'')),'err')}
 async function run(fn){try{await fn()}catch(e){liveErr(e)}try{await liveLoad()}catch(e){console.error(e)}render()}
 const safeExt=n=>{const e=extOf(n||'');return /^[a-z0-9]{1,5}$/.test(e)?e:'bin'};
 const newId=()=>(crypto.randomUUID?crypto.randomUUID():uid('x'));
@@ -2022,6 +2039,7 @@ async function handleSession(session){
 
 async function liveBoot(){
   LIVE=true;api=liveApi;db=emptyDb();
+  try{const hp=new URLSearchParams((location.hash||'').replace(/^#/,'')+'&'+location.search.replace(/^\?/,''));const ed=hp.get('error_description')||hp.get('error');if(ed){setTimeout(()=>toast(authErrText(ed)||(t('lv_err')+' ('+ed.replace(/\+/g,' ').slice(0,140)+')'),'err'),300);history.replaceState(null,'',location.pathname)}}catch(e){}
   try{state.lang=localStorage.getItem('dari-lang')||'ko'}catch(e){}
   render();
   try{
@@ -2042,7 +2060,7 @@ function liveLoginModal(){
 }
 async function sendMagic(f,fd){const email=fd.get('email').trim();const btn=f.querySelector('button');btn.disabled=true;
   const {error}=await sb.auth.signInWithOtp({email,options:{shouldCreateUser:true,emailRedirectTo:location.origin+location.pathname}});
-  if(error){const e=$('#lv-err');e.textContent=t('lv_err');e.classList.add('show');btn.disabled=false;console.error(error);return}
+  if(error){const e=$('#lv-err');const m=error.message||String(error);e.textContent=authErrText(m)||(t('lv_err')+' ('+m.slice(0,160)+')');e.classList.add('show');btn.disabled=false;console.error(error);return}
   f.outerHTML=`<div class="note pri mt">${ic('check')}<span>${t('lv_sent',{email:esc(email)})}</span></div>`}
 
 if(DARI_CFG){liveBoot()}else{load();render();sharedBoot()}getDownloads();
