@@ -1868,6 +1868,9 @@ const A={
   xlTemplate(){saveFile('DARI_참가자_등록양식.xlsx',MiniXL.write([XL_HEAD,['김하연','hayeon@example.com','한국','한국외국어대학교','hayeon_k','중','','중'],['Amina Benali','amina@example.com','알제리','Université d\'Alger 2','','','중','상']],'참가자'))},
   async xlImport(){const rows=(state.xlRows||[]).filter(r=>!r.err);if(!rows.length)return;closeModal();await api.addParticipants(rows.map(r=>r.p));state.xlRows=null;toast(t('toast_xl_done',{n:rows.length}));render()},
   signupOpen(){liveSignupModal()},
+  modalLang(el){const f=document.querySelector('#modal form');const keep={};if(f)[...f.elements].forEach(x=>{if(!x.name)return;keep[x.name]=x.type==='checkbox'?x.checked:x.value});
+    state.lang=el.dataset.l;save();render();
+    if(el.dataset.k==='signup')liveSignupModal(keep);else{liveLoginModal();const g=document.querySelector('#modal form');if(g)Object.entries(keep).forEach(([k,v])=>{if(g.elements[k]&&g.elements[k].type!=='checkbox')g.elements[k].value=v})}},
   loginBack(){liveLoginModal()},
   async approve(el){await api.approveParticipant(el.dataset.id,el.dataset.s);toast(t(el.dataset.s==='active'?'toast_ap_ok':el.dataset.s==='rejected'?'toast_ap_no':'toast_ap_undo'));render()},
   loginTab(el){liveLoginModal(el.dataset.m)},
@@ -2209,24 +2212,26 @@ function liveLoginModal(mode){mode=mode||state.loginMode||'pw';state.loginMode=m
   const body=mode==='pw'
     ?`<form data-form="pwlogin" class="stack mt">${email}<div class="field"><label for="lv-p">${t('lv_pw')}</label><input id="lv-p" class="input" type="password" name="password" required dir="ltr" autocomplete="current-password"></div><div class="form-err" id="lv-err"></div><button class="btn btn-p btn-block">${t('lv_pw_go')}</button><p class="xs muted">${t('lv_pw_h')}</p></form>`
     :`<p class="small muted mt">${t('lv_login_d')}</p><form data-form="magic" class="stack mt">${email}<div class="form-err" id="lv-err"></div><button class="btn btn-p btn-block">${t('lv_send')}</button></form>`;
-  openModal(`<div style="margin-bottom:6px">${LOGO.replace('<svg','<svg width="44" height="44"')}</div><h2>${t('lv_login_t')}</h2>${tabs}${body}<p class="small mt" style="text-align:center"><button type="button" class="btn btn-g btn-sm" data-act="signupOpen">${t('su_link')}</button></p>`);
+  openModal(`${modalLang('login')}<div style="margin-bottom:6px">${LOGO.replace('<svg','<svg width="44" height="44"')}</div><h2>${t('lv_login_t')}</h2>${tabs}${body}<p class="small mt" style="text-align:center"><button type="button" class="btn btn-g btn-sm" data-act="signupOpen">${t('su_link')}</button></p>`);
 }
-function liveSignupModal(){
-  openModal(`<h2>${t('su_t')}</h2><p class="small muted">${t('su_d')}</p>
+function modalLang(kind){return `<div class="lang" role="group" aria-label="Language" style="display:inline-flex;margin-bottom:10px"><button type="button" class="l-ko ${state.lang==='ko'?'on':''}" data-act="modalLang" data-l="ko" data-k="${kind}">한국어</button><button type="button" class="l-ar ${state.lang==='ar'?'on':''}" data-act="modalLang" data-l="ar" data-k="${kind}">العربية</button></div>`}
+function liveSignupModal(keep){const side0=(keep&&keep.side)||(state.lang==='ar'?'DZ':'KR');
+  openModal(`${modalLang('signup')}<h2>${t('su_t')}</h2><p class="small muted">${t('su_d')}</p>
   <form data-form="signup" class="stack-s mt">
     <div class="field"><label for="su-e">${t('col_email')}</label><input id="su-e" class="input" type="email" name="email" required dir="ltr" autocomplete="email"></div>
     <div class="form-grid"><div class="field"><label for="su-p">${t('lv_pw')}</label><input id="su-p" class="input" type="password" name="password" required minlength="6" dir="ltr" autocomplete="new-password"><span class="hint">${t('su_pw_h')}</span></div>
       <div class="field"><label for="su-p2">${t('su_pw2')}</label><input id="su-p2" class="input" type="password" name="password2" required dir="ltr" autocomplete="new-password"></div></div>
     <div class="form-grid"><div class="field"><label for="su-n">${t('col_name')}</label><input id="su-n" class="input" name="name" required></div>
-      <div class="field"><label>${t('col_side')}</label><select class="select" name="side"><option value="KR">${t('sideS_KR')}</option><option value="DZ">${t('sideS_DZ')}</option></select></div>
+      <div class="field"><label>${t('col_side')}</label><select class="select" name="side"><option value="KR" ${side0==='KR'?'selected':''}>${t('sideS_KR')}</option><option value="DZ" ${side0==='DZ'?'selected':''}>${t('sideS_DZ')}</option></select></div>
       <div class="field"><label>${t('col_univ')}</label><input class="input" name="univ"></div>
       <div class="field"><label>${t('col_kakao')}</label><input class="input" name="kakao" dir="ltr"></div>
-      ${lvSel('arLevel','p_ar_level','arl_','KR')}${lvSel('koLevel','p_ko_level','kol_','DZ',true)}${lvSel('enLevel','p_en_level','enl_')}</div>
-    <label class="row gap-s small" style="align-items:flex-start"><input type="checkbox" name="agree" required style="margin-top:3px"><span>${t('su_agree')}</span></label>
+      ${lvSel('arLevel','p_ar_level','arl_','KR',side0!=='KR')}${lvSel('koLevel','p_ko_level','kol_','DZ',side0!=='DZ')}${lvSel('enLevel','p_en_level','enl_')}</div>
+    <label class="small" style="display:flex;gap:8px;align-items:flex-start;flex-wrap:nowrap"><input type="checkbox" name="agree" required style="margin-top:4px;flex:none"><span>${t('su_agree')}</span></label>
     <div class="form-err" id="su-err"></div>
     <button class="btn btn-p btn-block">${t('su_go')}</button>
     <button type="button" class="btn btn-g btn-sm" data-act="loginBack">${t('su_back')}</button>
-  </form>`)}
+  </form>`);
+  if(keep){const f=document.querySelector('form[data-form=signup]');Object.entries(keep).forEach(([k,v])=>{const el=f&&f.elements[k];if(!el)return;if(el.type==='checkbox')el.checked=!!v;else el.value=v})}}
 async function doSignup(f,fd){const err=$('#su-err');const show=m=>{err.textContent=m;err.classList.add('show')};
   const pw=fd.get('password');if(pw.length<6)return show(t('su_e_pw'));if(pw!==fd.get('password2'))return show(t('su_e_pw2'));
   const side=fd.get('side');const email=fd.get('email').trim().toLowerCase();const btn=f.querySelector('button.btn-p');btn.disabled=true;
