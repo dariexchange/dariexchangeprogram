@@ -931,6 +931,23 @@ del_part:['삭제','حذف'],del_part_t:['참가자를 삭제할까요?','هل �
 del_part_d:['{name} 님의 정보와 함께 매칭, 출석, 보강 기록, 수료증이 모두 삭제되며 되돌릴 수 없습니다. 파트너의 출석 기록은 그대로 남습니다.','ستُحذف بيانات {name} مع التعيين وسجلات الحضور والتعويض والشهادة، ولا يمكن التراجع. تبقى سجلات حضور الشريك كما هي.'],
 toast_part_del:['참가자를 삭제했습니다.','تم حذف المشارك.'],
 });
+Object.assign(S,{
+su_link:['처음이신가요? 회원가입','أول مرة؟ إنشاء حساب'],su_back:['이미 계정이 있어요 · 로그인','لديّ حساب · تسجيل الدخول'],
+su_t:['DARI 회원가입','إنشاء حساب في داري'],su_d:['가입 신청 후 운영진이 승인하면 참가자 화면을 이용할 수 있습니다. 운영진이 미리 등록한 이메일이면 바로 이용할 수 있어요.','بعد إرسال طلب التسجيل وموافقة فريق التنظيم يمكنك استخدام صفحة المشارك. وإن كان بريدك مسجّلًا مسبقًا لدى الفريق فيمكنك البدء فورًا.'],
+su_pw2:['비밀번호 확인','تأكيد كلمة المرور'],su_pw_h:['6자 이상','6 أحرف على الأقل'],
+su_agree:['참가자 관리(매칭·일정·출석 안내)를 위해 입력한 정보를 DARI 운영진이 이용하는 데 동의합니다.','أوافق على استخدام فريق داري للمعلومات المُدخلة لأغراض إدارة المشاركين (التعيين والجدول والحضور).'],
+su_go:['가입 신청','إرسال طلب التسجيل'],
+su_e_pw:['비밀번호를 6자 이상 입력해 주세요.','أدخل كلمة مرور من 6 أحرف على الأقل.'],su_e_pw2:['비밀번호 확인이 일치하지 않습니다.','تأكيد كلمة المرور غير مطابق.'],
+su_e_exists:['이미 가입된 이메일입니다. 로그인해 주세요.','هذا البريد مسجّل مسبقًا، يرجى تسجيل الدخول.'],
+su_mail:['{email}로 확인 메일을 보냈습니다. 메일의 링크를 누르면 가입이 완료됩니다.','أرسلنا رسالة تأكيد إلى {email}. اضغط الرابط في الرسالة لإكمال التسجيل.'],
+wait_t:['가입 신청이 접수되었습니다','تم استلام طلب التسجيل'],wait_d:['운영진이 확인한 뒤 승인하면 이 화면에서 바로 참가자 기능(프로필·일정·자료·출석)을 이용할 수 있습니다. 승인되면 화면이 자동으로 바뀝니다.','بعد مراجعة فريق التنظيم والموافقة يمكنك استخدام صفحة المشارك (الملف والجدول والمواد والحضور) من هنا مباشرة، وستتغيّر الصفحة تلقائيًا.'],
+rej_t:['참가 신청이 승인되지 않았습니다','لم تتم الموافقة على طلب المشاركة'],rej_d:['자세한 내용은 DARI 운영진에게 문의해 주세요.','للمزيد من التفاصيل تواصل مع فريق داري.'],
+lv_nocohort:['현재 모집 중인 기수가 설정되지 않았습니다. 운영진에게 문의해 주세요.','لا توجد دفعة مفتوحة للتسجيل حاليًا. تواصل مع فريق التنظيم.'],
+ap_t:['가입 승인 대기','طلبات بانتظار الموافقة'],ap_h:['직접 가입한 사람입니다. 승인하면 참가자 목록과 매칭 후보에 추가됩니다.','أشخاص سجّلوا بأنفسهم. عند الموافقة يُضافون إلى قائمة المشاركين ومرشحي التعيين.'],
+ap_ok:['승인','موافقة'],ap_no:['거절','رفض'],ap_rej_t:['거절한 신청','الطلبات المرفوضة'],ap_undo:['다시 대기로','إعادة إلى الانتظار'],
+toast_ap_ok:['승인했습니다. 이제 참가자 목록에 표시됩니다.','تمت الموافقة، ويظهر الآن في قائمة المشاركين.'],toast_ap_no:['거절했습니다.','تم الرفض.'],toast_ap_undo:['승인 대기로 되돌렸습니다.','أُعيد إلى الانتظار.'],
+ad_pending_note:['가입 승인 대기 {n}명이 있습니다.','هناك {n} طلبات بانتظار الموافقة.'],ad_pending_go:['확인하기','مراجعة'],
+});
 function t(k,v){const e=S[k];let s=e?e[state.lang==='ar'?1:0]:'['+k+']';if(v)for(const x in v)s=s.split('{'+x+'}').join(v[x]);return s}
 const L=o=>o==null?'':typeof o==='string'?o:(o[state.lang]||o.ko||'');
 const uid=p=>p+Date.now().toString(36).slice(-4)+Math.random().toString(36).slice(2,6);
@@ -1184,7 +1201,7 @@ function levelGap(kr,dz){const d=(a,b)=>(a&&b)?Math.abs(a-b):2;return d(kr.profi
 function profileScore(p){const pr=p.profile;let s=0;if(L(pr.intro).trim().length>=20)s+=35;if(pr.interests.length>=2)s+=30;if(pr.goal)s+=15;if(LVF(p.side).every(([k])=>pr[k]))s+=20;return Math.min(100,s)}
 // 운영진 참가자 등록 폼의 수준 선택 (구분에 따라 아랍어/한국어 수준 칸을 바꿔 보여 줌)
 function lvSel(name,label,pre,side,hide){return `<div class="field" ${side?`data-lv="${side}"`:''} ${hide?'style="display:none"':''}><label>${t(label)}</label><select class="select" name="${name}"><option value="">${t('lv_none_opt')}</option>${[1,2,3].map(n=>`<option value="${n}">${esc(t(pre+n).split(' · ')[0])}</option>`).join('')}</select></div>`}
-document.addEventListener('change',e=>{const el=e.target;if(el.matches&&el.matches('form[data-form=addPart] select[name=side]')){el.form.querySelectorAll('[data-lv]').forEach(d=>{d.style.display=d.dataset.lv===el.value?'':'none'})}
+document.addEventListener('change',e=>{const el=e.target;if(el.matches&&el.matches('form[data-form=addPart] select[name=side], form[data-form=signup] select[name=side]')){el.form.querySelectorAll('[data-lv]').forEach(d=>{d.style.display=d.dataset.lv===el.value?'':'none'})}
   if(el.id==='xl-f'&&el.files&&el.files[0]){xlRead(el.files[0]);el.value=''}});
 const LVF=side=>side==='KR'?[['arLevel','p_ar_level','arl_'],['enLevel','p_en_level','enl_']]:[['koLevel','p_ko_level','kol_'],['enLevel','p_en_level','enl_']];
 const levelText=q=>LVF(q.side).map(([k,lab])=>`${t(lab)} ${q.profile[k]?t('lv3_'+q.profile[k]):'—'}`).join(' · ');
@@ -1396,6 +1413,7 @@ function pHome(){
 const MY_TABS=[['','my_t_dash','grid'],['match','my_t_match','users'],['schedule','my_t_sched','cal'],['materials','my_t_mat','book'],['attendance','my_t_att','check']];
 function pMy(sub){
   const R=role();
+  if(R==='waiting'){const rej=state.liveStatus==='rejected';return `<section class="sec"><div class="wrap">${emptyState(rej?'alert':'clock',t(rej?'rej_t':'wait_t'),t(rej?'rej_d':'wait_d'),`<button class="btn btn-o" data-act="logout">${t('logout')}</button>`)}</div></section>`}
   if(R==='guest')return `<section class="sec"><div class="wrap">${emptyState('lock',t('need_login_t'),t('need_login_d'),`<button class="btn btn-p" data-act="login">${t('login')}</button>`)}</div></section>`;
   if(R==='admin')return `<section class="sec"><div class="wrap">${emptyState('shield',t('my_admin_t'),t('my_admin_d'),`<a href="#admin" class="btn btn-p">${t('nav_admin')}</a>`)}</div></section>`;
   const p=part(me().pid);
@@ -1617,7 +1635,8 @@ function adOverview(){
   const byRound=rounds().map(r=>{const ps=past.filter(x=>x.r.no===r.no);const n=ps.length*2;const a=ps.reduce((c,x)=>c+[x.pr.kr,x.pr.dz].filter(pid=>counted().includes(attOf(pid)[r.no]?.s)).length,0);return [r.no,n?Math.round(a/n*100):null]});
   const newReq=db.makeups.filter(m=>mkState(m)==='scheduled').sort((a,b)=>b.requestedAt.localeCompare(a.requestedAt));
   const recentMat=[...db.materials].sort((a,b)=>b.createdAt.localeCompare(a.createdAt)).slice(0,4);
-  return `<div class="grid g4">${[[db.participants.length,'k_parts','match'],[avg+'%','k_att','attendance'],[newReq.length,'k_mk_req','makeups'],[pend,'k_mk','makeups']].map(([v,k,h])=>`<a class="kpi" href="#admin-${h}" style="text-decoration:none;color:inherit"><span>${t(k)}</span><b>${v}</b></a>`).join('')}</div>
+  const pendN=(db.pending||[]).filter(p=>p.status==='pending').length;
+  return (pendN?`<div class="note warn" style="margin-bottom:14px">${ic('user')}<span>${t('ad_pending_note',{n:pendN})} <a href="#admin-match" style="font-weight:600">${t('ad_pending_go')}</a></span></div>`:'')+`<div class="grid g4">${[[db.participants.length,'k_parts','match'],[avg+'%','k_att','attendance'],[newReq.length,'k_mk_req','makeups'],[pend,'k_mk','makeups']].map(([v,k,h])=>`<a class="kpi" href="#admin-${h}" style="text-decoration:none;color:inherit"><span>${t(k)}</span><b>${v}</b></a>`).join('')}</div>
   <div class="dash-grid mt">
     <div class="card c7"><div class="card-head"><h3 class="h3">${ic('chart')} ${t('ad_round_att')}</h3></div>
       <div class="vbars" dir="ltr">${byRound.map(([w,v])=>`<div class="vbar"><b>${v==null?'':v+'%'}</b><i style="height:${v||0}%;${v==null?'background:var(--bg-2);min-height:6px':''}"></i><span>R${w}</span></div>`).join('')}</div></div>
@@ -1646,8 +1665,13 @@ function adMatch(){
       <div class="kv2" style="margin-top:0"><div><span>${esc(kr.name)}</span><b>${levelText(kr)}</b></div><div><span>${esc(dz.name)}</span><b>${levelText(dz)}</b></div></div>
       <div class="mt"><button class="btn btn-p">${ic('check')} ${t('ad_fix')}</button></div></form>`}
   const pairs=db.pairs.map(pr=>{const k=part(pr.kr),d=part(pr.dz);return `<tr><td><div class="cell-name">${avatar(k)}${esc(k.name)}</div></td><td class="muted">${ic('link')}</td><td><div class="cell-name">${avatar(d)}${esc(d.name)}</div></td><td><button class="btn btn-d btn-xs" data-act="unmatch" data-id="${pr.id}">${t('ad_unmatch')}</button></td></tr>`}).join('');
+  const pend=(db.pending||[]).filter(p=>p.status==='pending'),rej=(db.pending||[]).filter(p=>p.status==='rejected');
+  const apRow=(p,btns)=>`<tr><td><div class="cell-name">${avatar(p)}${esc(p.name)}</div></td><td>${sideBadge(p.side)}</td><td class="small">${L(p.univ)||'—'}</td><td class="small" style="white-space:nowrap">${levelText(p).split(' · ').join('<br>')||'—'}</td><td class="mono" dir="ltr" style="text-align:start;font-size:12.5px">${esc(p.email)}<br><span class="muted">${p.kakao?'K · '+esc(p.kakao):'K · —'}</span></td><td style="white-space:nowrap">${btns}</td></tr>`;
+  const apCard=(pend.length||rej.length)?`<div class="card" id="approvals" style="margin-bottom:16px"><div class="card-head"><h3 class="h3">${ic('user')} ${t('ap_t')} <span class="badge ${pend.length?'b-warn':''}">${pend.length}</span></h3></div><p class="small muted" style="margin:-8px 0 12px">${t('ap_h')}</p>
+    ${pend.length?`<div class="tbl-wrap"><table><thead><tr><th>${t('col_name')}</th><th>${t('col_side')}</th><th>${t('col_univ')}</th><th>${t('p_level')}</th><th>${t('col_email')}<br><span style="font-weight:400">${t('col_kakao')}</span></th><th></th></tr></thead><tbody>${pend.map(p=>apRow(p,`<button class="btn btn-p btn-xs" data-act="approve" data-id="${p.id}" data-s="active">${t('ap_ok')}</button> <button class="btn btn-o btn-xs" data-act="approve" data-id="${p.id}" data-s="rejected">${t('ap_no')}</button>`)).join('')}</tbody></table></div>`:''}
+    ${rej.length?`<details class="mt"><summary class="small">${t('ap_rej_t')} (${rej.length})</summary><div class="tbl-wrap mt-s"><table><tbody>${rej.map(p=>apRow(p,`<button class="btn btn-o btn-xs" data-act="approve" data-id="${p.id}" data-s="pending">${t('ap_undo')}</button> <button class="btn btn-d btn-xs" data-act="delPart" data-id="${p.id}">${t('del_part')}</button>`)).join('')}</tbody></table></div></details>`:''}</div>`:'';
   const all=db.participants.map(p=>{const q=partnerOf(p.id);return `<tr><td><div class="cell-name">${avatar(p)}${esc(p.name)}</div></td><td>${sideBadge(p.side)}</td><td class="small" style="min-width:96px">${L(p.univ)}</td><td class="small" style="white-space:nowrap">${levelText(p).split(' · ').join('<br>')}</td><td class="small">${q?esc(q.name):`<span class="badge b-warn">${t('ad_none')}</span>`}</td><td class="mono" dir="ltr" style="text-align:start;font-size:12.5px">${esc(p.email)}<br><span class="muted">${p.kakao?'K · '+esc(p.kakao):'K · —'}</span></td><td style="white-space:nowrap"><button class="btn btn-o btn-xs" data-act="viewProf" data-id="${p.id}">${t('ad_prof')}</button> <button class="btn btn-d btn-xs" data-act="delPart" data-id="${p.id}">${t('del_part')}</button></td></tr>`}).join('');
-  return `<div class="note pri" style="margin-bottom:16px">${ic('shield')}<span>${t('ad_match_d')}</span></div>
+  return apCard+`<div class="note pri" style="margin-bottom:16px">${ic('shield')}<span>${t('ad_match_d')}</span></div>
   <div class="grid match-g" style="align-items:start">
     <div class="card"><h3 class="h3" style="margin-bottom:12px">${sideBadge('KR')} <span class="small muted" style="font-weight:500">${t('ad_unmatched_kr')}</span></h3><div class="cand">${krList||`<p class="muted small">${t('ad_none')}</p>`}</div></div>
     <div><div class="card"><h3 class="h3" style="margin-bottom:12px">${sideBadge('DZ')} <span class="small muted" style="font-weight:500">${t('ad_cand')}</span></h3>${cand}</div>${fix}</div>
@@ -1783,7 +1807,8 @@ window.addEventListener('hashchange',()=>{state.draftAvail=null;state.draftInt=n
 const demoApi={
   addParticipant(p){db.participants.push(newPartRec(p));save()},
   addParticipants(list){list.forEach(p=>db.participants.push(newPartRec(p)));save()},
-  delParticipant(id){const prs=db.pairs.filter(x=>x.kr===id||x.dz===id).map(x=>x.id);db.makeups=db.makeups.filter(m=>!prs.includes(m.pairId));db.pairs=db.pairs.filter(x=>!prs.includes(x.id));
+  approveParticipant(id,st){const p=(db.pending||[]).find(x=>x.id===id)||part(id);if(!p)return;p.status=st;db.pending=(db.pending||[]).filter(x=>x.id!==id);if(st==='active')db.participants.push(p);else{db.participants=db.participants.filter(x=>x.id!==id);db.pending.push(p)}save()},
+  delParticipant(id){db.pending=(db.pending||[]).filter(x=>x.id!==id);const prs=db.pairs.filter(x=>x.kr===id||x.dz===id).map(x=>x.id);db.makeups=db.makeups.filter(m=>!prs.includes(m.pairId));db.pairs=db.pairs.filter(x=>!prs.includes(x.id));
     db.participants=db.participants.filter(x=>x.id!==id);if(db.att)delete db.att[id];if(db.certs)delete db.certs[id];if(state.selKR===id)state.selKR=null;if(state.selDZ===id)state.selDZ=null;save()},
   createRounds(first,time){db.rounds=[0,1,2,3].map(i=>({no:i+1,type:'talk',date:addDays(first,7*i),time,topic:{ko:'',ar:''}}));save()},
   login(id){state.uid=id;const u=me();if(u&&u.lang)state.lang=u.lang;save()},
@@ -1838,10 +1863,13 @@ const A={
   copyZoom(){const z=zoomInfo();const txt=`${z.url}\n${t('zoom_id')}: ${z.id}\n${t('zoom_pw')}: ${z.pw}`;try{navigator.clipboard.writeText(txt).then(()=>toast(t('copied')),()=>toast(t('copy_fail'),'err'))}catch(e){toast(t('copy_fail'),'err')}},
 
   async resetShared(){closeModal();await sharedSeed();state.selKR=state.selDZ=null;location.hash='#home';render();toast(t('confirm_reset'))},
-  delPart(el){const p=part(el.dataset.id);if(!p)return;openModal(`<h2>${t('del_part_t')}</h2><p class="small mt-s">${t('del_part_d',{name:esc(p.name)})}</p><div class="row gap mt"><button class="btn btn-d" data-act="delPartYes" data-id="${p.id}">${t('del_part')}</button><button class="btn btn-g" data-act="closeModal">${t('cancel')}</button></div>`)},
+  delPart(el){const p=part(el.dataset.id)||(db.pending||[]).find(x=>x.id===el.dataset.id);if(!p)return;openModal(`<h2>${t('del_part_t')}</h2><p class="small mt-s">${t('del_part_d',{name:esc(p.name)})}</p><div class="row gap mt"><button class="btn btn-d" data-act="delPartYes" data-id="${p.id}">${t('del_part')}</button><button class="btn btn-g" data-act="closeModal">${t('cancel')}</button></div>`)},
   async delPartYes(el){closeModal();await api.delParticipant(el.dataset.id);toast(t('toast_part_del'));render()},
   xlTemplate(){saveFile('DARI_참가자_등록양식.xlsx',MiniXL.write([XL_HEAD,['김하연','hayeon@example.com','한국','한국외국어대학교','hayeon_k','중','','중'],['Amina Benali','amina@example.com','알제리','Université d\'Alger 2','','','중','상']],'참가자'))},
   async xlImport(){const rows=(state.xlRows||[]).filter(r=>!r.err);if(!rows.length)return;closeModal();await api.addParticipants(rows.map(r=>r.p));state.xlRows=null;toast(t('toast_xl_done',{n:rows.length}));render()},
+  signupOpen(){liveSignupModal()},
+  loginBack(){liveLoginModal()},
+  async approve(el){await api.approveParticipant(el.dataset.id,el.dataset.s);toast(t(el.dataset.s==='active'?'toast_ap_ok':el.dataset.s==='rejected'?'toast_ap_no':'toast_ap_undo'));render()},
   loginTab(el){liveLoginModal(el.dataset.m)},
   intToggle(el){const p=part(me().pid);const cur=new Set(state.draftInt||p.profile.interests);const k=el.dataset.k;cur.has(k)?cur.delete(k):cur.add(k);state.draftInt=INTERESTS.filter(x=>cur.has(x));
     // 화면 전체를 다시 그리지 않고 칩만 바꿔서, 저장 전 입력해 둔 수준·목적·소개가 그대로 남도록 함
@@ -1893,6 +1921,7 @@ const F={
   mkRounds(f,fd){api.createRounds(fd.get('day'),fd.get('time'));toast(t('toast_saved'));render()},
   async magic(f,fd){await sendMagic(f,fd)},
   async pwlogin(f,fd){await pwLogin(f,fd)},
+  async signup(f,fd){await doSignup(f,fd)},
   async cert(f,fd){const file=fd.get('file');const err=$('#ct-err');const show=m=>{err.textContent=m;err.classList.add('show')};
     if(!file||!file.size)return show(t('err_cert_file'));if(!['pdf','png','jpg','jpeg'].includes(extOf(file.name)))return show(t('err_cert_file'));if(file.size>MAX_MB*1048576)return show(t('err_size'));
     await api.issueCert(f.dataset.p,file);closeModal();toast(t('toast_cert'));render()},
@@ -1948,7 +1977,7 @@ const ymdhm=t_=>t_?String(t_).replace(' ','T').slice(0,16):'';
 function loadScript(src){return new Promise((res,rej)=>{const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s)})}
 async function q(p){const {data,error}=await p;if(error)throw error;return data}
 
-function mapParticipant(r){return {id:r.id,name:r.name,side:r.side,univ:r.univ||'',email:r.email||'',kakao:r.kakao_id||'',cohort:r.cohort,
+function mapParticipant(r){return {id:r.id,name:r.name,side:r.side,univ:r.univ||'',email:r.email||'',kakao:r.kakao_id||'',cohort:r.cohort,status:r.status||'active',
   profile:{goal:r.goal||'',interests:r.interests||[],intro:r.intro||'',enLevel:r.en_level||null,arLevel:r.ar_level||null,koLevel:r.ko_level||null}}}
 
 async function liveLoad(){
@@ -1958,11 +1987,15 @@ async function liveLoad(){
   const isAdmin=prof&&prof.role==='admin';
   let mine=null;
   if(!isAdmin)mine=await q(sb.from('participants').select('*').eq('user_id',user.id).maybeSingle());
+  // 직접 가입 후 승인 대기·거절 상태: 프로그램 데이터 없이 안내 화면만
+  if(mine&&mine.status&&mine.status!=='active'){const d0=emptyDb();d0.users=[{id:user.id,name:mine.name,role:'waiting',pid:null,lang:state.lang}];db=d0;state.uid=user.id;state.liveStatus=mine.status;liveReady=true;return}
+  state.liveStatus=null;
   let st=mine?await q(sb.from('settings').select('*').eq('cohort',mine.cohort).maybeSingle()):await q(sb.from('settings').select('*').eq('active',true).maybeSingle());
   const cohort=st?st.cohort:(mine?mine.cohort:0);
   const d=emptyDb();
   d.settings={cohort,zoom:{url:(st&&st.zoom_url)||'',id:(st&&st.zoom_id)||'',pw:(st&&st.zoom_pw)||''}};
-  if(isAdmin){d.participants=(await q(sb.from('participants').select('*').eq('cohort',cohort).order('name'))).map(mapParticipant)}
+  if(isAdmin){const allP=(await q(sb.from('participants').select('*').eq('cohort',cohort).order('name'))).map(mapParticipant);
+    d.participants=allP.filter(p=>!p.status||p.status==='active');d.pending=allP.filter(p=>p.status&&p.status!=='active')}
   else if(mine){d.participants=[mapParticipant(mine)];const pt=await q(sb.rpc('my_partner'));(pt||[]).forEach(r=>d.participants.push(mapParticipant(r)))}
   d.pairs=(await q(sb.from('pairs').select('*').eq('cohort',cohort))).map(r=>({id:r.id,kr:r.kr_id,dz:r.dz_id}));
   d.rounds=(await q(sb.from('rounds').select('*').eq('cohort',cohort))).map(r=>({no:r.no,type:r.type,date:ymd(r.date),time:hm(r.time)||'21:00',topic:{ko:r.topic_ko||'',ar:r.topic_ar||r.topic_ko||''}}));
@@ -2011,6 +2044,7 @@ const liveApi={
   addParticipant(p){return run(()=>q(sb.from('participants').insert(livePartRow(p))))},
   addParticipants(list){return run(()=>q(sb.from('participants').upsert(list.map(livePartRow),{onConflict:'email',ignoreDuplicates:true})))},
   delParticipant(id){return run(()=>q(sb.from('participants').delete().eq('id',id)))},
+  approveParticipant(id,st){return run(()=>q(sb.rpc('approve_participant',{p_id:id,p_status:st})))},
   match(kr,dz){return run(()=>q(sb.from('pairs').insert({cohort:db.settings.cohort,kr_id:kr,dz_id:dz})))},
   unmatch(id){return run(()=>q(sb.from('pairs').delete().eq('id',id)))},
   saveRound(no,f){return run(()=>q(sb.from('rounds').update({type:f.type,date:f.date,time:f.time,topic_ko:f.topic.ko,topic_ar:f.topic.ar}).eq('cohort',db.settings.cohort).eq('no',+no)))},
@@ -2143,9 +2177,11 @@ async function handleSession(session){
   if(!session){db=emptyDb();state.uid=null;liveReady=true;render();return}
   try{
     const r=await q(sb.rpc('claim_participant'));
+    if(r==='no_cohort'){await sb.auth.signOut();db=emptyDb();state.uid=null;liveReady=true;render();openModal(`<h2>${t('lv_login_t')}</h2><div class="note warn mt">${ic('alert')}<span>${t('lv_nocohort')}</span></div>`);return}
     if(r==='unregistered'){await sb.auth.signOut();db=emptyDb();state.uid=null;liveReady=true;render();openModal(`<h2>${t('lv_login_t')}</h2><div class="note warn mt">${ic('alert')}<span>${t('lv_unreg')}</span></div>`);return}
     await liveLoad();
     liveReady=true;
+    if(role()==='waiting'){location.hash='#my';render();return}
     const b_=route().base;if(me()&&(['home','about',''].includes(b_)||(b_==='admin'&&role()!=='admin')||(b_==='my'&&role()==='admin')))location.hash=role()==='admin'?'#admin':'#my';
   }catch(e){liveErr(e)}
   liveReady=true;render();
@@ -2173,8 +2209,33 @@ function liveLoginModal(mode){mode=mode||state.loginMode||'pw';state.loginMode=m
   const body=mode==='pw'
     ?`<form data-form="pwlogin" class="stack mt">${email}<div class="field"><label for="lv-p">${t('lv_pw')}</label><input id="lv-p" class="input" type="password" name="password" required dir="ltr" autocomplete="current-password"></div><div class="form-err" id="lv-err"></div><button class="btn btn-p btn-block">${t('lv_pw_go')}</button><p class="xs muted">${t('lv_pw_h')}</p></form>`
     :`<p class="small muted mt">${t('lv_login_d')}</p><form data-form="magic" class="stack mt">${email}<div class="form-err" id="lv-err"></div><button class="btn btn-p btn-block">${t('lv_send')}</button></form>`;
-  openModal(`<div style="margin-bottom:6px">${LOGO.replace('<svg','<svg width="44" height="44"')}</div><h2>${t('lv_login_t')}</h2>${tabs}${body}`);
+  openModal(`<div style="margin-bottom:6px">${LOGO.replace('<svg','<svg width="44" height="44"')}</div><h2>${t('lv_login_t')}</h2>${tabs}${body}<p class="small mt" style="text-align:center"><button type="button" class="btn btn-g btn-sm" data-act="signupOpen">${t('su_link')}</button></p>`);
 }
+function liveSignupModal(){
+  openModal(`<h2>${t('su_t')}</h2><p class="small muted">${t('su_d')}</p>
+  <form data-form="signup" class="stack-s mt">
+    <div class="field"><label for="su-e">${t('col_email')}</label><input id="su-e" class="input" type="email" name="email" required dir="ltr" autocomplete="email"></div>
+    <div class="form-grid"><div class="field"><label for="su-p">${t('lv_pw')}</label><input id="su-p" class="input" type="password" name="password" required minlength="6" dir="ltr" autocomplete="new-password"><span class="hint">${t('su_pw_h')}</span></div>
+      <div class="field"><label for="su-p2">${t('su_pw2')}</label><input id="su-p2" class="input" type="password" name="password2" required dir="ltr" autocomplete="new-password"></div></div>
+    <div class="form-grid"><div class="field"><label for="su-n">${t('col_name')}</label><input id="su-n" class="input" name="name" required></div>
+      <div class="field"><label>${t('col_side')}</label><select class="select" name="side"><option value="KR">${t('sideS_KR')}</option><option value="DZ">${t('sideS_DZ')}</option></select></div>
+      <div class="field"><label>${t('col_univ')}</label><input class="input" name="univ"></div>
+      <div class="field"><label>${t('col_kakao')}</label><input class="input" name="kakao" dir="ltr"></div>
+      ${lvSel('arLevel','p_ar_level','arl_','KR')}${lvSel('koLevel','p_ko_level','kol_','DZ',true)}${lvSel('enLevel','p_en_level','enl_')}</div>
+    <label class="row gap-s small" style="align-items:flex-start"><input type="checkbox" name="agree" required style="margin-top:3px"><span>${t('su_agree')}</span></label>
+    <div class="form-err" id="su-err"></div>
+    <button class="btn btn-p btn-block">${t('su_go')}</button>
+    <button type="button" class="btn btn-g btn-sm" data-act="loginBack">${t('su_back')}</button>
+  </form>`)}
+async function doSignup(f,fd){const err=$('#su-err');const show=m=>{err.textContent=m;err.classList.add('show')};
+  const pw=fd.get('password');if(pw.length<6)return show(t('su_e_pw'));if(pw!==fd.get('password2'))return show(t('su_e_pw2'));
+  const side=fd.get('side');const email=fd.get('email').trim().toLowerCase();const btn=f.querySelector('button.btn-p');btn.disabled=true;
+  const meta={dari_signup:true,name:fd.get('name').trim(),side,univ:(fd.get('univ')||'').trim(),kakao:(fd.get('kakao')||'').trim(),en_level:fd.get('enLevel')||'',ar_level:side==='KR'?(fd.get('arLevel')||''):'',ko_level:side==='DZ'?(fd.get('koLevel')||''):''};
+  const {data,error}=await sb.auth.signUp({email,password:pw,options:{emailRedirectTo:location.origin+location.pathname,data:meta}});
+  if(error){const m=error.message||String(error);btn.disabled=false;return show(/already registered|already exists/i.test(m)?t('su_e_exists'):(authErrText(m)||(t('lv_err')+' ('+m.slice(0,160)+')')))}
+  if(data&&data.user&&Array.isArray(data.user.identities)&&data.user.identities.length===0){btn.disabled=false;return show(t('su_e_exists'))}
+  if(data&&data.session){closeModal();return}
+  f.outerHTML=`<div class="note pri mt">${ic('check')}<span>${t('su_mail',{email:esc(email)})}</span></div>`}
 async function pwLogin(f,fd){const btn=f.querySelector('button.btn-p');btn.disabled=true;
   const {error}=await sb.auth.signInWithPassword({email:fd.get('email').trim(),password:fd.get('password')});
   if(error){const e=$('#lv-err');const m=error.message||String(error);e.textContent=/invalid login credentials/i.test(m)?t('lv_pw_bad'):(authErrText(m)||(t('lv_err')+' ('+m.slice(0,160)+')'));e.classList.add('show');btn.disabled=false;console.error(error);return}
