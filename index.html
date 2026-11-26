@@ -849,6 +849,10 @@ lv_e_key:['서버 연결 키가 올바르지 않습니다. config.js의 키를 �
 lv_e_net:['서버에 연결하지 못했습니다. 인터넷 연결이나 광고 차단 확장 프로그램을 확인해 주세요.','تعذّر الاتصال بالخادم. تحقّق من الإنترنت أو من إضافات حظر الإعلانات.'],
 lv_e_link:['로그인 링크가 만료되었거나 이미 사용되었습니다. 로그인 링크를 다시 받아 주세요.','انتهت صلاحية رابط الدخول أو استُخدم من قبل. اطلب رابطًا جديدًا.'],
 lv_e_schema:['데이터베이스 설정이 끝나지 않았습니다. schema.sql을 Supabase SQL Editor에서 실행했는지 확인해 주세요.','لم يكتمل إعداد قاعدة البيانات. تأكّد من تشغيل schema.sql في محرّر SQL.'],
+lv_tab_pw:['비밀번호로 로그인','الدخول بكلمة المرور'],lv_tab_link:['메일 링크로 로그인','الدخول برابط البريد'],
+lv_pw:['비밀번호','كلمة المرور'],lv_pw_go:['로그인','دخول'],
+lv_pw_h:['비밀번호는 운영진이 Supabase에서 계정을 만들 때 정한 값입니다. 비밀번호가 없으면 "메일 링크로 로그인"을 이용해 주세요.','كلمة المرور هي التي حدّدها فريق التنظيم عند إنشاء الحساب. إن لم تكن لديك كلمة مرور فاستخدم الدخول برابط البريد.'],
+lv_pw_bad:['이메일 또는 비밀번호가 맞지 않습니다.','البريد الإلكتروني أو كلمة المرور غير صحيحة.'],
 lv_slow:['서버 응답이 늦어지고 있습니다. 잠시 후 새로고침해 주세요.','استجابة الخادم بطيئة، أعد تحميل الصفحة بعد قليل.'],
 ad_add_part:['참가자 등록','تسجيل مشارك'],ad_add_part_h:['참가자가 이 이메일로 로그인하면 계정이 자동으로 연결됩니다.','عند دخول المشارك بهذا البريد يُربط حسابه تلقائيًا.'],toast_part_added:['참가자를 등록했습니다.','تم تسجيل المشارك.'],lv_dup:['이미 등록된 이메일입니다.','هذا البريد مسجّل مسبقًا.'],
 ad_mk_rounds:['4회차 일정 만들기','إنشاء الحصص الأربع'],ad_mk_rounds_h:['1회차 활동일(금요일)을 고르면 매주 금요일로 4회차가 만들어집니다. 회차 유형과 주제는 만든 뒤 수정할 수 있습니다.','اختر تاريخ الحصة الأولى (يوم جمعة)، فتُنشأ أربع حصص في أيام الجمعة المتتالية. يمكنك تعديل النوع والموضوع لاحقًا.'],f_first_fri:['1회차 활동일 (금요일)','تاريخ الحصة الأولى (جمعة)'],
@@ -1735,6 +1739,7 @@ const A={
   copyZoom(){const z=zoomInfo();const txt=`${z.url}\n${t('zoom_id')}: ${z.id}\n${t('zoom_pw')}: ${z.pw}`;try{navigator.clipboard.writeText(txt).then(()=>toast(t('copied')),()=>toast(t('copy_fail'),'err'))}catch(e){toast(t('copy_fail'),'err')}},
 
   async resetShared(){closeModal();await sharedSeed();state.selKR=state.selDZ=null;location.hash='#home';render();toast(t('confirm_reset'))},
+  loginTab(el){liveLoginModal(el.dataset.m)},
   intToggle(el){const p=part(me().pid);const cur=new Set(state.draftInt||p.profile.interests);const k=el.dataset.k;cur.has(k)?cur.delete(k):cur.add(k);state.draftInt=INTERESTS.filter(x=>cur.has(x));
     // 화면 전체를 다시 그리지 않고 칩만 바꿔서, 저장 전 입력해 둔 수준·목적·소개가 그대로 남도록 함
     const on=cur.has(k);el.classList.toggle('on',on);el.setAttribute('aria-pressed',String(on));keepProfileDraft()},
@@ -1783,6 +1788,7 @@ const F={
   addPart(f,fd){const email=fd.get('email').trim().toLowerCase();if(db.participants.some(x=>(x.email||'').toLowerCase()===email)){toast(t('lv_dup'),'err');return}api.addParticipant({name:fd.get('name').trim(),email,side:fd.get('side'),univ:fd.get('univ').trim(),kakao:(fd.get('kakao')||'').trim()});toast(t('toast_part_added'));render()},
   mkRounds(f,fd){api.createRounds(fd.get('day'),fd.get('time'));toast(t('toast_saved'));render()},
   async magic(f,fd){await sendMagic(f,fd)},
+  async pwlogin(f,fd){await pwLogin(f,fd)},
   async cert(f,fd){const file=fd.get('file');const err=$('#ct-err');const show=m=>{err.textContent=m;err.classList.add('show')};
     if(!file||!file.size)return show(t('err_cert_file'));if(!['pdf','png','jpg','jpeg'].includes(extOf(file.name)))return show(t('err_cert_file'));if(file.size>MAX_MB*1048576)return show(t('err_size'));
     await api.issueCert(f.dataset.p,file);closeModal();toast(t('toast_cert'));render()},
@@ -2053,11 +2059,18 @@ async function liveBoot(){
   }catch(e){liveErr(e);liveReady=true;render()}
 }
 
-function liveLoginModal(){
-  openModal(`<div style="margin-bottom:6px">${LOGO.replace('<svg','<svg width="44" height="44"')}</div><h2>${t('lv_login_t')}</h2><p class="small muted">${t('lv_login_d')}</p>
-  <form data-form="magic" class="stack mt"><div class="field"><label for="lv-e">${t('col_email')}</label><input id="lv-e" class="input" type="email" name="email" required dir="ltr" autocomplete="email"></div>
-  <div class="form-err" id="lv-err"></div><button class="btn btn-p btn-block">${t('lv_send')}</button></form>`);
+function liveLoginModal(mode){mode=mode||state.loginMode||'pw';state.loginMode=mode;
+  const tabs=`<div class="row gap-s mt" role="tablist">${[['pw','lv_tab_pw'],['link','lv_tab_link']].map(([k,l])=>`<button type="button" class="btn btn-sm ${mode===k?'btn-p':'btn-o'}" data-act="loginTab" data-m="${k}" aria-selected="${mode===k}">${t(l)}</button>`).join('')}</div>`;
+  const email=`<div class="field"><label for="lv-e">${t('col_email')}</label><input id="lv-e" class="input" type="email" name="email" required dir="ltr" autocomplete="email"></div>`;
+  const body=mode==='pw'
+    ?`<form data-form="pwlogin" class="stack mt">${email}<div class="field"><label for="lv-p">${t('lv_pw')}</label><input id="lv-p" class="input" type="password" name="password" required dir="ltr" autocomplete="current-password"></div><div class="form-err" id="lv-err"></div><button class="btn btn-p btn-block">${t('lv_pw_go')}</button><p class="xs muted">${t('lv_pw_h')}</p></form>`
+    :`<p class="small muted mt">${t('lv_login_d')}</p><form data-form="magic" class="stack mt">${email}<div class="form-err" id="lv-err"></div><button class="btn btn-p btn-block">${t('lv_send')}</button></form>`;
+  openModal(`<div style="margin-bottom:6px">${LOGO.replace('<svg','<svg width="44" height="44"')}</div><h2>${t('lv_login_t')}</h2>${tabs}${body}`);
 }
+async function pwLogin(f,fd){const btn=f.querySelector('button.btn-p');btn.disabled=true;
+  const {error}=await sb.auth.signInWithPassword({email:fd.get('email').trim(),password:fd.get('password')});
+  if(error){const e=$('#lv-err');const m=error.message||String(error);e.textContent=/invalid login credentials/i.test(m)?t('lv_pw_bad'):(authErrText(m)||(t('lv_err')+' ('+m.slice(0,160)+')'));e.classList.add('show');btn.disabled=false;console.error(error);return}
+  closeModal()}
 async function sendMagic(f,fd){const email=fd.get('email').trim();const btn=f.querySelector('button');btn.disabled=true;
   const {error}=await sb.auth.signInWithOtp({email,options:{shouldCreateUser:true,emailRedirectTo:location.origin+location.pathname}});
   if(error){const e=$('#lv-err');const m=error.message||String(error);e.textContent=authErrText(m)||(t('lv_err')+' ('+m.slice(0,160)+')');e.classList.add('show');btn.disabled=false;console.error(error);return}
