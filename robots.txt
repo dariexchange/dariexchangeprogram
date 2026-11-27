@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://dariexchange.github.io/dariexchangeprogram/sitemap.xml
