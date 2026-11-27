@@ -952,6 +952,24 @@ ap_ok:['승인','موافقة'],ap_no:['거절','رفض'],ap_rej_t:['거절한 �
 toast_ap_ok:['승인했습니다. 이제 참가자 목록에 표시됩니다.','تمت الموافقة، ويظهر الآن في قائمة المشاركين.'],toast_ap_no:['거절했습니다.','تم الرفض.'],toast_ap_undo:['승인 대기로 되돌렸습니다.','أُعيد إلى الانتظار.'],
 ad_pending_note:['가입 승인 대기 {n}명이 있습니다.','هناك {n} طلبات بانتظار الموافقة.'],ad_pending_go:['확인하기','مراجعة'],
 });
+Object.assign(S,{
+pw_change:['비밀번호 변경','تغيير كلمة المرور'],pw_new:['새 비밀번호','كلمة المرور الجديدة'],pw_new2:['새 비밀번호 확인','تأكيد كلمة المرور الجديدة'],
+pw_change_d:['로그인한 계정의 비밀번호를 바꿉니다. 다음 로그인부터 새 비밀번호를 사용해 주세요.','تغيير كلمة مرور الحساب الحالي. استخدم كلمة المرور الجديدة عند الدخول القادم.'],
+pw_recover_d:['메일의 링크로 들어왔습니다. 사용할 새 비밀번호를 정해 주세요.','دخلت عبر رابط البريد. اختر كلمة مرور جديدة.'],
+toast_pw_changed:['비밀번호를 바꿨습니다.','تم تغيير كلمة المرور.'],
+pw_e_same:['지금 비밀번호와 다른 비밀번호를 입력해 주세요.','أدخل كلمة مرور مختلفة عن الحالية.'],
+pw_forgot_link:['비밀번호를 잊으셨나요?','نسيت كلمة المرور؟'],
+pw_forgot_t:['비밀번호 찾기','استعادة كلمة المرور'],
+pw_forgot_d:['가입한 이메일을 입력하면 비밀번호를 새로 정하는 링크를 메일로 보내 드립니다.','أدخل بريدك المسجّل وسنرسل إليك رابطًا لتعيين كلمة مرور جديدة.'],
+pw_forgot_go:['재설정 메일 받기','إرسال رابط إعادة التعيين'],
+pw_forgot_sent:['{email}로 메일을 보냈습니다. 메일의 링크를 누르면 새 비밀번호를 정할 수 있어요. 메일이 안 보이면 스팸함도 확인해 주세요. 그래도 오지 않으면 운영진에게 문의해 주세요.','أرسلنا رسالة إلى {email}. اضغط الرابط فيها لتعيين كلمة مرور جديدة. إن لم تجدها فتحقّق من مجلد الرسائل غير المرغوب فيها، أو تواصل مع فريق التنظيم.'],
+pw_reset:['비밀번호 초기화','إعادة تعيين كلمة المرور'],
+pw_reset_d:['{name} 님의 비밀번호를 아래 임시 비밀번호로 바꿉니다. 바꾼 뒤 참가자에게 전달하고, 로그인 후 오른쪽 위 자물쇠 버튼에서 직접 바꾸도록 안내해 주세요.','ستُغيَّر كلمة مرور {name} إلى كلمة المرور المؤقتة أدناه. أرسلها إلى المشارك، واطلب منه تغييرها بعد الدخول من زر القفل أعلى الصفحة.'],
+pw_temp:['임시 비밀번호','كلمة المرور المؤقتة'],pw_reset_go:['이 비밀번호로 초기화','إعادة التعيين بهذه الكلمة'],pw_regen:['다른 비밀번호 만들기','إنشاء كلمة أخرى'],
+pw_reset_done:['초기화했습니다. 아래 비밀번호를 참가자에게 전달해 주세요.','تمت إعادة التعيين. أرسل كلمة المرور أدناه إلى المشارك.'],
+pw_e_noacc:['이 참가자는 아직 회원가입을 하지 않아 초기화할 계정이 없습니다. 회원가입을 먼저 안내해 주세요.','لم ينشئ هذا المشارك حسابًا بعد، لذا لا يوجد ما يُعاد تعيينه. اطلب منه التسجيل أولًا.'],
+copy_btn:['복사','نسخ'],
+});
 function t(k,v){const e=S[k];let s=e?e[state.lang==='ar'?1:0]:'['+k+']';if(v)for(const x in v)s=s.split('{'+x+'}').join(v[x]);return s}
 const L=o=>o==null?'':typeof o==='string'?o:(o[state.lang]||o.ko||'');
 const uid=p=>p+Date.now().toString(36).slice(-4)+Math.random().toString(36).slice(2,6);
@@ -1316,7 +1334,7 @@ function header(r){
   if(R==='participant')items.push(['my','nav_my']);
   if(R==='admin')items.push(['admin','nav_admin']);
   const sub=u?(R==='admin'?(u.mlang==='ar'?'HAN.AL':t('role_admin')):t('role_participant')):'';
-  const auth=u?`<div class="user-chip"><span class="avatar ${R==='admin'?'ad':u.pid&&part(u.pid)?.side==='DZ'?'dz':''}">${initial(u.name)}</span><span class="meta"><b>${esc(u.name)}</b><small>${sub}</small></span></div><button class="icon-btn" data-act="logout" title="${t('logout')}" aria-label="${t('logout')}">${ic('logout','flip')}</button>`
+  const auth=u?`<div class="user-chip"><span class="avatar ${R==='admin'?'ad':u.pid&&part(u.pid)?.side==='DZ'?'dz':''}">${initial(u.name)}</span><span class="meta"><b>${esc(u.name)}</b><small>${sub}</small></span></div>${LIVE&&R!=='waiting'?`<button class="icon-btn" data-act="pwChange" title="${t('pw_change')}" aria-label="${t('pw_change')}">${ic('lock')}</button>`:''}<button class="icon-btn" data-act="logout" title="${t('logout')}" aria-label="${t('logout')}">${ic('logout','flip')}</button>`
     :`<button class="btn btn-p btn-sm" data-act="login">${t('login')}</button>`;
   return `<header class="hdr"><div class="wrap hdr-in">
     <a href="#home" class="logo" aria-label="DARI">${LOGO}<span class="logo-t"><strong>DARI</strong><small>${t('brandSub')}</small></span></a>
@@ -1698,7 +1716,7 @@ function profModal(p){
     <div class="kv2"><div><span>${t('p_side')}</span><b>${t('sideS_'+p.side)}</b></div><div><span>${t('p_goal')}</span><b>${pf.goal?t('goal_'+pf.goal):'—'}</b></div></div>
     <div class="quote">${esc(L(pf.intro))||'—'}</div>
     <div class="chips mt-s">${pf.interests.map(x=>`<span class="chip">${t('it_'+x)}</span>`).join('')}</div>
-    <form data-form="setLevel" data-id="${p.id}" class="row gap mt" style="align-items:flex-end">${lvForm}<div class="field grow"><label>${t('col_kakao')}</label><input class="input" name="kakao" dir="ltr" value="${esc(p.kakao||'')}"></div><button class="btn btn-p">${t('save')}</button></form>`;
+    <form data-form="setLevel" data-id="${p.id}" class="row gap mt" style="align-items:flex-end">${lvForm}<div class="field grow"><label>${t('col_kakao')}</label><input class="input" name="kakao" dir="ltr" value="${esc(p.kakao||'')}"></div><button class="btn btn-p">${t('save')}</button></form>${LIVE?`<div class="row gap-s mt" style="justify-content:flex-end"><button type="button" class="btn btn-o btn-sm" data-act="pwReset" data-id="${p.id}">${ic('lock')} ${t('pw_reset')}</button></div>`:''}`;
 }
 
 /* ② admin schedule */
@@ -1870,9 +1888,25 @@ const A={
   xlTemplate(){saveFile('DARI_참가자_등록양식.xlsx',MiniXL.write([XL_HEAD,['김하연','hayeon@example.com','한국','한국외국어대학교','hayeon_k','중','','중'],['Amina Benali','amina@example.com','알제리','Université d\'Alger 2','','','중','상']],'참가자'))},
   async xlImport(){const rows=(state.xlRows||[]).filter(r=>!r.err);if(!rows.length)return;closeModal();await api.addParticipants(rows.map(r=>r.p));state.xlRows=null;toast(t('toast_xl_done',{n:rows.length}));render()},
   signupOpen(){liveSignupModal()},
+  pwForgot(){const em=($('#lv-e')||{}).value||'';openModal(`${modalLang('forgot')}<h2>${t('pw_forgot_t')}</h2><p class="small muted">${t('pw_forgot_d')}</p>
+    <form data-form="pwforgot" class="stack-s mt" novalidate><div class="field"><label for="pf-e">${t('col_email')}</label><input id="pf-e" class="input" type="email" name="email" dir="ltr" autocomplete="email" value="${esc(em)}"></div>
+    <div class="form-err" id="pf-err"></div><button class="btn btn-p btn-block">${t('pw_forgot_go')}</button><button type="button" class="btn btn-g btn-sm" data-act="loginBack">${t('su_back')}</button></form>`)},
+  pwChange(el,recover){openModal(`<h2>${t('pw_change')}</h2><p class="small muted">${t(recover===true?'pw_recover_d':'pw_change_d')}</p><form data-form="pwchange" class="stack-s mt" novalidate>
+    <div class="field"><label for="pc-1">${t('pw_new')}</label><input id="pc-1" class="input" type="password" name="pw" dir="ltr" autocomplete="new-password"><span class="hint">${t('su_pw_h')}</span></div>
+    <div class="field"><label for="pc-2">${t('pw_new2')}</label><input id="pc-2" class="input" type="password" name="pw2" dir="ltr" autocomplete="new-password"></div>
+    <div class="form-err" id="pc-err"></div><div class="row gap"><button class="btn btn-p">${t('save')}</button><button type="button" class="btn btn-g" data-act="closeModal">${t('cancel')}</button></div></form>`)},
+  pwReset(el){const p=part(el.dataset.id);if(!p)return;const pw=tempPw();openModal(`<h2>${t('pw_reset')}</h2><p class="small mt-s">${t('pw_reset_d',{name:esc(p.name)})}</p>
+    <div class="field mt"><label>${t('pw_temp')}</label><div class="row gap-s"><code class="mono" style="font-size:20px;padding:8px 12px;background:var(--surface-2,#f3efe7);border-radius:10px;letter-spacing:1px">${pw}</code><button type="button" class="btn btn-g btn-xs" data-act="pwReset" data-id="${p.id}">${t('pw_regen')}</button></div></div>
+    <div class="form-err" id="pr-err"></div><div class="row gap mt"><button class="btn btn-p" data-act="pwResetGo" data-id="${p.id}" data-pw="${pw}">${t('pw_reset_go')}</button><button class="btn btn-g" data-act="closeModal">${t('cancel')}</button></div>`)},
+  async pwResetGo(el){const pw=el.dataset.pw;el.disabled=true;const {error}=await sb.rpc('admin_reset_password',{p_pid:el.dataset.id,p_password:pw});
+    if(error){el.disabled=false;const m=error.message||'';const e=$('#pr-err');e.textContent=m.includes('no_account')?t('pw_e_noacc'):(authErrText(m)||(t('lv_err')+' ('+m.slice(0,140)+')'));e.classList.add('show');return}
+    const p=part(el.dataset.id);openModal(`<h2>${t('pw_reset')}</h2><div class="note pri mt">${ic('check')}<span>${t('pw_reset_done')}</span></div>
+      <div class="mt small">${esc(p?p.name:'')} · <span dir="ltr">${esc(p?p.email:'')}</span></div><div class="row gap-s mt"><code class="mono" style="font-size:20px;padding:8px 12px;background:var(--surface-2,#f3efe7);border-radius:10px;letter-spacing:1px">${esc(pw)}</code><button type="button" class="btn btn-o btn-sm" data-act="copyText" data-v="${esc(pw)}">${ic('copy')} ${t('copy_btn')}</button></div>
+      <div class="row mt"><button class="btn btn-p" data-act="closeModal">${t('close')}</button></div>`)},
+  copyText(el){try{navigator.clipboard.writeText(el.dataset.v).then(()=>toast(t('copied')),()=>toast(t('copy_fail'),'err'))}catch(e){toast(t('copy_fail'),'err')}},
   modalLang(el){const f=document.querySelector('#modal form');const keep={};if(f)[...f.elements].forEach(x=>{if(!x.name)return;keep[x.name]=x.type==='checkbox'?x.checked:x.value});
     state.lang=el.dataset.l;save();render();
-    if(el.dataset.k==='signup')liveSignupModal(keep);else{liveLoginModal();const g=document.querySelector('#modal form');if(g)Object.entries(keep).forEach(([k,v])=>{if(g.elements[k]&&g.elements[k].type!=='checkbox')g.elements[k].value=v})}},
+    if(el.dataset.k==='signup')liveSignupModal(keep);else if(el.dataset.k==='forgot'){A.pwForgot();const g=$('#pf-e');if(g&&keep.email)g.value=keep.email}else{liveLoginModal();const g=document.querySelector('#modal form');if(g)Object.entries(keep).forEach(([k,v])=>{if(g.elements[k]&&g.elements[k].type!=='checkbox')g.elements[k].value=v})}},
   loginBack(){liveLoginModal()},
   async approve(el){await api.approveParticipant(el.dataset.id,el.dataset.s);toast(t(el.dataset.s==='active'?'toast_ap_ok':el.dataset.s==='rejected'?'toast_ap_no':'toast_ap_undo'));render()},
   loginTab(el){liveLoginModal(el.dataset.m)},
@@ -1927,6 +1961,17 @@ const F={
   async magic(f,fd){await sendMagic(f,fd)},
   async pwlogin(f,fd){await pwLogin(f,fd)},
   async signup(f,fd){await doSignup(f,fd)},
+  async pwforgot(f,fd){const e=$('#pf-err');const email=String(fd.get('email')||'').trim().toLowerCase();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){e.textContent=t('xl_e_email');e.classList.add('show');return}
+    const b=f.querySelector('button.btn-p');b.disabled=true;
+    const {error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname+'?reset=1'});
+    if(error){b.disabled=false;const m=error.message||'';e.textContent=authErrText(m)||(t('lv_err')+' ('+m.slice(0,140)+')');e.classList.add('show');return}
+    f.outerHTML=`<div class="note pri mt">${ic('check')}<span>${t('pw_forgot_sent',{email:esc(email)})}</span></div>`},
+  async pwchange(f,fd){const e=$('#pc-err');const show=m=>{e.textContent=m;e.classList.add('show')};const pw=fd.get('pw')||'';
+    if(pw.length<6)return show(t('su_e_pw'));if(pw!==fd.get('pw2'))return show(t('su_e_pw2'));
+    const b=f.querySelector('button.btn-p');b.disabled=true;const {error}=await sb.auth.updateUser({password:pw});
+    if(error){b.disabled=false;const m=error.message||'';return show(/different from the old|same/i.test(m)?t('pw_e_same'):(authErrText(m)||(t('lv_err')+' ('+m.slice(0,140)+')')))}
+    state.pwRecovery=false;closeModal();toast(t('toast_pw_changed'))},
   async cert(f,fd){const file=fd.get('file');const err=$('#ct-err');const show=m=>{err.textContent=m;err.classList.add('show')};
     if(!file||!file.size)return show(t('err_cert_file'));if(!['pdf','png','jpg','jpeg'].includes(extOf(file.name)))return show(t('err_cert_file'));if(file.size>MAX_MB*1048576)return show(t('err_size'));
     await api.issueCert(f.dataset.p,file);closeModal();toast(t('toast_cert'));render()},
@@ -2186,6 +2231,7 @@ async function handleSession(session){
     if(r==='unregistered'){await sb.auth.signOut();db=emptyDb();state.uid=null;liveReady=true;render();openModal(`<h2>${t('lv_login_t')}</h2><div class="note warn mt">${ic('alert')}<span>${t('lv_unreg')}</span></div>`);return}
     await liveLoad();
     liveReady=true;
+    if(state.pwRecovery){try{history.replaceState(null,'',location.pathname+'#home')}catch(e){}setTimeout(()=>A.pwChange(null,true),200)}
     if(role()==='waiting'){location.hash='#my';render();return}
     const b_=route().base;if(me()&&(['home','about',''].includes(b_)||(b_==='admin'&&role()!=='admin')||(b_==='my'&&role()==='admin')))location.hash=role()==='admin'?'#admin':'#my';
   }catch(e){liveErr(e)}
@@ -2194,6 +2240,7 @@ async function handleSession(session){
 
 async function liveBoot(){
   LIVE=true;api=liveApi;db=emptyDb();
+  try{if(/type=recovery/.test(location.hash)||/[?&]reset=1/.test(location.search))state.pwRecovery=true}catch(e){}
   try{const hp=new URLSearchParams((location.hash||'').replace(/^#/,'')+'&'+location.search.replace(/^\?/,''));const ed=hp.get('error_description')||hp.get('error');if(ed){setTimeout(()=>toast(authErrText(ed)||(t('lv_err')+' ('+ed.replace(/\+/g,' ').slice(0,140)+')'),'err'),300);history.replaceState(null,'',location.pathname)}}catch(e){}
   try{state.lang=localStorage.getItem('dari-lang')||'ko'}catch(e){}
   render();
@@ -2202,7 +2249,7 @@ async function liveBoot(){
     sb=window.supabase.createClient(DARI_CFG.supabaseUrl,DARI_CFG.supabaseAnonKey);
     subscribeRealtime();
     let last;   // 처음에는 undefined: 로그인하지 않은 첫 방문(null)도 반드시 처리
-    sb.auth.onAuthStateChange((ev,session)=>{const id=session?session.user.id:null;if(last!==undefined&&id===last&&ev!=='SIGNED_OUT')return;last=id;setTimeout(()=>handleSession(session),0)});
+    sb.auth.onAuthStateChange((ev,session)=>{if(ev==='PASSWORD_RECOVERY')state.pwRecovery=true;const id=session?session.user.id:null;if(last!==undefined&&id===last&&ev!=='SIGNED_OUT')return;last=id;setTimeout(()=>handleSession(session),0)});
     // 서버 응답이 10초 넘게 없으면 멈춰 있지 말고 안내 표시
     setTimeout(()=>{if(!liveReady){liveReady=true;render();toast(t('lv_slow'),'err')}},10000);
   }catch(e){liveErr(e);liveReady=true;render()}
@@ -2211,11 +2258,13 @@ async function liveBoot(){
 function liveLoginModal(){const mode='pw';const tabs='';   // 메일 링크 로그인은 사용하지 않음 (비밀번호 로그인만)
   const email=`<div class="field"><label for="lv-e">${t('col_email')}</label><input id="lv-e" class="input" type="email" name="email" required dir="ltr" autocomplete="email"></div>`;
   const body=mode==='pw'
-    ?`<form data-form="pwlogin" class="stack mt">${email}<div class="field"><label for="lv-p">${t('lv_pw')}</label><input id="lv-p" class="input" type="password" name="password" required dir="ltr" autocomplete="current-password"></div><div class="form-err" id="lv-err"></div><button class="btn btn-p btn-block">${t('lv_pw_go')}</button><p class="xs muted">${t('lv_pw_forgot')}</p></form>`
+    ?`<form data-form="pwlogin" class="stack mt">${email}<div class="field"><label for="lv-p">${t('lv_pw')}</label><input id="lv-p" class="input" type="password" name="password" required dir="ltr" autocomplete="current-password"></div><div class="form-err" id="lv-err"></div><button class="btn btn-p btn-block">${t('lv_pw_go')}</button><p class="small" style="text-align:end;margin:0"><button type="button" class="btn btn-g btn-xs" data-act="pwForgot">${t('pw_forgot_link')}</button></p></form>`
     :`<p class="small muted mt">${t('lv_login_d')}</p><form data-form="magic" class="stack mt">${email}<div class="form-err" id="lv-err"></div><button class="btn btn-p btn-block">${t('lv_send')}</button></form>`;
   openModal(`${modalLang('login')}<div style="margin-bottom:6px">${LOGO.replace('<svg','<svg width="44" height="44"')}</div><h2>${t('lv_login_t')}</h2>${tabs}${body}<p class="small mt" style="text-align:center"><button type="button" class="btn btn-g btn-sm" data-act="signupOpen">${t('su_link')}</button></p>`);
 }
 function modalLang(kind){return `<div class="lang" role="group" aria-label="Language" style="display:inline-flex;margin-bottom:10px"><button type="button" class="l-ko ${state.lang==='ko'?'on':''}" data-act="modalLang" data-l="ko" data-k="${kind}">한국어</button><button type="button" class="l-ar ${state.lang==='ar'?'on':''}" data-act="modalLang" data-l="ar" data-k="${kind}">العربية</button></div>`}
+// 헷갈리는 글자(0/O, 1/l/I)를 뺀 임시 비밀번호
+function tempPw(){const a='abcdefghjkmnpqrstuvwxyz',d='23456789';const r=n=>{const u=new Uint32Array(1);crypto.getRandomValues(u);return u[0]%n};let s='dari';for(let i=0;i<3;i++)s+=a[r(a.length)];for(let i=0;i<3;i++)s+=d[r(d.length)];return s}
 function liveSignupModal(keep){const side0=(keep&&keep.side)||(state.lang==='ar'?'DZ':'KR');
   openModal(`${modalLang('signup')}<h2>${t('su_t')}</h2><p class="small muted">${t('su_d')}</p>
   <form data-form="signup" class="stack-s mt" novalidate>
