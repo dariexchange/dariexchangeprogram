@@ -1001,6 +1001,11 @@ Object.assign(S,{
 mk_rule_r3:['보강 날짜는 다음 회차 수업 시작 전까지만 선택할 수 있습니다. (예: 3회차 보강은 4회차 수업 전까지)','لا يمكن اختيار موعد التعويض إلا قبل بدء الحصة التالية. (مثال: تعويض الحصة 3 قبل الحصة 4)'],
 mk_req_window:['선택할 수 있는 기간: 지금부터 {t} 전까지','الفترة المتاحة: من الآن حتى قبل {t}'],
 });
+Object.assign(S,{
+p_kakao_h:['운영진과 매칭된 파트너에게만 공개됩니다. 보강 일정을 정할 때 파트너가 연락할 수 있어요.','يظهر لفريق التنظيم ولشريكك فقط، ليتمكّن من التواصل معك لتحديد موعد التعويض.'],
+pk_t:['파트너 카카오톡 ID','معرّف KakaoTalk للشريك'],pk_none:['파트너가 아직 카카오톡 ID를 등록하지 않았습니다.','لم يُضِف شريكك معرّف KakaoTalk بعد.'],
+pk_mk:['보강 날짜는 파트너와 카카오톡으로 먼저 정해 주세요.','اتفق مع شريكك على موعد التعويض عبر KakaoTalk أولًا.'],
+});
 function t(k,v){const e=S[k];let s=e?e[state.lang==='ar'?1:0]:'['+k+']';if(v)for(const x in v)s=s.split('{'+x+'}').join(v[x]);return s}
 const L=o=>o==null?'':typeof o==='string'?o:(o[state.lang]||o.ko||'');
 const uid=p=>p+Date.now().toString(36).slice(-4)+Math.random().toString(36).slice(2,6);
@@ -1550,6 +1555,7 @@ function myDash(p){
 
 /* ① 매칭 · 프로필 */
 
+function kakaoLine(q){return q.kakao?`<div class="row gap-s" style="align-items:center"><span class="badge" style="background:#FEE500;color:#3A1D1D;font-weight:700">Kakao</span><code class="mono" dir="ltr">${esc(q.kakao)}</code><button type="button" class="btn btn-g btn-xs" data-act="copyText" data-v="${esc(q.kakao)}">${ic('copy')} ${t('copy_btn')}</button></div>`:`<span class="small muted">${t('pk_none')}</span>`}
 function partnerFull(p){
   const q=partnerOf(p.id),pr=pairOf(p.id);
   if(!q)return `<div class="card"><div class="card-head"><h3 class="h3">${ic('users')} ${t('partner_t')}</h3></div><div class="note">${ic('clock')}<span>${t('partner_none')}</span></div></div>`;
@@ -1557,6 +1563,7 @@ function partnerFull(p){
   const lv=LVF(q.side).map(([k,lab,pre])=>`<div><span>${t(lab)}</span><b>${q.profile[k]?t(pre+q.profile[k]):'—'}</b></div>`).join('');
   return `<div class="card"><div class="card-head"><h3 class="h3">${ic('users')} ${t('partner_t')}</h3>${sideBadge(q.side)}</div>
     <div class="partner">${avatar(q,'lg')}<div><h4>${esc(q.name)}</h4><span class="muted small">${L(q.univ)}</span></div></div>
+    <div class="mt-s"><span class="xs muted">${t('pk_t')}</span>${kakaoLine(q)}</div>
     <div class="kv2">${lv}<div><span>${t('p_goal')}</span><b>${q.profile.goal?t('goal_'+q.profile.goal):'—'}</b></div></div>
     <h4 class="small mt" style="margin-bottom:6px">${t('p_intro')}</h4><div class="quote" style="margin-top:0">${esc(L(q.profile.intro))||'—'}</div>
     <h4 class="small mt" style="margin-bottom:8px">${t('p_interests')}</h4><div class="chips">${q.profile.interests.map(x=>`<span class="chip ${mi.cm.includes(x)?'common':''}">${t('it_'+x)}</span>`).join('')}</div>
@@ -1656,8 +1663,10 @@ function myAtt(p){
 function mkReqCard(p){
   const pr=pairOf(p.id);
   const rules=`<ul class="rules">${['r3','r0','r1','r2','r4','r5'].map(k=>`<li>${ic('check')}<span>${t('mk_rule_'+k)}</span></li>`).join('')}</ul>`;
-  const head=`<h3 class="h3">${ic('plus')} ${t('mk_req_t')}</h3>${rules}`;
+  let head=`<h3 class="h3">${ic('plus')} ${t('mk_req_t')}</h3>${rules}`;
   if(!pr)return head+`<div class="note">${ic('info')}<span>${t('sched_nopair')}</span></div>`;
+  const pq=partnerOf(p.id);const kk=pq?`<div class="note pri" style="padding:10px 12px;margin-bottom:10px;display:block"><div class="small" style="margin-bottom:6px">${ic('users')} ${t('pk_mk')} <b>${esc(pq.name)}</b></div>${kakaoLine(pq)}</div>`:'';
+  head+=kk;
   if(photoDone(p.id))return head+`<div class="note warn">${ic('info')}<span>${t('mk_used_done')}</span></div>`;
   if(usedRequest(p.id))return head+`<div class="note warn">${ic('info')}<span>${t('mk_used')}</span></div>`;
   const opts=reqOptions(p);
@@ -2344,7 +2353,7 @@ function liveSignupModal(keep){const side0=(keep&&keep.side)||(state.lang==='ar'
     <div class="form-grid"><div class="field"><label for="su-n">${t('col_name')}</label><input id="su-n" class="input" name="name" required></div>
       <div class="field"><label>${t('col_side')}</label><select class="select" name="side"><option value="KR" ${side0==='KR'?'selected':''}>${t('sideS_KR')}</option><option value="DZ" ${side0==='DZ'?'selected':''}>${t('sideS_DZ')}</option></select></div>
       <div class="field"><label>${t('col_univ')}</label><input class="input" name="univ" required></div>
-      <div class="field"><label>${t('col_kakao')}</label><input class="input" name="kakao" dir="ltr" required></div>
+      <div class="field"><label>${t('col_kakao')}</label><input class="input" name="kakao" dir="ltr" required><span class="hint">${t('p_kakao_h')}</span></div>
       ${lvSel('arLevel','p_ar_level','arl_','KR',side0!=='KR')}${lvSel('koLevel','p_ko_level','kol_','DZ',side0!=='DZ')}${lvSel('enLevel','p_en_level','enl_')}</div>
     <label class="small" style="display:flex;gap:8px;align-items:flex-start;flex-wrap:nowrap"><input type="checkbox" name="agree" required style="margin-top:4px;flex:none"><span>${t('su_agree')}</span></label>
     <div class="form-err" id="su-err"></div>
