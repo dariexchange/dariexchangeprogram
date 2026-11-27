@@ -690,7 +690,7 @@ fs2:['프로필 작성','إعداد الملف الشخصي'],fs2d:['자기소�
 fs3:['정규 활동','الحصص المنتظمة'],fs3d:['파트너와 함께 4회 활동에 참여합니다.','تشارك مع شريكك في الحصص الأربع.'],
 fs4:['수료','الإتمام'],fs4d:['4회 모두 참여하면 수료 요건을 충족하며, 확인을 거쳐 수료증이 발급됩니다.','بحضور الحصص الأربع تستوفي شرط الإتمام، وتصدر الشهادة بعد التحقّق.'],
 rec_kicker:['Recruiting','التسجيل'],rec_title:['제6기 참가자 모집 중','التسجيل مفتوح للدفعة السادسة'],
-rec_sub:['웹사이트 지원 기능은 현재 준비 중입니다. 모집 관련 소식은 DARI 인스타그램을 참고해 주세요.','خدمة التقديم عبر الموقع قيد الإعداد حاليًا. تابع أخبار التسجيل على حساب داري في إنستغرام.'],
+rec_sub:['모집 관련 소식은 DARI 인스타그램에서 확인해 주세요.','تابعوا أخبار التسجيل عبر حساب داري على إنستغرام.'],
 rec_insta:['DARI 인스타그램','داري على إنستغرام'],
 soon_t:['웹사이트에서 준비 중인 기능','خدمات قيد الإعداد في الموقع'],soon_badge:['준비 중','قيد الإعداد'],
 soon1:['온라인 지원서 접수','تقديم الطلب عبر الإنترنت'],soon2:['면접 일정 예약','حجز موعد المقابلة'],soon3:['선발 결과 확인','الاطّلاع على نتائج الاختيار'],
@@ -1390,11 +1390,9 @@ function pHome(){
     <div class="flow4">${[1,2,3,4].map(i=>`<div class="step"><div class="step-n">0${i}</div><h4>${t('fs'+i)}</h4><p>${t('fs'+i+'d')}</p></div>`).join('')}</div>
   </div></section>
 
-  <section class="sec" style="padding-top:0"><div class="wrap"><div class="recruit">
+  <section class="sec" style="padding-top:0"><div class="wrap"><div class="recruit" style="grid-template-columns:1fr">
     <div style="position:relative;z-index:1"><span class="kicker" style="color:#F2B79B">${t('rec_kicker')}</span><h2 class="h2">${t('rec_title')}</h2><p class="mt-s">${t('rec_sub')}</p>
       <a class="btn btn-w mt" href="${esc(LINKS.dari)}" target="_blank" rel="noopener">${ic('insta')} ${t('rec_insta')}</a></div>
-    <div style="position:relative;z-index:1"><div class="soon"><span class="small" style="color:#BFD4CB">${t('soon_t')}</span>
-      ${['soon1','soon2','soon3'].map(k=>`<div class="soon-i"><span>${t(k)}</span><span class="badge" style="background:rgba(255,255,255,.12);color:#fff">${t('soon_badge')}</span></div>`).join('')}</div></div>
   </div></div></section>
 
   <section class="sec" style="background:#fff;border-block:1px solid var(--line-2)"><div class="wrap">
