@@ -469,6 +469,7 @@ html[lang=ar] .wk-tag{font-family:var(--f-body)}
 @keyframes tin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
+.input.is-err,.select.is-err{border-color:var(--danger,#c0392b)!important;box-shadow:0 0 0 3px rgba(192,57,43,.12)}
 /* ---------- v2 additions ---------- */
 .chips{display:flex;flex-wrap:wrap;gap:6px}
 .chip{display:inline-flex;align-items:center;gap:4px;padding:5px 12px;border-radius:999px;border:1px solid var(--line);background:#fff;font-size:13px;color:var(--ink-2);line-height:1.5}
@@ -939,6 +940,8 @@ su_pw2:['비밀번호 확인','تأكيد كلمة المرور'],su_pw_h:['6자
 su_agree:['참가자 관리(매칭·일정·출석 안내)를 위해 입력한 정보를 DARI 운영진이 이용하는 데 동의합니다.','أوافق على استخدام فريق داري للمعلومات المُدخلة لأغراض إدارة المشاركين (التعيين والجدول والحضور).'],
 su_go:['가입 신청','إرسال طلب التسجيل'],
 su_e_pw:['비밀번호를 6자 이상 입력해 주세요.','أدخل كلمة مرور من 6 أحرف على الأقل.'],su_e_pw2:['비밀번호 확인이 일치하지 않습니다.','تأكيد كلمة المرور غير مطابق.'],
+su_e_req:['모든 칸을 입력해 주세요. 비어 있는 칸: {f}','يرجى تعبئة جميع الحقول. الحقول الفارغة: {f}'],
+su_e_agree:['정보 이용 동의에 체크해 주세요.','يرجى الموافقة على استخدام المعلومات.'],
 su_e_exists:['이미 가입된 이메일입니다. 로그인해 주세요.','هذا البريد مسجّل مسبقًا، يرجى تسجيل الدخول.'],
 su_mail:['{email}로 확인 메일을 보냈습니다. 메일의 링크를 누르면 가입이 완료됩니다.','أرسلنا رسالة تأكيد إلى {email}. اضغط الرابط في الرسالة لإكمال التسجيل.'],
 wait_t:['가입 신청이 접수되었습니다','تم استلام طلب التسجيل'],wait_d:['운영진이 확인한 뒤 승인하면 이 화면에서 바로 참가자 기능(프로필·일정·자료·출석)을 이용할 수 있습니다. 승인되면 화면이 자동으로 바뀝니다.','بعد مراجعة فريق التنظيم والموافقة يمكنك استخدام صفحة المشارك (الملف والجدول والمواد والحضور) من هنا مباشرة، وستتغيّر الصفحة تلقائيًا.'],
@@ -1960,7 +1963,7 @@ const F={
 document.addEventListener('click',e=>{const el=e.target.closest('[data-act]');if(el){const fn=A[el.dataset.act];if(fn){e.preventDefault();fn(el)}}
   const ab=e.target.closest('a[href="#about"]');if(ab&&location.hash==='#about'){e.preventDefault();document.getElementById('intro')?.scrollIntoView({behavior:'smooth'})}
   if(e.target.closest('.nav a'))$('#nav')?.classList.remove('open')});
-document.addEventListener('submit',e=>{const f=e.target;const fn=F[f.dataset.form];if(!fn)return;e.preventDefault();if(!f.reportValidity())return;fn(f,new FormData(f),e.submitter)});
+document.addEventListener('submit',e=>{const f=e.target;const fn=F[f.dataset.form];if(!fn)return;e.preventDefault();if(!f.noValidate&&!f.reportValidity())return;fn(f,new FormData(f),e.submitter)});
 document.addEventListener('change',e=>{const el=e.target.closest('[data-chg]');if(!el)return;
   if(el.dataset.chg==='selKR'){state.selKR=el.value;state.selDZ=null;render()}
   if(el.dataset.chg==='selDZ'){state.selDZ=el.value;render()}
@@ -2215,14 +2218,14 @@ function liveLoginModal(){const mode='pw';const tabs='';   // 메일 링크 로�
 function modalLang(kind){return `<div class="lang" role="group" aria-label="Language" style="display:inline-flex;margin-bottom:10px"><button type="button" class="l-ko ${state.lang==='ko'?'on':''}" data-act="modalLang" data-l="ko" data-k="${kind}">한국어</button><button type="button" class="l-ar ${state.lang==='ar'?'on':''}" data-act="modalLang" data-l="ar" data-k="${kind}">العربية</button></div>`}
 function liveSignupModal(keep){const side0=(keep&&keep.side)||(state.lang==='ar'?'DZ':'KR');
   openModal(`${modalLang('signup')}<h2>${t('su_t')}</h2><p class="small muted">${t('su_d')}</p>
-  <form data-form="signup" class="stack-s mt">
+  <form data-form="signup" class="stack-s mt" novalidate>
     <div class="field"><label for="su-e">${t('col_email')}</label><input id="su-e" class="input" type="email" name="email" required dir="ltr" autocomplete="email"></div>
-    <div class="form-grid"><div class="field"><label for="su-p">${t('lv_pw')}</label><input id="su-p" class="input" type="password" name="password" required minlength="6" dir="ltr" autocomplete="new-password"><span class="hint">${t('su_pw_h')}</span></div>
+    <div class="form-grid"><div class="field"><label for="su-p">${t('lv_pw')}</label><input id="su-p" class="input" type="password" name="password" minlength="6" dir="ltr" autocomplete="new-password"><span class="hint">${t('su_pw_h')}</span></div>
       <div class="field"><label for="su-p2">${t('su_pw2')}</label><input id="su-p2" class="input" type="password" name="password2" required dir="ltr" autocomplete="new-password"></div></div>
     <div class="form-grid"><div class="field"><label for="su-n">${t('col_name')}</label><input id="su-n" class="input" name="name" required></div>
       <div class="field"><label>${t('col_side')}</label><select class="select" name="side"><option value="KR" ${side0==='KR'?'selected':''}>${t('sideS_KR')}</option><option value="DZ" ${side0==='DZ'?'selected':''}>${t('sideS_DZ')}</option></select></div>
-      <div class="field"><label>${t('col_univ')}</label><input class="input" name="univ"></div>
-      <div class="field"><label>${t('col_kakao')}</label><input class="input" name="kakao" dir="ltr"></div>
+      <div class="field"><label>${t('col_univ')}</label><input class="input" name="univ" required></div>
+      <div class="field"><label>${t('col_kakao')}</label><input class="input" name="kakao" dir="ltr" required></div>
       ${lvSel('arLevel','p_ar_level','arl_','KR',side0!=='KR')}${lvSel('koLevel','p_ko_level','kol_','DZ',side0!=='DZ')}${lvSel('enLevel','p_en_level','enl_')}</div>
     <label class="small" style="display:flex;gap:8px;align-items:flex-start;flex-wrap:nowrap"><input type="checkbox" name="agree" required style="margin-top:4px;flex:none"><span>${t('su_agree')}</span></label>
     <div class="form-err" id="su-err"></div>
@@ -2231,6 +2234,14 @@ function liveSignupModal(keep){const side0=(keep&&keep.side)||(state.lang==='ar'
   </form>`);
   if(keep){const f=document.querySelector('form[data-form=signup]');Object.entries(keep).forEach(([k,v])=>{const el=f&&f.elements[k];if(!el)return;if(el.type==='checkbox')el.checked=!!v;else el.value=v})}}
 async function doSignup(f,fd){const err=$('#su-err');const show=m=>{err.textContent=m;err.classList.add('show')};
+  // 모든 칸 필수: 비어 있는 칸 이름을 모아서 안내하고 해당 칸을 표시
+  f.querySelectorAll('.input,.select').forEach(el=>el.classList.remove('is-err'));
+  const side_=fd.get('side');const need=[['email','col_email'],['password','lv_pw'],['password2','su_pw2'],['name','col_name'],['univ','col_univ'],['kakao','col_kakao'],
+    side_==='KR'?['arLevel','p_ar_level']:['koLevel','p_ko_level'],['enLevel','p_en_level']];
+  const miss=need.filter(([n])=>!String(fd.get(n)||'').trim());
+  if(miss.length){miss.forEach(([n])=>{const el=f.elements[n];if(el)el.classList.add('is-err')});const el0=f.elements[miss[0][0]];if(el0)el0.focus();return show(t('su_e_req',{f:miss.map(([,k])=>t(k)).join(', ')}))}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(fd.get('email')).trim())){f.elements.email.classList.add('is-err');return show(t('xl_e_email'))}
+  if(!fd.get('agree'))return show(t('su_e_agree'));
   const pw=fd.get('password');if(pw.length<6)return show(t('su_e_pw'));if(pw!==fd.get('password2'))return show(t('su_e_pw2'));
   const side=fd.get('side');const email=fd.get('email').trim().toLowerCase();const btn=f.querySelector('button.btn-p');btn.disabled=true;
   const meta={dari_signup:true,name:fd.get('name').trim(),side,univ:(fd.get('univ')||'').trim(),kakao:(fd.get('kakao')||'').trim(),en_level:fd.get('enLevel')||'',ar_level:side==='KR'?(fd.get('arLevel')||''):'',ko_level:side==='DZ'?(fd.get('koLevel')||''):''};
