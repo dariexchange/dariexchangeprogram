@@ -642,6 +642,7 @@ const HOURS=[15,16,17,18,19,20,21,22]; // 금요일 참여 가능 시간 선택 
 const FRI=4; // 0=월 … 4=금 · 정규 활동 요일
 const hh=h=>String(h).padStart(2,'0')+':00';
 const dtOf=(d,tm)=>d+'T'+tm;
+const shiftM=(iso,m)=>shiftH(iso,m/60);
 function shiftH(iso,h){const x=new Date(iso+':00Z');x.setUTCMinutes(x.getUTCMinutes()+Math.round(h*60));return x.toISOString().slice(0,16)}
 const endTime=tm=>{const [h,m]=tm.split(':').map(Number);return String((h+2)%24).padStart(2,'0')+':'+String(m).padStart(2,'0')};
 const INTERESTS=['kpop','drama','food','travel','sport','book','history','game','beauty','photo','tech','religion'];
@@ -969,6 +970,10 @@ pw_temp:['임시 비밀번호','كلمة المرور المؤقتة'],pw_reset_
 pw_reset_done:['초기화했습니다. 아래 비밀번호를 참가자에게 전달해 주세요.','تمت إعادة التعيين. أرسل كلمة المرور أدناه إلى المشارك.'],
 pw_e_noacc:['이 참가자는 아직 회원가입을 하지 않아 초기화할 계정이 없습니다. 회원가입을 먼저 안내해 주세요.','لم ينشئ هذا المشارك حسابًا بعد، لذا لا يوجد ما يُعاد تعيينه. اطلب منه التسجيل أولًا.'],
 copy_btn:['복사','نسخ'],
+});
+Object.assign(S,{
+zc_hint:['수업 시작 15분 전부터 15분 후까지 이 버튼으로 입장하면 출석이 자동으로 기록됩니다.','عند الدخول بهذا الزر بين 15 دقيقة قبل بدء الحصة و15 دقيقة بعده يُسجَّل حضورك تلقائيًا.'],
+zc_done:['{n}회차 출석이 자동으로 기록되었습니다.','تم تسجيل حضورك في الحصة {n} تلقائيًا.'],
 });
 function t(k,v){const e=S[k];let s=e?e[state.lang==='ar'?1:0]:'['+k+']';if(v)for(const x in v)s=s.split('{'+x+'}').join(v[x]);return s}
 const L=o=>o==null?'':typeof o==='string'?o:(o[state.lang]||o.ko||'');
@@ -1457,7 +1462,7 @@ function nextCard(p,cls='c5'){
   return `<div class="card ${cls} next"><span class="dd">${d===0?t('today'):t('d_day',{n:d})}</span><span class="small muted">${t('next_t')} · ${t('round_n',{n:s.r.no})}${s.changed?` · <b style="color:#F2B79B">${t('changed')}</b>`:''}</span>
     <div class="big">${fmtDate(s.date)}</div><p>${dualRange(s.time)}</p><p class="mt-s" style="color:#fff;font-weight:600">${t(s.r.type==='act'?'rt_act':'rt_talk')} · ${esc(L(s.r.topic))}</p>
     ${zoomInfo().url?`<div class="mt">${zoomRows(pr,true)}</div>
-    <a href="${esc(zoomHref(zoomInfo().url))}" target="_blank" rel="noopener" class="btn btn-w btn-block mt">${ic('video')} ${t('zoom_join')}</a>
+    <a href="${esc(zoomHref(zoomInfo().url))}" target="_blank" rel="noopener" class="btn btn-w btn-block mt" data-zoom>${ic('video')} ${t('zoom_join')}</a><p class="xs mt-s" style="opacity:.85">${ic('check')} ${t('zc_hint')}</p>
     ${LIVE?'':`<p class="xs mt-s" style="opacity:.8">${t('zoom_demo')}</p>`}`:`<p class="xs mt" style="opacity:.85">${t('zoom_none')}</p>`}</div>`;
 }
 function partnerMini(p){
@@ -1538,7 +1543,7 @@ function mySched(p){
       <div class="tbl-wrap"><table><thead><tr><th>${t('col_round')}</th><th>${t('col_date')}</th><th>${t('col_time')}</th><th>${t('col_topic')}</th><th>${t('col_status')}</th></tr></thead><tbody>${rows}</tbody></table></div>
     </div>
     <div class="c4">${pr?`<div class="card"><h3 class="h3">${ic('video')} ${t('zoom_t')}</h3>${zoomInfo().url?`<div class="mt-s">${zoomRows(pr)}</div>
-      <a href="${esc(zoomHref(zoomInfo().url))}" target="_blank" rel="noopener" class="btn btn-p btn-block mt">${t('zoom_join')}</a><button class="btn btn-o btn-block mt-s" data-act="copyZoom">${ic('copy')} ${t('copy')}</button>${LIVE?'':`<p class="xs muted mt-s">${t('zoom_demo')}</p>`}`:`<div class="note mt-s">${ic('info')}<span>${t('zoom_none')}</span></div>`}</div>`:''}</div></div>`;
+      <a href="${esc(zoomHref(zoomInfo().url))}" target="_blank" rel="noopener" class="btn btn-p btn-block mt" data-zoom>${t('zoom_join')}</a><p class="xs muted mt-s">${ic('check')} ${t('zc_hint')}</p><button class="btn btn-o btn-block mt-s" data-act="copyZoom">${ic('copy')} ${t('copy')}</button>${LIVE?'':`<p class="xs muted mt-s">${t('zoom_demo')}</p>`}`:`<div class="note mt-s">${ic('info')}<span>${t('zoom_none')}</span></div>`}</div>`:''}</div></div>`;
 }
 
 /* ③ 학습자료실 */
@@ -1827,6 +1832,9 @@ window.addEventListener('hashchange',()=>{state.draftAvail=null;state.draftInt=n
 const demoApi={
   addParticipant(p){db.participants.push(newPartRec(p));save()},
   addParticipants(list){list.forEach(p=>db.participants.push(newPartRec(p)));save()},
+  zoomCheckin(){const u=me();if(!u||!u.pid)return null;const pr=pairOf(u.pid);const now=NOW_();
+    const r=rounds().find(r=>{const st=dtOf(r.date,r.time||'21:00');return now>=shiftM(st,-15)&&now<=shiftM(st,15)});if(!r)return null;
+    db.att[u.pid]=db.att[u.pid]||{};if(db.att[u.pid][r.no])return -r.no;db.att[u.pid][r.no]={s:'P',n:'Zoom ✓ '+now.slice(11,16)};save();return r.no},
   approveParticipant(id,st){const p=(db.pending||[]).find(x=>x.id===id)||part(id);if(!p)return;p.status=st;db.pending=(db.pending||[]).filter(x=>x.id!==id);if(st==='active')db.participants.push(p);else{db.participants=db.participants.filter(x=>x.id!==id);db.pending.push(p)}save()},
   delParticipant(id){db.pending=(db.pending||[]).filter(x=>x.id!==id);const prs=db.pairs.filter(x=>x.kr===id||x.dz===id).map(x=>x.id);db.makeups=db.makeups.filter(m=>!prs.includes(m.pairId));db.pairs=db.pairs.filter(x=>!prs.includes(x.id));
     db.participants=db.participants.filter(x=>x.id!==id);if(db.att)delete db.att[id];if(db.certs)delete db.certs[id];if(state.selKR===id)state.selKR=null;if(state.selDZ===id)state.selDZ=null;save()},
@@ -2005,6 +2013,9 @@ const F={
     api.reviewMakeup(f.dataset.id,decision,review);toast(t('toast_saved'));render()},
 
 };
+// Zoom 입장 버튼: 링크는 그대로 열고, 수업 시간대면 출석 자동 기록 (시간 판단은 서버 기준)
+document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('a[data-zoom]');if(!a||role()!=='participant')return;
+  Promise.resolve(api.zoomCheckin&&api.zoomCheckin()).then(n=>{if(n>0){toast(t('zc_done',{n}));render()}}).catch(err=>console.warn('zoom check-in',err))},true);
 document.addEventListener('click',e=>{const el=e.target.closest('[data-act]');if(el){const fn=A[el.dataset.act];if(fn){e.preventDefault();fn(el)}}
   const ab=e.target.closest('a[href="#about"]');if(ab&&location.hash==='#about'){e.preventDefault();document.getElementById('intro')?.scrollIntoView({behavior:'smooth'})}
   if(e.target.closest('.nav a'))$('#nav')?.classList.remove('open')});
@@ -2094,6 +2105,7 @@ const liveApi={
   addParticipant(p){return run(()=>q(sb.from('participants').insert(livePartRow(p))))},
   addParticipants(list){return run(()=>q(sb.from('participants').upsert(list.map(livePartRow),{onConflict:'email',ignoreDuplicates:true})))},
   delParticipant(id){return run(()=>q(sb.from('participants').delete().eq('id',id)))},
+  async zoomCheckin(){const {data,error}=await sb.rpc('zoom_checkin');if(error)throw error;if(data>0)await liveLoad();return data},
   approveParticipant(id,st){return run(()=>q(sb.rpc('approve_participant',{p_id:id,p_status:st})))},
   match(kr,dz){return run(()=>q(sb.from('pairs').insert({cohort:db.settings.cohort,kr_id:kr,dz_id:dz})))},
   unmatch(id){return run(()=>q(sb.from('pairs').delete().eq('id',id)))},
