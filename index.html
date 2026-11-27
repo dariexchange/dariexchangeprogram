@@ -840,7 +840,7 @@ todo_mk_exp:['기한 경과 보강 {n}건','{n} حصص تعويضية انتهت
 ad_regtime:['정규 활동 시간','موعد الحصص المنتظمة'],ad_regtime_h:['모든 팀이 같은 시간에 참여합니다. 변경하면 전체 일정에 바로 반영됩니다.','تشارك جميع الثنائيات في الموعد نفسه، وأي تغيير يُطبَّق فورًا على الجدول كله.'],ad_regtime_lbl:['시작 시간 (한국 시간)','وقت البدء (بتوقيت كوريا)'],
 ad_team_zoom:['팀별 Zoom 정보','بيانات Zoom لكل ثنائي'],ad_zoom_edit:['Zoom 정보 수정','تعديل بيانات Zoom'],
 toast_zoom:['Zoom 정보를 저장했습니다. 해당 팀 참가자 화면에 바로 반영됩니다.','تم حفظ بيانات Zoom، وستظهر للثنائي فورًا.'],
-lv_login_t:['이메일로 로그인','الدخول بالبريد الإلكتروني'],lv_login_d:['운영진에게 등록한 이메일을 입력하면 로그인 링크를 보내 드립니다. 메일의 링크를 누르면 바로 로그인됩니다.','أدخل البريد الإلكتروني المسجّل لدى فريق التنظيم لنرسل إليك رابط الدخول، ثم اضغط على الرابط في الرسالة.'],
+lv_login_t:['DARI 로그인','تسجيل الدخول إلى داري'],lv_login_d:['운영진에게 등록한 이메일을 입력하면 로그인 링크를 보내 드립니다. 메일의 링크를 누르면 바로 로그인됩니다.','أدخل البريد الإلكتروني المسجّل لدى فريق التنظيم لنرسل إليك رابط الدخول، ثم اضغط على الرابط في الرسالة.'],
 lv_send:['로그인 링크 받기','أرسل رابط الدخول'],lv_sent:['{email} 주소로 로그인 링크를 보냈습니다. 메일함을 확인해 주세요.','أرسلنا رابط الدخول إلى {email}، تفقّد بريدك.'],
 lv_unreg:['등록되지 않은 이메일입니다. 운영진에게 참가자 등록을 요청해 주세요.','هذا البريد غير مسجّل، اطلب من فريق التنظيم تسجيلك.'],lv_err:['처리하지 못했습니다. 잠시 후 다시 시도해 주세요.','تعذّرت العملية، حاول مرة أخرى بعد قليل.'],lv_loading:['불러오는 중입니다…','جارٍ التحميل…'],lv_e_rate:['로그인 메일 발송 한도에 걸렸습니다. Supabase 기본 메일은 1시간에 몇 통만 보낼 수 있어요. 잠시 후 다시 시도해 주세요.','تم بلوغ حدّ إرسال رسائل الدخول. حاول مرة أخرى بعد قليل.'],
 lv_e_wait:['같은 이메일로는 1분에 한 번만 보낼 수 있어요. 1분 뒤 다시 눌러 주세요.','يمكن الإرسال إلى البريد نفسه مرة كل دقيقة. حاول بعد دقيقة.'],
@@ -852,6 +852,7 @@ lv_e_schema:['데이터베이스 설정이 끝나지 않았습니다. schema.sql
 lv_tab_pw:['비밀번호로 로그인','الدخول بكلمة المرور'],lv_tab_link:['메일 링크로 로그인','الدخول برابط البريد'],
 lv_pw:['비밀번호','كلمة المرور'],lv_pw_go:['로그인','دخول'],
 lv_pw_h:['비밀번호는 운영진이 Supabase에서 계정을 만들 때 정한 값입니다. 비밀번호가 없으면 "메일 링크로 로그인"을 이용해 주세요.','كلمة المرور هي التي حدّدها فريق التنظيم عند إنشاء الحساب. إن لم تكن لديك كلمة مرور فاستخدم الدخول برابط البريد.'],
+lv_pw_forgot:['비밀번호를 잊었다면 DARI 운영진에게 문의해 주세요. 운영진이 새 비밀번호를 정해 드립니다.','إذا نسيت كلمة المرور فتواصل مع فريق داري لتعيين كلمة مرور جديدة.'],
 lv_pw_bad:['이메일 또는 비밀번호가 맞지 않습니다.','البريد الإلكتروني أو كلمة المرور غير صحيحة.'],
 lv_slow:['서버 응답이 늦어지고 있습니다. 잠시 후 새로고침해 주세요.','استجابة الخادم بطيئة، أعد تحميل الصفحة بعد قليل.'],
 ad_add_part:['참가자 등록','تسجيل مشارك'],ad_add_part_h:['참가자가 이 이메일로 로그인하면 계정이 자동으로 연결됩니다.','عند دخول المشارك بهذا البريد يُربط حسابه تلقائيًا.'],toast_part_added:['참가자를 등록했습니다.','تم تسجيل المشارك.'],lv_dup:['이미 등록된 이메일입니다.','هذا البريد مسجّل مسبقًا.'],
@@ -2204,11 +2205,10 @@ async function liveBoot(){
   }catch(e){liveErr(e);liveReady=true;render()}
 }
 
-function liveLoginModal(mode){mode=mode||state.loginMode||'pw';state.loginMode=mode;
-  const tabs=`<div class="row gap-s mt" role="tablist">${[['pw','lv_tab_pw'],['link','lv_tab_link']].map(([k,l])=>`<button type="button" class="btn btn-sm ${mode===k?'btn-p':'btn-o'}" data-act="loginTab" data-m="${k}" aria-selected="${mode===k}">${t(l)}</button>`).join('')}</div>`;
+function liveLoginModal(){const mode='pw';const tabs='';   // 메일 링크 로그인은 사용하지 않음 (비밀번호 로그인만)
   const email=`<div class="field"><label for="lv-e">${t('col_email')}</label><input id="lv-e" class="input" type="email" name="email" required dir="ltr" autocomplete="email"></div>`;
   const body=mode==='pw'
-    ?`<form data-form="pwlogin" class="stack mt">${email}<div class="field"><label for="lv-p">${t('lv_pw')}</label><input id="lv-p" class="input" type="password" name="password" required dir="ltr" autocomplete="current-password"></div><div class="form-err" id="lv-err"></div><button class="btn btn-p btn-block">${t('lv_pw_go')}</button><p class="xs muted">${t('lv_pw_h')}</p></form>`
+    ?`<form data-form="pwlogin" class="stack mt">${email}<div class="field"><label for="lv-p">${t('lv_pw')}</label><input id="lv-p" class="input" type="password" name="password" required dir="ltr" autocomplete="current-password"></div><div class="form-err" id="lv-err"></div><button class="btn btn-p btn-block">${t('lv_pw_go')}</button><p class="xs muted">${t('lv_pw_forgot')}</p></form>`
     :`<p class="small muted mt">${t('lv_login_d')}</p><form data-form="magic" class="stack mt">${email}<div class="form-err" id="lv-err"></div><button class="btn btn-p btn-block">${t('lv_send')}</button></form>`;
   openModal(`${modalLang('login')}<div style="margin-bottom:6px">${LOGO.replace('<svg','<svg width="44" height="44"')}</div><h2>${t('lv_login_t')}</h2>${tabs}${body}<p class="small mt" style="text-align:center"><button type="button" class="btn btn-g btn-sm" data-act="signupOpen">${t('su_link')}</button></p>`);
 }
