@@ -975,6 +975,11 @@ Object.assign(S,{
 zc_hint:['수업 시작 15분 전부터 15분 후까지 이 버튼으로 입장하면 출석이 자동으로 기록됩니다.','عند الدخول بهذا الزر بين 15 دقيقة قبل بدء الحصة و15 دقيقة بعده يُسجَّل حضورك تلقائيًا.'],
 zc_done:['{n}회차 출석이 자동으로 기록되었습니다.','تم تسجيل حضورك في الحصة {n} تلقائيًا.'],
 });
+Object.assign(S,{
+tz_basis:['입력 기준 시간','التوقيت المستخدم للإدخال'],tz_kst:['한국 시간으로 입력','الإدخال بتوقيت كوريا'],tz_dz:['알제리 시간으로 입력','الإدخال بتوقيت الجزائر'],
+tz_prev:['보강 일시:','موعد التعويض:'],mk_req_time2:['보강 시작 시간','وقت بدء التعويض'],
+mk_req_until:['신청 마감: {t}','آخر موعد للطلب: {t}'],
+});
 function t(k,v){const e=S[k];let s=e?e[state.lang==='ar'?1:0]:'['+k+']';if(v)for(const x in v)s=s.split('{'+x+'}').join(v[x]);return s}
 const L=o=>o==null?'':typeof o==='string'?o:(o[state.lang]||o.ko||'');
 const uid=p=>p+Date.now().toString(36).slice(-4)+Math.random().toString(36).slice(2,6);
@@ -988,7 +993,28 @@ const fmtShort=s=>s?s.slice(5).replace('-','.'):'';
 const dayName=(d,style='short')=>new Intl.DateTimeFormat(loc(),{timeZone:'UTC',weekday:style}).format(D(addDays('2026-11-09',d)));
 function dzTime(hhmm){let [h,m]=hhmm.split(':').map(Number);h=(h-KST_DZ+24)%24;return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')}
 const dualS=hhmm=>hhmm?`<span class="tz">${hhmm}</span> ${t('avail_kst')}<br><span class="xs muted" style="font-weight:500"><span class="tz">${dzTime(hhmm)}</span> ${t('avail_dz')}</span>`:'';
-const fmtDT=iso=>`${fmtDate(iso.slice(0,10))} <span class="tz">${iso.slice(11,16)}</span>`;
+// 날짜·시간을 한국 시간과 알제리 시간으로 함께 표시 (알제리 참가자에게는 알제리 시간을 먼저)
+const viewerDZ=()=>{const u=me();return !!(u&&u.pid&&part(u.pid)&&part(u.pid).side==='DZ')};
+const toDZ=iso=>shiftH(iso.slice(0,16),-KST_DZ), fromDZ=iso=>shiftH(iso.slice(0,16),KST_DZ);
+function fmtDT(iso){iso=String(iso).slice(0,16);const dz=toDZ(iso);const A=[iso,'avail_kst'],B=[dz,'avail_dz'];const [x,y]=viewerDZ()?[B,A]:[A,B];
+  return `${fmtDate(x[0].slice(0,10))} <span class="tz">${x[0].slice(11,16)}</span> ${t(x[1])} <span class="muted">·</span> ${y[0].slice(0,10)!==x[0].slice(0,10)?fmtDate(y[0].slice(0,10))+' ':''}<span class="tz">${y[0].slice(11,16)}</span> ${t(y[1])}`}
+// 글자만(선택 목록·오류 문구용)
+function tzFields(px,zone,d,tm){return `<div class="form-grid">
+    <div class="field full"><label for="${px}-z">${t('tz_basis')}</label><select id="${px}-z" class="select" name="tz"><option value="kst" ${zone==='kst'?'selected':''}>${t('tz_kst')}</option><option value="dz" ${zone==='dz'?'selected':''}>${t('tz_dz')}</option></select></div>
+    <div class="field"><label for="${px}-d">${t('mk_req_date')}</label><input id="${px}-d" class="input" type="date" name="date" value="${d}" required></div>
+    <div class="field"><label for="${px}-t">${t('mk_req_time2')}</label><input id="${px}-t" class="input" type="time" name="time" value="${tm}" required></div></div>
+    <p class="small tz-prev" style="margin:0">${d&&tm?ic('clock')+' '+t('tz_prev')+' '+fmtDT(zone==='dz'?fromDZ(d+'T'+tm):d+'T'+tm):''}</p>`}
+// 입력값을 한국 시간(서버 기준)으로
+function tzToKST(f,fd){const d=fd.get('date'),tm=String(fd.get('time')||'').slice(0,5);if(!d||!tm)return null;const iso=d+'T'+tm;return (fd.get('tz')==='dz')?fromDZ(iso):iso}
+function tzPrev(f){const p=f.querySelector('.tz-prev');if(!p)return;const d=f.elements.date.value,tm=(f.elements.time.value||'').slice(0,5);if(!d||!tm){p.innerHTML='';return}
+  const iso=d+'T'+tm;p.innerHTML=ic('clock')+' '+t('tz_prev')+' '+fmtDT(f.elements.tz.value==='dz'?fromDZ(iso):iso)}
+document.addEventListener('change',e=>{const el=e.target;if(el.name!=='tz'||!el.form||!el.form.hasAttribute('data-tzform'))return;const f=el.form;const prev=f.dataset.tzcur||'kst';
+  if(prev!==el.value){const d=f.elements.date.value,tm=(f.elements.time.value||'').slice(0,5);if(d&&tm){const n=el.value==='dz'?toDZ(d+'T'+tm):fromDZ(d+'T'+tm);f.elements.date.value=n.slice(0,10);f.elements.time.value=n.slice(11,16)}f.dataset.tzcur=el.value}
+  tzPrev(f)});
+document.addEventListener('input',e=>{const f=e.target.form;if(f&&f.hasAttribute&&f.hasAttribute('data-tzform')&&(e.target.name==='date'||e.target.name==='time'))tzPrev(f)});
+document.addEventListener('change',e=>{const f=e.target.form;if(f&&f.hasAttribute&&f.hasAttribute('data-tzform')&&(e.target.name==='date'||e.target.name==='time'))tzPrev(f)});
+function plainDT(iso){iso=String(iso).slice(0,16);const dz=toDZ(iso);const f=d=>d.slice(5,10).replace('-','.');const A=[iso,'avail_kst'],B=[dz,'avail_dz'];const [x,y]=viewerDZ()?[B,A]:[A,B];
+  return `${f(x[0])} ${x[0].slice(11,16)} ${t(x[1])} · ${y[0].slice(0,10)!==x[0].slice(0,10)?f(y[0])+' ':''}${y[0].slice(11,16)} ${t(y[1])}`}
 const dualRange=tm=>tm?`<span class="tz">${tm}–${endTime(tm)}</span> ${t('avail_kst')} · <span class="tz">${dzTime(tm)}–${dzTime(endTime(tm))}</span> ${t('avail_dz')}`:'';
 const dual=hhmm=>hhmm?`<span class="tz">${hhmm}</span> ${t('avail_kst')} · <span class="tz">${dzTime(hhmm)}</span> ${t('avail_dz')}`:'';
 const fmtSize=b=>b<1024?b+' B':b<1048576?(b/1024).toFixed(0)+' KB':(b/1048576).toFixed(1)+' MB';
@@ -1607,10 +1633,10 @@ function mkReqCard(p){
   const opts=reqOptions(p);
   if(!opts.length)return head+`<div class="note">${ic('info')}<span>${t('mk_req_none')}</span></div>`;
   const o=opts.find(x=>x.r.no===+state.reqR)||opts[0];
-  return head+`<form data-form="mkreq" class="stack-s mt">
-    <div class="field"><label for="rq-r">${t('mk_req_round')}</label><select id="rq-r" class="select" name="round" data-chg="reqR">${opts.map(x=>`<option value="${x.r.no}" ${x.r.no===o.r.no?'selected':''}>${t('round_n',{n:x.r.no})} · ${fmtDate(x.start.slice(0,10))} ${x.start.slice(11)} · ${t('mk_req_until',{t:x.deadline.slice(11)})}</option>`).join('')}</select></div>
-    <div class="form-grid"><div class="field"><label for="rq-d">${t('mk_req_date')}</label><input id="rq-d" class="input" type="date" name="date" min="${NOW_().slice(0,10)}" max="${o.until.slice(0,10)}" required></div>
-    <div class="field"><label for="rq-t">${t('mk_req_time')}</label><input id="rq-t" class="input" type="time" name="time" required></div></div>
+  return head+`<form data-form="mkreq" class="stack-s mt" data-tzform data-tzcur="${viewerDZ()?'dz':'kst'}">
+    <div class="field"><label for="rq-r">${t('mk_req_round')}</label><select id="rq-r" class="select" name="round" data-chg="reqR">${opts.map(x=>`<option value="${x.r.no}" ${x.r.no===o.r.no?'selected':''}>${t('round_n',{n:x.r.no})} · ${plainDT(x.start)}</option>`).join('')}</select></div>
+    <p class="xs muted" style="margin:0">${ic('info')} ${t('mk_req_until',{t:fmtDT(o.deadline)})}</p>
+    ${tzFields('rq',viewerDZ()?'dz':'kst','','')}
     <p class="xs muted">${ic('info')} ${t('mk_req_window',{t:fmtDT(o.until)})}</p>
     <label class="check"><input type="checkbox" name="agree" required>${t('mk_req_agree')}</label>
     <div class="form-err" id="rq-err"></div>
@@ -1953,7 +1979,7 @@ const A={
     openModal(`<h2>${t('mk_photo')} · ${t('round_n',{n:m.round})}</h2><p class="small muted">${fmtDT(mkStart(m))}</p><img class="preview-img mt" src="${src}" alt="">`,true)},
   mkCancel(el){const m=db.makeups.find(x=>x.id===el.dataset.id);openModal(`<h2>${t('mk_cancel_q')}</h2><p class="small muted">${t('round_n',{n:m.round})} · ${fmtDT(mkStart(m))}</p><div class="note warn mt">${ic('info')}<span>${t('mk_cancel_d')}</span></div><div class="row gap mt"><button class="btn btn-d" data-act="mkCancelYes" data-id="${m.id}">${t('mk_cancel')}</button><button class="btn btn-g" data-act="closeModal">${t('cancel')}</button></div>`)},
   mkEdit(el){const m=db.makeups.find(x=>x.id===el.dataset.id);if(!m)return;const until=cancelDeadline(m);
-    openModal(`<h2>${t('mk_edit_t')}</h2><p class="small muted">${t('round_n',{n:m.round})} · ${fmtDT(mkStart(m))}</p><p class="small mt-s">${t('mk_edit_d')}</p><form data-form="mkedit" data-id="${m.id}" class="stack-s mt"><div class="form-grid"><div class="field"><label for="me-d">${t('mk_req_date')}</label><input id="me-d" class="input" type="date" name="date" value="${m.date}" min="${NOW_().slice(0,10)}" max="${until.slice(0,10)}" required></div><div class="field"><label for="me-t">${t('mk_req_time')}</label><input id="me-t" class="input" type="time" name="time" value="${m.time}" required></div></div><p class="xs muted">${ic('info')} ${t('mk_req_window',{t:fmtDT(until)})}</p><div class="form-err" id="me-err"></div><div class="row gap"><button class="btn btn-p">${t('save')}</button><button type="button" class="btn btn-g" data-act="closeModal">${t('cancel')}</button></div></form>`)},
+    openModal(`<h2>${t('mk_edit_t')}</h2><p class="small muted">${t('round_n',{n:m.round})} · ${fmtDT(mkStart(m))}</p><p class="small mt-s">${t('mk_edit_d')}</p><form data-form="mkedit" data-id="${m.id}" class="stack-s mt" data-tzform data-tzcur="${viewerDZ()?'dz':'kst'}">${(()=>{const z=viewerDZ()?'dz':'kst';const v=z==='dz'?toDZ(mkStart(m)):mkStart(m);return tzFields('me',z,v.slice(0,10),v.slice(11,16))})()}<p class="xs muted">${ic('info')} ${t('mk_req_window',{t:fmtDT(until)})}</p><div class="form-err" id="me-err"></div><div class="row gap"><button class="btn btn-p">${t('save')}</button><button type="button" class="btn btn-g" data-act="closeModal">${t('cancel')}</button></div></form>`)},
   mkCancelYes(el){const m=db.makeups.find(x=>x.id===el.dataset.id);closeModal();if(!m||!canCancel(m,me()?.pid)){toast(t('err_cancel'),'err');render();return}api.cancelMakeup(m.id);toast(t('toast_cancel_mk'));render()},
   mkAbsent(el){api.markAbsent(el.dataset.id);toast(t('toast_saved'));render()},
 };
@@ -1984,9 +2010,9 @@ const F={
     if(!file||!file.size)return show(t('err_cert_file'));if(!['pdf','png','jpg','jpeg'].includes(extOf(file.name)))return show(t('err_cert_file'));if(file.size>MAX_MB*1048576)return show(t('err_size'));
     await api.issueCert(f.dataset.p,file);closeModal();toast(t('toast_cert'));render()},
   mkedit(f,fd){const m=db.makeups.find(x=>x.id===f.dataset.id);const err=$('#me-err');const show=x=>{err.textContent=x;err.classList.add('show')};
-    if(!m||!canCancel(m,me()?.pid))return show(t('err_cancel'));const until=cancelDeadline(m);const when=dtOf(fd.get('date'),fd.get('time'));
-    if(!(when>NOW_()&&when<until))return show(t('err_window',{t:until.slice(5,10).replace('-','.')+' '+until.slice(11)}));
-    api.rescheduleMakeup(m.id,fd.get('date'),fd.get('time'));closeModal();toast(t('toast_mk_edit'));render()},
+    if(!m||!canCancel(m,me()?.pid))return show(t('err_cancel'));const until=cancelDeadline(m);const when=tzToKST(f,fd);
+    if(!when||!(when>NOW_()&&when<until))return show(t('err_window',{t:plainDT(until)}));
+    api.rescheduleMakeup(m.id,when.slice(0,10),when.slice(11,16));closeModal();toast(t('toast_mk_edit'));render()},
   async material(f,fd){const err=$('#mu-err');const show=m=>{err.textContent=m;err.classList.add('show')};
     const file=fd.get('file'),url=fd.get('url').trim();
     const hasFile=file&&file.size>0;
@@ -2000,9 +2026,9 @@ const F={
   mkreq(f,fd){const p=part(me().pid);const err=$('#rq-err');const show=m=>{err.textContent=m;err.classList.add('show')};
     if(usedRequest(p.id))return show(t('mk_used'));
     const o=reqOptions(p).find(x=>x.r.no===+fd.get('round'));if(!o)return show(t('err_deadline'));
-    const when=dtOf(fd.get('date'),fd.get('time'));if(!(when>NOW_()&&when<o.until))return show(t('err_window',{t:o.until.slice(0,10).slice(5).replace('-','.')+' '+o.until.slice(11)}));
+    const when=tzToKST(f,fd);if(!when||!(when>NOW_()&&when<o.until))return show(t('err_window',{t:plainDT(o.until)}));
     if(!fd.get('agree'))return show(t('mk_req_agree'));
-    api.requestMakeup(pairOf(p.id),o.r.no,p.id,fd.get('date'),fd.get('time'));state.reqR=null;toast(t('toast_req'));render()},
+    api.requestMakeup(pairOf(p.id),o.r.no,p.id,when.slice(0,10),when.slice(11,16));state.reqR=null;toast(t('toast_req'));render()},
   async mksub(f,fd){const id=f.dataset.id;const err=$('#sub-err-'+id);const show=m=>{err.textContent=m;err.classList.add('show')};
     const file=fd.get('photo');if(!file||!file.size)return show(t('err_photo'));
     if(!/^image\/(png|jpe?g|webp)$/.test(file.type)&&!['png','jpg','jpeg','webp'].includes(extOf(file.name)))return show(t('err_img'));
