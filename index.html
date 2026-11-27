@@ -991,6 +991,12 @@ tz_basis:['입력 기준 시간','التوقيت المستخدم للإدخال
 tz_prev:['보강 일시:','موعد التعويض:'],mk_req_time2:['보강 시작 시간','وقت بدء التعويض'],
 mk_req_until:['신청 마감: {t}','آخر موعد للطلب: {t}'],
 });
+Object.assign(S,{
+mk_rule_r4:['보강 시작 전에도 인증 사진을 올릴 수 있습니다. 보강 당일 자정(23:59)까지 올리지 않으면 자동으로 결석 처리됩니다.','يمكنك رفع صورة الإثبات حتى قبل بدء الحصة التعويضية. وإن لم تُرفع قبل منتصف ليل يوم الحصة (23:59) تُسجَّل غيابًا تلقائيًا.'],
+mk_expired:['제출 기한이 지나 자동으로 결석 처리되었습니다.','انتهت مهلة الإرسال وسُجّل غياب تلقائيًا.'],
+mk_auto_absent_note:['보강 미인증 (자동)','لم يُثبت التعويض (تلقائي)'],
+mk_sub_early:['보강 전에도 미리 올릴 수 있어요. 보강 당일 자정까지 올리지 않으면 자동으로 결석 처리됩니다.','يمكنك الرفع مسبقًا. وإن لم ترفعها قبل منتصف ليل يوم الحصة تُسجَّل غيابًا تلقائيًا.'],
+});
 function t(k,v){const e=S[k];let s=e?e[state.lang==='ar'?1:0]:'['+k+']';if(v)for(const x in v)s=s.split('{'+x+'}').join(v[x]);return s}
 const L=o=>o==null?'':typeof o==='string'?o:(o[state.lang]||o.ko||'');
 const uid=p=>p+Date.now().toString(36).slice(-4)+Math.random().toString(36).slice(2,6);
@@ -1236,6 +1242,11 @@ function compStatus(pid){if(db.certs&&db.certs[pid])return 'issued';if(eligible(
 // 보강
 const mkDeadline=m=>m.date+'T23:59';
 const mkStart=m=>dtOf(m.date,m.time);
+// 보강 당일 23:59까지 사진이 없으면 자동 결석 (체험·공유 모드용 — 실제 서버는 expire_makeups()가 처리)
+function localExpire(){if(LIVE||!db||!db.makeups)return;let ch=false;
+  db.makeups.forEach(m=>{if(['scheduled','rejected'].includes(m.status)&&NOW_()>mkDeadline(m)){m.status='absent';ch=true;const pr=db.pairs.find(x=>x.id===m.pairId);
+    if(pr)[pr.kr,pr.dz].forEach(pid=>{db.att[pid]=db.att[pid]||{};const a=db.att[pid][m.round];if(!a||a.s==='M')db.att[pid][m.round]={s:'A',n:t('mk_auto_absent_note')}})}});
+  if(ch)save()}
 const mkState=m=>(['scheduled','rejected'].includes(m.status)&&NOW_()>mkDeadline(m))?'expired':m.status;
 const pairMakeups=pr=>db.makeups.filter(m=>m.pairId===pr.id);
 function roundWindows(pr){const rs=rounds();return rs.map((r,i)=>{const s=sessOf(pr,r);const start=dtOf(s.date,s.time);const nx=rs[i+1]?sessOf(pr,rs[i+1]):null;return {r,start,deadline:shiftH(start,-3),until:nx?dtOf(nx.date,nx.time):shiftH(start,24*7)}})}
@@ -1661,8 +1672,9 @@ function mkSubCard(p){
   if(!list.length)return head+`<div class="note">${ic('info')}<span>${t('mk_sub_none')}</span></div>`;
   return head+list.map(m=>`<div class="mk-sub"><div class="row between gap-s"><span><span class="wk-tag">${t('round_n',{n:m.round})}</span> <b class="small">${fmtDT(mkStart(m))}</b></span>${mkBadge(mkState(m))}</div>
     <p class="xs muted" style="margin-top:4px">${t('mk_deadline',{t:fmtDT(mkDeadline(m))})}</p>
+    ${m.status==='scheduled'&&NOW_()<mkStart(m)?`<p class="xs" style="margin-top:2px;color:var(--primary)">${ic('info')} ${t('mk_sub_early')}</p>`:''}
     ${m.status==='rejected'&&m.review?`<p class="xs" style="margin-top:6px"><b>${t('mk_review')}:</b> ${esc(m.review)} · ${t('mk_resub')}</p>`:''}
-    ${NOW_()<mkStart(m)?`<div class="note mt-s">${ic('clock')}<span>${t('mk_sub_wait')}</span></div>`:`<form data-form="mksub" data-id="${m.id}" class="stack-s mt-s">
+    ${false?``:`<form data-form="mksub" data-id="${m.id}" class="stack-s mt-s">
       <div class="file-drop">${ic('upload')} <b>${t('mk_photo')}</b><input type="file" name="photo" accept="image/png,image/jpeg,image/webp" required><span class="hint" style="display:block;margin-top:6px">${t('mk_photo_h')}</span></div>
       <div class="form-err" id="sub-err-${m.id}"></div><button class="btn btn-p btn-sm">${t('mk_sub_btn')}</button></form>`}</div>`).join('');
 }
@@ -1847,7 +1859,7 @@ function adMkItem(m){
    Router
    ========================================================= */
 function route(){const h=decodeURIComponent((location.hash||'#home').slice(1));const i=h.indexOf('-');return i<0?{base:h||'home',sub:''}:{base:h.slice(0,i),sub:h.slice(i+1)}}
-function render(){
+function render(){localExpire();
   if(LIVE&&!liveReady){$('#app').innerHTML=header(route())+`<main id="main"><section class="sec"><div class="wrap center muted">${t('lv_loading')}</div></section></main>`;document.documentElement.lang=state.lang;document.documentElement.dir=state.lang==='ar'?'rtl':'ltr';return}
   const r=route();
   document.documentElement.lang=state.lang;document.documentElement.dir=state.lang==='ar'?'rtl':'ltr';
@@ -2044,7 +2056,7 @@ const F={
     const file=fd.get('photo');if(!file||!file.size)return show(t('err_photo'));
     if(!/^image\/(png|jpe?g|webp)$/.test(file.type)&&!['png','jpg','jpeg','webp'].includes(extOf(file.name)))return show(t('err_img'));
     if(file.size>MAX_MB*1048576)return show(t('err_size'));
-    const m=db.makeups.find(x=>x.id===id);if(!m||!['scheduled','rejected'].includes(mkState(m))||NOW_()<mkStart(m))return show(t('err_deadline'));
+    const m=db.makeups.find(x=>x.id===id);if(!m||!['scheduled','rejected'].includes(mkState(m)))return show(t('err_deadline'));
     await api.submitMakeupPhoto(id,file);toast(t('toast_sub'));render()},
   mkreview(f,fd,sub){const decision=sub?.value;const review=fd.get('review').trim();if(decision==='rejected'&&!review){toast(t('err_review'),'err');f.review.focus();return}
     api.reviewMakeup(f.dataset.id,decision,review);toast(t('toast_saved'));render()},
@@ -2079,6 +2091,7 @@ function mapParticipant(r){return {id:r.id,name:r.name,side:r.side,univ:r.univ||
   profile:{goal:r.goal||'',interests:r.interests||[],intro:r.intro||'',enLevel:r.en_level||null,arLevel:r.ar_level||null,koLevel:r.ko_level||null}}}
 
 async function liveLoad(){
+  try{await sb.rpc('expire_makeups')}catch(e){}
   const {data:{user}}=await sb.auth.getUser();
   if(!user){db=emptyDb();state.uid=null;return}
   const prof=await q(sb.from('profiles').select('*').eq('id',user.id).maybeSingle());
