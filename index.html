@@ -997,6 +997,10 @@ mk_expired:['제출 기한이 지나 자동으로 결석 처리되었습니다.'
 mk_auto_absent_note:['보강 미인증 (자동)','لم يُثبت التعويض (تلقائي)'],
 mk_sub_early:['보강 전에도 미리 올릴 수 있어요. 보강 당일 자정까지 올리지 않으면 자동으로 결석 처리됩니다.','يمكنك الرفع مسبقًا. وإن لم ترفعها قبل منتصف ليل يوم الحصة تُسجَّل غيابًا تلقائيًا.'],
 });
+Object.assign(S,{
+mk_rule_r3:['보강 날짜는 다음 회차 수업 시작 전까지만 선택할 수 있습니다. (예: 3회차 보강은 4회차 수업 전까지)','لا يمكن اختيار موعد التعويض إلا قبل بدء الحصة التالية. (مثال: تعويض الحصة 3 قبل الحصة 4)'],
+mk_req_window:['선택할 수 있는 기간: 지금부터 {t} 전까지','الفترة المتاحة: من الآن حتى قبل {t}'],
+});
 function t(k,v){const e=S[k];let s=e?e[state.lang==='ar'?1:0]:'['+k+']';if(v)for(const x in v)s=s.split('{'+x+'}').join(v[x]);return s}
 const L=o=>o==null?'':typeof o==='string'?o:(o[state.lang]||o.ko||'');
 const uid=p=>p+Date.now().toString(36).slice(-4)+Math.random().toString(36).slice(2,6);
@@ -1020,10 +1024,14 @@ function tzFields(px,zone,d,tm){return `<div class="form-grid">
     <div class="field full"><label for="${px}-z">${t('tz_basis')}</label><select id="${px}-z" class="select" name="tz"><option value="kst" ${zone==='kst'?'selected':''}>${t('tz_kst')}</option><option value="dz" ${zone==='dz'?'selected':''}>${t('tz_dz')}</option></select></div>
     <div class="field"><label for="${px}-d">${t('mk_req_date')}</label><input id="${px}-d" class="input" type="date" name="date" value="${d}" required></div>
     <div class="field"><label for="${px}-t">${t('mk_req_time2')}</label><input id="${px}-t" class="input" type="time" name="time" value="${tm}" required></div></div>
-    <p class="small tz-prev" style="margin:0">${d&&tm?ic('clock')+' '+t('tz_prev')+' '+fmtDT(zone==='dz'?fromDZ(d+'T'+tm):d+'T'+tm):''}</p>`}
+    ${(setTimeout(()=>document.querySelectorAll('form[data-tzform]').forEach(tzLimits),0),'')}<p class="small tz-prev" style="margin:0">${d&&tm?ic('clock')+' '+t('tz_prev')+' '+fmtDT(zone==='dz'?fromDZ(d+'T'+tm):d+'T'+tm):''}</p>`}
 // 입력값을 한국 시간(서버 기준)으로
 function tzToKST(f,fd){const d=fd.get('date'),tm=String(fd.get('time')||'').slice(0,5);if(!d||!tm)return null;const iso=d+'T'+tm;return (fd.get('tz')==='dz')?fromDZ(iso):iso}
-function tzPrev(f){const p=f.querySelector('.tz-prev');if(!p)return;const d=f.elements.date.value,tm=(f.elements.time.value||'').slice(0,5);if(!d||!tm){p.innerHTML='';return}
+function tzLimits(f){if(!f||!f.dataset.tzmax)return;const z=f.elements.tz.value;const cv=iso=>z==='dz'?toDZ(iso):iso;const mn=cv(f.dataset.tzmin),mx=cv(f.dataset.tzmax);
+  const d=f.elements.date,tm=f.elements.time;d.min=mn.slice(0,10);let mxd=mx.slice(0,10);if(mx.slice(11,16)==='00:00')mxd=shiftH(mxd+'T00:00',-24).slice(0,10);d.max=mxd;
+  if(d.value&&d.value===mx.slice(0,10))tm.max=mx.slice(11,16);else tm.removeAttribute('max');
+  if(d.value&&d.value===mn.slice(0,10))tm.min=mn.slice(11,16);else tm.removeAttribute('min')}
+function tzPrev(f){tzLimits(f);const p=f.querySelector('.tz-prev');if(!p)return;const d=f.elements.date.value,tm=(f.elements.time.value||'').slice(0,5);if(!d||!tm){p.innerHTML='';return}
   const iso=d+'T'+tm;p.innerHTML=ic('clock')+' '+t('tz_prev')+' '+fmtDT(f.elements.tz.value==='dz'?fromDZ(iso):iso)}
 document.addEventListener('change',e=>{const el=e.target;if(el.name!=='tz'||!el.form||!el.form.hasAttribute('data-tzform'))return;const f=el.form;const prev=f.dataset.tzcur||'kst';
   if(prev!==el.value){const d=f.elements.date.value,tm=(f.elements.time.value||'').slice(0,5);if(d&&tm){const n=el.value==='dz'?toDZ(d+'T'+tm):fromDZ(d+'T'+tm);f.elements.date.value=n.slice(0,10);f.elements.time.value=n.slice(11,16)}f.dataset.tzcur=el.value}
@@ -1647,7 +1655,7 @@ function myAtt(p){
 }
 function mkReqCard(p){
   const pr=pairOf(p.id);
-  const rules=`<ul class="rules">${['r0','r1','r2','r3','r4','r5'].map(k=>`<li>${ic('check')}<span>${t('mk_rule_'+k)}</span></li>`).join('')}</ul>`;
+  const rules=`<ul class="rules">${['r3','r0','r1','r2','r4','r5'].map(k=>`<li>${ic('check')}<span>${t('mk_rule_'+k)}</span></li>`).join('')}</ul>`;
   const head=`<h3 class="h3">${ic('plus')} ${t('mk_req_t')}</h3>${rules}`;
   if(!pr)return head+`<div class="note">${ic('info')}<span>${t('sched_nopair')}</span></div>`;
   if(photoDone(p.id))return head+`<div class="note warn">${ic('info')}<span>${t('mk_used_done')}</span></div>`;
@@ -1655,11 +1663,11 @@ function mkReqCard(p){
   const opts=reqOptions(p);
   if(!opts.length)return head+`<div class="note">${ic('info')}<span>${t('mk_req_none')}</span></div>`;
   const o=opts.find(x=>x.r.no===+state.reqR)||opts[0];
-  return head+`<form data-form="mkreq" class="stack-s mt" data-tzform data-tzcur="${viewerDZ()?'dz':'kst'}">
+  return head+`<form data-form="mkreq" class="stack-s mt" data-tzform data-tzcur="${viewerDZ()?'dz':'kst'}" data-tzmin="${NOW_().slice(0,16)}" data-tzmax="${o.until.slice(0,16)}">
     <div class="field"><label for="rq-r">${t('mk_req_round')}</label><select id="rq-r" class="select" name="round" data-chg="reqR">${opts.map(x=>`<option value="${x.r.no}" ${x.r.no===o.r.no?'selected':''}>${t('round_n',{n:x.r.no})} · ${plainDT(x.start)}</option>`).join('')}</select></div>
     <p class="xs muted" style="margin:0">${ic('info')} ${t('mk_req_until',{t:fmtDT(o.deadline)})}</p>
+    <div class="note pri" style="padding:10px 12px">${ic('cal')}<span class="small">${t('mk_req_window',{t:fmtDT(o.until)})}</span></div>
     ${tzFields('rq',viewerDZ()?'dz':'kst','','')}
-    <p class="xs muted">${ic('info')} ${t('mk_req_window',{t:fmtDT(o.until)})}</p>
     <label class="check"><input type="checkbox" name="agree" required>${t('mk_req_agree')}</label>
     <div class="form-err" id="rq-err"></div>
     <button class="btn btn-p">${t('mk_req_btn')}</button>
@@ -2002,7 +2010,7 @@ const A={
     openModal(`<h2>${t('mk_photo')} · ${t('round_n',{n:m.round})}</h2><p class="small muted">${fmtDT(mkStart(m))}</p><img class="preview-img mt" src="${src}" alt="">`,true)},
   mkCancel(el){const m=db.makeups.find(x=>x.id===el.dataset.id);openModal(`<h2>${t('mk_cancel_q')}</h2><p class="small muted">${t('round_n',{n:m.round})} · ${fmtDT(mkStart(m))}</p><div class="note warn mt">${ic('info')}<span>${t('mk_cancel_d')}</span></div><div class="row gap mt"><button class="btn btn-d" data-act="mkCancelYes" data-id="${m.id}">${t('mk_cancel')}</button><button class="btn btn-g" data-act="closeModal">${t('cancel')}</button></div>`)},
   mkEdit(el){const m=db.makeups.find(x=>x.id===el.dataset.id);if(!m)return;const until=cancelDeadline(m);
-    openModal(`<h2>${t('mk_edit_t')}</h2><p class="small muted">${t('round_n',{n:m.round})} · ${fmtDT(mkStart(m))}</p><p class="small mt-s">${t('mk_edit_d')}</p><form data-form="mkedit" data-id="${m.id}" class="stack-s mt" data-tzform data-tzcur="${viewerDZ()?'dz':'kst'}">${(()=>{const z=viewerDZ()?'dz':'kst';const v=z==='dz'?toDZ(mkStart(m)):mkStart(m);return tzFields('me',z,v.slice(0,10),v.slice(11,16))})()}<p class="xs muted">${ic('info')} ${t('mk_req_window',{t:fmtDT(until)})}</p><div class="form-err" id="me-err"></div><div class="row gap"><button class="btn btn-p">${t('save')}</button><button type="button" class="btn btn-g" data-act="closeModal">${t('cancel')}</button></div></form>`)},
+    openModal(`<h2>${t('mk_edit_t')}</h2><p class="small muted">${t('round_n',{n:m.round})} · ${fmtDT(mkStart(m))}</p><p class="small mt-s">${t('mk_edit_d')}</p><form data-form="mkedit" data-id="${m.id}" class="stack-s mt" data-tzform data-tzcur="${viewerDZ()?'dz':'kst'}" data-tzmin="${NOW_().slice(0,16)}" data-tzmax="${String(until).slice(0,16)}">${(()=>{const z=viewerDZ()?'dz':'kst';const v=z==='dz'?toDZ(mkStart(m)):mkStart(m);return tzFields('me',z,v.slice(0,10),v.slice(11,16))})()}<p class="xs muted">${ic('info')} ${t('mk_req_window',{t:fmtDT(until)})}</p><div class="form-err" id="me-err"></div><div class="row gap"><button class="btn btn-p">${t('save')}</button><button type="button" class="btn btn-g" data-act="closeModal">${t('cancel')}</button></div></form>`)},
   mkCancelYes(el){const m=db.makeups.find(x=>x.id===el.dataset.id);closeModal();if(!m||!canCancel(m,me()?.pid)){toast(t('err_cancel'),'err');render();return}api.cancelMakeup(m.id);toast(t('toast_cancel_mk'));render()},
   mkAbsent(el){api.markAbsent(el.dataset.id);toast(t('toast_saved'));render()},
 };
